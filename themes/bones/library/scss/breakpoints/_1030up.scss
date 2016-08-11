@@ -1,0 +1,589 @@
+/******************************************************************
+Site Name:
+Author:
+
+Stylesheet: Desktop Stylsheet
+
+This is the desktop size. It's larger than an iPad so it will only
+be seen on the Desktop.
+
+******************************************************************/
+
+#container {
+	background: #161614 url(../images/BC_2000x1200_grunge.jpg) 50% 0 no-repeat;
+}
+
+
+.tablet-included {
+	display: none;
+}
+
+.header {
+	padding: 10px 0 0 0;
+
+	#inner-header {
+		position: relative;
+	}
+
+	.tools-social {
+		position: absolute;
+		right: 210px;
+		bottom: 7px;
+		margin: 0;
+
+		ul {
+
+			padding-right: 10px;
+			margin: 0;
+			
+			li {
+				display: inline-block;
+				vertical-align: middle;
+				padding-right: 5px;
+			}
+
+		}
+	}
+
+	#music-player {
+		display: block;
+		cursor: pointer;
+		position: absolute;
+		bottom: 0;
+		right: 10px;
+		background: rgba(81, 64, 32, 0.5);
+		color: #fff;
+		padding: 14px 20px 15px 20px;
+		border-radius: 5px;
+		text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+		font-size: 15px;
+		text-transform: uppercase;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+}
+
+.nav {
+
+	li {
+
+		a {
+
+			/*
+			remember this is for mobile ONLY, so there's no need
+			to even declare hover styles here, you can do it in
+			the style.scss file where it's relevant. We want to
+			keep this file as small as possible!
+			*/
+			&:hover, &:focus {
+
+			}
+		}
+
+		&:first-child {}
+
+		&:last-child {}
+
+		/*
+		so you really have to rethink your dropdowns for mobile.
+		you don't want to have it expand too much because the
+		screen is so small. How you manage your menu should
+		depend on the project. Here's some great info on it:
+		http://www.alistapart.com/articles/organizing-mobile/
+		*/
+		ul.sub-menu,
+		ul.children {
+	
+			li {
+
+				a {
+					&:hover,
+					&:focus {}
+
+					&:link {}
+
+				}
+
+				&:first-child {}
+
+				&:last-child {}
+
+			}
+
+		}
+
+	} /* end .menu li */
+
+	/* highlight current page */
+	li.current-menu-item,
+	li.current_page_item,
+	li.current_page_ancestor {
+
+		a {}
+
+	}  /* end current highlighters */
+
+} /* end .nav */
+
+
+#logo {
+	margin: 0 auto 20px;
+	width: 712px;
+	height: 111px;
+	text-indent: -9999px;
+	background: url(../images/_BRIAN_COLLINS_LOGO_brown.png) no-repeat;
+	background-size: cover;
+	display: block;
+}
+
+.wrap {
+  width: 1100px;
+}
+
+/* Heading Styles */
+h2.heading {
+	color: #FDFDFD;
+	margin: 0 -10px 10px;
+	background: #323944;
+	padding: 10px;
+	text-transform: uppercase;
+	font-size: 24px;
+}
+
+/* Homepage Slider Styles */
+#main-content {
+
+	margin: 10px 0 20px 0;
+
+	.front-page-col {
+		padding: 0 5px 0 10px;
+
+		h4 {
+			margin: 0;
+		}
+
+		p {
+
+		}
+	
+		.inner-content {
+			background-color: #fff;
+			margin-bottom: 10px;
+			padding: 0 10px;
+		}
+
+		& + .front-page-col {
+			padding: 0 10px 0 5px;
+		}		
+
+		#mc-newsletter{
+
+			.epm-message {
+				position: absolute;
+				width: 100%;
+				background: #E4E2E2;
+				z-index: 1;
+				text-align: center;
+				bottom: -8px;
+			}
+
+			form {
+				position: relative;
+
+				input[type=email] {
+					width: 79%;
+					background: #E4E2E2;
+				}
+
+				input[type=submit] {
+					position: absolute;
+					top: 0px;
+					right: 6px;
+					background: #323944;
+					color: #fff;
+					text-transform: uppercase;
+					padding: 10px;
+					font-size: 13px;
+					border-radius: 3px;
+				}
+			}	
+		}
+
+		/* News Feed on home page */
+		.news-story {
+			overflow: hidden;
+			margin: 0 0 20px 0;
+			
+			.news-thumb {
+				float: left;
+				width: 30%;
+			}
+
+			.news-content {
+				float: left;
+				width: 70%;
+
+				small {
+					display: block;
+				}
+
+				p {
+					font-size: 13px;
+					margin: 0;
+				}
+			}		
+		}
+
+		#newsletter-signup {
+			h4 {
+				text-align: center;
+				margin-bottom: 10px;
+			}
+		}
+
+		#store-feed {
+			padding-bottom: 10px;
+			overflow: hidden;
+			height: 223px;
+
+			#store-wrap {
+				overflow-x: scroll;
+				overflow-y: hidden;
+				height: 180px;				
+			}
+
+			#store-film-strip {
+				width: 10000px;
+
+				li {
+					position: relative;
+					float: left;
+					margin-right: 10px;
+					width: 150px;
+					height: 150px;
+					list-style: none;
+
+					a {
+						display: block;
+						position: relative;
+					}
+
+					img {
+						width: 100%;
+						display: block;
+					}
+
+					.add_to_cart_button {
+						display: none;
+					}
+
+					.price {
+						display: none;
+					}
+
+					h3 {
+						background: rgba(0,0,0, 0.5);
+						position: absolute;
+						bottom: 0;
+						right: 0;
+						color: #fff;
+						padding: 10px;
+						width: 100%;
+						margin: 0;
+						font-weight: bold;
+						font-size: 12px;
+					}					
+				}
+			}
+
+			.store-item {
+				position: relative;
+				float: left;
+				margin-right: 10px;
+				width: 150px;
+				height: 150px;
+
+				img {
+					width: 100%;
+				}
+
+				.store-item-desc {
+					background: rgba(0,0,0, 0.5);
+					position: absolute;
+					bottom: 0;
+					right: 0;
+					color: #fff;
+					padding: 10px;
+					width: 100%;
+					margin: 0;
+					font-weight: bold;
+				}
+			}
+		}
+	} 
+}
+
+#bc-slideshow {
+	padding: 0 10px;
+	position: relative;
+
+	.content {
+		position: absolute;
+		left: 100px;
+		top: 30px;
+		opacity: 0.5;
+		-webkit-transform: scale(1);
+
+		p {
+			margin: 0;
+			font-size: 70px;
+			line-height: 55px;
+			color: #462903;
+
+			&.small {
+				color: #fff;
+				font-size: 30px;
+				padding-left: 2px;
+			}
+
+			&.medium {
+
+			}
+		}
+	}
+
+	img {
+		width: 100%;
+		display: block;
+		margin: 0 0 10px 0;
+	}
+}
+
+#video-feed {
+	overflow: hidden;
+	height: 169px;
+	padding: 0 10px;
+
+	#video-strip {
+
+		width: 10000px;
+
+		.video {
+			width: 300px;
+			height: 169px;
+			float: left;
+			margin-right: 10px;
+			background: #000;
+		}
+	}
+}
+
+#video-wrap {
+	width: 100%;
+	overflow-x: scroll;
+	overflow-y: hidden;
+
+	-webkit-overflow-scrolling: touch;
+	
+	height: 200px;
+}
+
+/* Interior Pages Page */
+.interior-wrap {
+	padding: 0 10px;
+
+	.content {
+		background: #fff;
+		padding: 20px;
+		margin-bottom: 20px;
+
+		p {
+			margin: 0 0 10px;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	h2 {
+		margin: 0;
+	}
+}
+
+/* Shows Section on Shows page */
+#shows-bc {
+	.show {
+		display: block;
+		overflow: hidden;
+		text-decoration: none;
+
+		.date {
+			float: left;
+			text-align: center;
+			background: #b8c6b7;
+			font-weight: bold;
+			font-family: 'Oswald', sans-serif;
+			color: #384b37;
+			width: 100px;
+			margin-right: 20px;
+			height: 100px;
+			box-sizing: border-box;
+			padding-top: 13px;
+
+			.month {
+				font-size: 19px;
+			}
+	
+			.day {
+				font-size: 50px;
+				color: #fff;
+				text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+				line-height: 43px;
+			}
+		}
+
+		span {
+			display: block;
+			font-family: Arial, sans-serif;
+
+			&.title {
+				font-family: 'Oswald', sans-serif;
+				font-weight: bold;
+				font-size: 20px;
+			}
+
+			&.city {
+
+			}
+
+			&.venue {
+
+			}
+		}		
+	}
+
+	.show-more {
+		display: block;
+		text-align: center;
+		background: #323944;
+		color: #fff;
+		padding: 10px 10px 15px;
+		text-decoration: none;
+	}
+}
+
+#hero {
+	padding: 0 10px;
+	position: relative;
+
+	img {
+		margin: 0;
+		display: block;
+	}
+}
+
+
+/* FOOTER */
+#inner-footer {
+
+	padding: 15px 10px 0;
+
+	#bc-watermark {
+		opacity: 0.5;
+		float: left;
+		margin-right: 50px;
+	}
+
+	.footer-col {
+		float: left;
+		color: #fff;
+
+		h4 {
+			margin: 0 0 10px 0;
+			color: #fff;
+		}
+	}
+
+	nav {
+
+		ul {
+			margin: 0;
+		}
+
+		li {
+			display: block;
+			float: left;
+
+			a {
+				padding: 0;
+				font-weight: normal;
+				margin-bottom: 5px;
+				font-size: 13px;
+			}
+		}
+	}
+
+	#menu-footer-menu {
+		margin-top: 5px;
+	}
+
+	#footer-social {
+		float: right;
+
+		li {
+			margin-left: 10px;
+		}
+
+		.fa-instagram {
+			color: #E0D2BE;
+		}
+	}
+}
+
+/* CART PAGE */
+.woodmmerce-cart,
+.woocommerce-checkout {
+	.woocommerce {
+		padding: 0 10px;
+
+		.shop_table.cart {
+			border-top-right-radius: 0;
+		}
+	}
+
+	h1 {
+		display: none;
+	}
+}
+
+/* Checkout PAGE */
+.woocommerce-checkout {
+	form.checkout {
+		background: #fff;
+		border-radius: 5px 0 0 0;
+		padding: 0 10px;
+
+		input[type=text] {
+			background: #d7d7d7;
+		}
+	}
+}
+
+.woocommerce ul.products li.product, .woocommerce-page ul.products li.product {
+	min-height: 360px;
+}
+
+.woocommerce #payment div.payment_box, .woocommerce-page #payment div.payment_box {
+	width: 100%;
+}
+
+.page-music {
+	#inner-header {
+		nav, 
+		.tools-social, 
+		#music-player {
+			display: none;
+		}
+	}
+}

@@ -1,0 +1,264 @@
+/*
+This is the default stylesheet.  DO NOT MAKE CHNAGES HERE!
+To customize any of these styles, copy the rules you which to change
+into a file called 'gigpress.css' in your current theme directory.
+Any style changes make there will override styles in this document.
+*/
+
+/* By default this is an h3 that appears above each artist's list of shows */
+h3.gigpress-artist-heading  {	
+}
+
+/* This span contains the RSS and iCal links for the artist */
+span.gigpress-artist-subscriptions {
+	margin-left: 5px;
+	float: right;
+}
+
+/* Default wrapper for the year/month menu */
+.gigpress-menu-container {
+	padding: 5px 0;
+	text-align: right;
+}
+
+/* Meet the table that displays our shows */
+.gigpress-table {
+	width: 100%;
+	border-top: none;
+}
+
+/* This is for the tour name header cells */
+.gigpress-heading {
+	background-color: #EEE;
+	border-bottom: 1px solid #CCC;
+
+/* This is for the tour name headings, whichever one you're using */
+.gigpress-heading h1, .gigpress-heading h2, .gigpress-heading h3, .gigpress-heading h4, .gigpress-heading h5 {
+	margin: 0;
+}
+
+/* Applies to all cells in the table */
+.gigpress-table td {
+	padding: 6px 8px;
+	vertical-align: top;
+	text-align: left;
+}
+
+.gigpress-table td p {
+	margin: 0;
+}
+
+/* Applies to the first row of each show listing */
+.gigpress-row td {
+	border-bottom: 1px solid #EEE;
+}
+
+/* To set an alternating row style */
+.gigpress-alt {
+}
+
+/* Individual classes for the label header cells that start the table */
+.gigpress-date {
+}
+
+.gigpress-artist {
+}
+
+.gigpress-city {
+}
+
+.gigpress-venue {
+}
+
+.gigpress-country {
+}
+
+/* Likewise, individual classes for the content cells */
+.gigpress-date {
+}
+
+.gigpress-artist {
+}
+
+.gigpress-city {
+}
+
+.gigpress-venue {
+}
+
+.gigpress-country {
+}
+
+/* Fix for themes that hide .description */
+.gigpress-info .description {
+	visibility: visible !important;
+}
+
+/* Greys-out cancelled shows */
+.gigpress-row.cancelled, .gigpress-info.cancelled, .cancelled span.gigpress-info-label, .cancelled span.gigpress-info-item {
+	color: #999;
+}
+
+/* This wraps each of the bits of info in the "info" cell */
+span.gigpress-info-item {
+}
+
+/* For the labels for address, admission, etc in the "info" cell */
+span.gigpress-info-label {
+	color: #666;
+}
+
+/* In case you want to style the "Buy Tickets" link */
+a.gigpress-tickets-link {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+/* Notices for Cancelled or Sold Out shows */
+strong.gigpress-cancelled, strong.gigpress-soldout {
+	text-transform: uppercase;
+	font-weight: bold;
+	padding: 1px;
+	color: #111;
+	background: #fffdeb;
+	border: 1px solid #EEE;
+	background: #111;
+	color: #FFF;
+	border: none;
+}
+
+/* In case you want to style the Googlefied address link */
+a.gigpress-address {
+}
+
+
+/* These styles control the peek-a-boo "add" links to iCal and Google Calendar. Behaviour dictated by a separate jQuery script. */
+.gigpress-links-cell {
+	vertical-align: top;
+}
+
+.gigpress-calendar-add {
+	position: relative;
+}
+
+a.gigpress-links-toggle {
+
+}
+
+a.gigpress-links-toggle:hover {
+	background-position: -11px 0px;
+}
+
+a.gigpress-link-active {
+	background-position: -33px;
+}
+
+a.gigpress-link-active:hover {
+	background-position: -22px;
+}
+
+div.gigpress-calendar-links {
+
+}
+
+.gigpress-calendar-links-inner {
+	background-color: #F3F3F3;
+	padding: 6px 8px;
+	font-size: 11px;
+	line-height: 16px;
+	border: 1px solid #CCC;
+	border-width: 1px 1px 1px 0;
+}
+
+div.gigpress-calendar-links span {
+	display: block;
+}
+
+/* These are for the RSS/iCal subscribe links */
+p.gigpress-subscribe {
+	text-align: left;
+	color: #999;
+}
+
+p.gigpress-subscribe a {
+	display: inline-block;
+	text-indent: -9999px;
+	width: 12px;
+	margin: 0 3px;
+}
+
+a.gigpress-rss, a.gigpress-rss:hover {
+
+}
+
+a.gigpress-ical, a.gigpress-ical:hover {
+
+}
+
+
+/* These styles are for the sidebar listing */
+
+/* This is the unordered list that holds the dates */
+ul.gigpress-listing {
+}
+
+/* Generic styles for the list items within */
+.gigpress-listing li {	
+}
+
+/* For artist headings in the sidebar */
+h3.gigpress-list-artist-heading {
+}
+
+/* For tour headings in the sidebar */
+span.gigpress-list-tour-heading {	
+	font-weight: bold;
+	font-size: 110%;
+}
+
+/* So if you like you can style each alternating list item differently */
+li.gigpress-alt {
+}
+
+/* So if you like you can style the date differently */
+span.gigpress-sidebar-date {
+	font-weight: bold;
+	display: block;
+}
+
+/* Sold Out shows in the sidebar */
+ul.gigpress-listing strong.gigpress-soldout, ul.gigpress-listing a.gigpress-tickets-link {
+	display: block;
+}
+
+
+/* These styles control the Related Show list that appears in the body of Related Posts */
+ul.gigpress-related-show {
+	margin: 0 0 2em;
+}
+
+ul.gigpress-related-show ul, ul.gigpress-related-show li {
+	list-style: none outside none;
+	margin: 0;
+	padding: 0;
+}
+
+.gigpress-related-label {
+	font-weight: bold;
+}
+
+.gigpress-related-item {
+}
+
+
+/* This is just to include data for hcalendar support, but hide it from view */
+.hide {
+	display: none;
+}
+
+/* Stop Firefox from underlining our abbreviated dates */
+abbr {
+	border: none;
+	text-decoration: none;
+	font-size: 100%;
+}

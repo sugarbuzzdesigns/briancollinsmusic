@@ -1,0 +1,1632 @@
+/******************************************************************
+Site Name:
+Author:
+
+Stylesheet: Base Mobile Stylesheet
+
+Be light and don't over style since everything here will be
+loaded by mobile devices. You want to keep it as minimal as
+possible. This is called at the top of the main stylsheet
+and will be used across all viewports.
+
+******************************************************************/
+
+/*********************
+GENERAL STYLES
+*********************/
+
+html {
+	background: #323944;
+}
+
+html, body {
+	min-height: 100%;
+}
+
+body {
+	font-family: $lato;
+	font-size: 100%;
+	line-height: 1.5;
+	color: $text-color;
+  	-webkit-font-smoothing: antialiased;
+
+  p {
+  	font-family: Arial, sans-serif;
+  	color: #222;
+  }
+}
+
+.header {
+	.tools-social {
+		margin: 10px 0;
+
+		.cart-contents {
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		ul {
+
+			padding-right: 10px;
+			margin: 0;
+			display: inline-block;
+			vertical-align: middle;
+			
+			li {
+				display: inline-block;
+				vertical-align: middle;
+				padding-right: 5px;
+			}
+
+		}
+	}
+}
+
+.mobile-menu {
+	background: #66552F;
+	border-radius: 4px;
+	color: #fff;
+	text-align: left;
+	box-sizing: border-box;
+	padding: 5px 10px;
+	margin-bottom: 15px;
+
+	span {
+		color: #fff;
+		text-decoration: none;
+		margin-left: 10px;
+		display: inline-block;
+		vertical-align: middle;
+		font-size: 27px;
+	}
+
+	i {
+		color: #fff;
+		display: inline-block;
+		vertical-align: middle;
+		font-size: 32px;
+	}
+
+	&.menu-open {
+		box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
+	}
+
+}
+
+.mobile {
+	#menu-primary-navigation,
+	#menu-header-nav {
+		border-radius: 5px;
+		margin-bottom: 15px;
+
+		li:last-of-type a {
+			border-bottom-left-radius: 5px;
+			border-bottom-right-radius: 5px;
+		}
+	}	
+}	
+
+.mobile.not-home {
+
+		#menu-primary-navigation,
+		#menu-header-nav,
+		.tools-social {
+			display: none;
+		}
+
+
+	#mc-newsletter label {
+		display: none;
+	}
+}
+/********************
+WORDPRESS BODY CLASSES
+style a page via class
+********************/
+/* home page */
+.mobile {
+
+	.home {
+		.mobile-menu.mobile-only {
+			display: none;
+		}
+	}    
+
+	.page-shows {
+		tbody.mobile-only {
+			display: table-row-group;
+		}
+
+		.interior-wrap {
+			background: rgba(255, 255, 255, 0.8);
+			padding: 10px;
+			margin-bottom: 10px;
+
+			h2 {
+				margin: 0;
+			}
+		}
+
+		.gigpress-table {
+
+			margin-bottom: 0;
+	
+			.mobile-only {
+
+			}
+
+			td {
+				padding: 0;
+
+				.show {
+					margin-bottom: 20px;
+					position: relative;
+					background: #fff;
+					padding: 10px;
+
+					.date {
+						font-size: 20px;
+						color: #5C441A;
+					}
+
+					.expand {
+						position: absolute;
+						bottom: 8px;
+						right: 10px;
+						color: #CE7070;
+					}	
+
+					.extra-content {
+						padding-top: 20px;
+						display: none;
+					}
+				}
+			}
+		}
+	}                      
+}
+
+/* Contact Page */
+.page-contact {
+	#contact-wrap {
+		background: #fff;
+		overflow: hidden;
+		padding: 0 10px;
+		margin: 0 0 20px 0;
+		border-radius: 5px 0 5px 5px;
+
+		h2 {
+			margin: 10px 0 0 0;
+		}
+
+		input[type=text],
+		input[type=email],
+		textarea {
+			background: #E4E2E2;
+		}
+
+		input[type=submit] {
+			background: #323944;
+			color: #fff;
+			text-transform: uppercase;
+			padding: 10px;
+			font-size: 13px;
+			border-radius: 3px;
+		}
+
+		strong {
+			display: block;
+		}
+
+		.d-1of3 {
+			padding-left: 10px;
+
+			p {
+				a {
+					display: inline-block;
+					background: #323944;
+					color: #fff;
+					text-decoration: none;
+					text-align: center;
+					font-weight: bold;
+					text-transform: uppercase;
+					padding: 10px;
+					font-size: 13px;
+					border-radius: 3px;					
+				}
+			}
+		}
+	}
+
+	#inner-content {
+		padding: 0 10px;
+	}
+}
+
+/*********************
+LAYOUT & GRID STYLES
+*********************/
+
+.wrap {
+	width: 96%;
+	margin: 0 auto;
+}
+
+/*********************
+LINK STYLES
+*********************/
+
+a, a:visited {
+	color: $link-color;
+
+	/* on hover */
+	&:hover, &:focus {
+		color: $link-hover;
+	}
+
+	/* on click */
+	&:active {
+
+	}
+
+	/* mobile tap color */
+	&:link {
+		/*
+		this highlights links on iPhones/iPads.
+		so it basically works like the :hover selector
+		for mobile devices.
+		*/
+		-webkit-tap-highlight-color : rgba( 0, 0, 0, 0.3 );
+	}
+}
+
+/******************************************************************
+H1, H2, H3, H4, H5 STYLES
+******************************************************************/
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5 {
+	text-rendering: optimizelegibility;
+	font-weight: 500;
+	/*
+	if you're going to use webfonts, be sure to check your weights
+	http://css-tricks.com/watch-your-font-weight/
+	*/
+
+	/* removing text decoration from all headline links */
+	a {
+		text-decoration: none;
+	}
+}
+
+h1, .h1 {
+	font-size: 2.5em;
+	line-height: 1.333em;
+}
+
+h2, .h2 {
+	font-size: 1.75em;
+	line-height: 1.4em;
+	margin-bottom: 0.375em;
+}
+
+h3, .h3 {
+	font-size: 1.125em;
+}
+
+h4, .h4 {
+	font-size: 1.1em;
+	font-weight: 700;
+}
+
+h5, .h5 {
+	font-size: 0.846em;
+	line-height: 2.09em;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+
+/*********************
+HEADER STYLES
+*********************/
+
+.logo-d {
+	display: none;
+}
+
+.h1.logo-m {
+	width: 100%;
+	margin: 15px 0 5px;
+
+	img {
+		width: 100%;
+	}
+}
+
+/*********************
+NAVIGATION STYLES
+*********************/
+.mobile .nav {
+	border-bottom: 0;
+	margin: 0;
+	background: #323944;
+
+	li {
+
+		a {
+			display: block;
+			color: $white;
+			text-decoration: none;
+			padding: 0.75em;
+			border-bottom: solid 1px #535B6B;
+
+			&:hover, &:focus {
+
+			}
+		}
+
+		&:first-child {}
+
+		&:last-child {}
+		ul.sub-menu,
+		ul.children {
+
+			display: none;
+
+			li {
+
+				a {
+					&:hover,
+					&:focus {}
+
+					&:link {}
+
+				}
+
+				&:first-child {}
+
+				&:last-child {}
+
+			}
+
+		}
+
+	} /* end .menu li */
+
+	/* highlight current page */
+	li.current-menu-item,
+	li.current_page_item,
+	li.current_page_ancestor {
+
+		a {}
+
+	}  /* end current highlighters */
+
+} /* end .nav */
+
+
+.mobile.not-home .nav {
+	
+}
+
+/*********************
+POSTS & CONTENT STYLES
+*********************/
+
+.blog-post {
+	padding: 0 10px;
+	margin: 0 0 20px;
+
+	article.type-post {
+
+		.article-date {
+			background: rgba(255, 255, 255, 0.6);
+			padding: 10px;
+			text-align: center;
+
+			span {
+				display: block;
+			}
+
+			.month {
+				font-size: 30px;
+			}
+
+			.day {
+				font-size: 40px;
+				line-height: 40px;
+			}
+
+			.year {
+				font-size: 20px;
+				opacity: 0.5;
+			}
+		}
+
+		.article-content {
+			background: #fff;
+			padding: 3px 10px 0;
+
+			h1 {
+				margin: 0 0 10px 0;
+			}
+
+			img {
+				float: left;
+				margin-right: 20px;
+			}
+		}
+
+		.entry-content {
+			padding: 0;
+		}
+	}
+}
+
+#content {
+
+}
+
+
+		.single-title,
+		.page-title,
+		.entry-title {
+			margin: 0;
+		}
+
+		.single-title {}
+
+		.page-title {}
+
+		.entry-title {}
+
+		.archive-title {}
+
+		/* want to style individual post classes? Booya! */
+		.post-id {}         /* post by id (i.e. post-3) */
+		.post {}            /* general post style */
+		.page {}            /* general article on a page style */
+		.attachment {}      /* general style on an attatchment */
+		.sticky {}          /* sticky post style */
+		.hentry {}          /* hentry class */
+		.category-slug {}   /* style by category (i.e. category-videos) */
+		.tag-slug {}        /* style by tag (i.e. tag-news) */
+
+		/* post meta */
+		.byline {
+			color: $meta-gray;
+			font-style: italic;
+			margin: 0;
+
+			time {}
+		}
+
+		/* entry content */
+		.entry-content {
+			padding: 1.5em 1.5em 0;
+
+			p {
+				margin: 0 0 1.5em;
+			}
+
+
+			ul, ol, table, dl {}
+
+			ul, ol {
+
+				li {}
+
+			}
+
+			ul {
+
+				li {}
+
+			}
+
+			ol {
+
+				li {}
+
+			}
+
+			table {
+				width: 100%;
+				border: 1px solid $gray;
+				margin-bottom: 1.5em;
+
+				caption {
+					margin: 0 0 7px;
+					font-size: 0.75em;
+					color: $meta-gray;
+					text-transform: uppercase;
+					letter-spacing: 1px;
+				}
+			}
+
+			tr {
+				border-bottom: 1px solid $gray;
+
+				&:nth-child(even) {
+					background-color: $light-gray;
+				}
+			}
+
+			td {
+				padding: 7px;
+				border-right: 1px solid $gray;
+
+				&:last-child {
+					border-right: 0;
+				}
+			}
+
+			th {
+				background-color: $light-gray;
+				border-bottom: 1px solid $gray;
+				border-right: 1px solid $gray;
+
+				&:last-child {
+					border-right: 0;
+				}
+			}
+
+			blockquote {
+				margin: 0 0 1.5em 0.75em;
+				padding: 0 0 0 0.75em;
+				border-left: 3px solid $blue;
+				font-style: italic;
+				color: $meta-gray;
+
+				&:before {}
+
+			}
+
+			dl {}
+
+			dt {}
+
+			dd {
+				margin-left: 0;
+				font-size: 0.9em;
+				color: #787878;
+				margin-bottom: 1.5em;
+			}
+
+			img {
+				margin: 0 0 1.5em 0;
+				max-width: 100%;
+				height: auto;
+			}
+
+			/*
+			image alignment on a screen this size may be
+			a bit difficult. It's set to start aligning
+			and floating images at the next breakpoint,
+			but it's up to you. Feel free to change it up.
+			*/
+			.alignleft, img.alignleft {}
+			.alignright, img.alignright {}
+			.aligncenter, img.aligncenter {}
+
+			.size-auto,
+			.size-full,
+			.size-large,
+			.size-medium,
+			.size-thumbnail {
+				max-width: 100%;
+				height: auto;
+			}
+
+			pre {
+				background: $black;
+				color: $light-gray;
+				font-size: 0.9em;
+				padding: 1.5em;
+				margin: 0 0 1.5em;
+				border-radius: 3px;
+			}
+
+		} /* end .entry-content */
+
+		.wp-caption {
+			max-width: 100%;
+			background: #eee;
+			padding: 5px;
+
+			/* images inside wp-caption */
+			img {
+				max-width: 100%;
+				margin-bottom: 0;
+				width: 100%;
+			}
+
+			p.wp-caption-text {
+				font-size: 0.85em;
+				margin: 4px 0 7px;
+				text-align: center;
+			}
+
+		} /* end .wp-caption */
+
+		/* image gallery styles */
+		.gallery {
+
+			dl {
+
+				a {}
+
+				img {}
+
+			}
+
+			dt {}
+
+			dd {}
+
+		} /* end .gallery */
+
+		/* gallery caption styles */
+		.gallery-caption {}
+
+		.size-full {}
+		.size-large {}
+		.size-medium {}
+		.size-thumbnail {}
+
+	// the tag output
+	.tags {
+		margin: 0;
+	}
+
+/******************************************************************
+PAGE NAVI STYLES
+******************************************************************/
+
+.pagination,
+.wp-prev-next {
+	margin: 1.5em 0;
+}
+	.pagination{
+    text-align: center;
+
+    ul {
+      display: inline-block;
+      background-color: $white;
+      white-space: nowrap;
+      padding: 0;
+      clear: both;
+      border-radius: 3px;
+    }
+
+    li {
+      padding: 0;
+      margin: 0;
+      float: left;
+      display: inline;
+      overflow: hidden;
+      border-right: 1px solid $gray;
+    }
+
+    a, span {
+      margin: 0;
+      text-decoration: none;
+      padding: 0;
+      line-height: 1em;
+      font-size: 1em;
+      font-weight: normal;
+      padding: 0.75em;
+      min-width: 1em;
+      display: block;
+      color: $blue;
+
+      &:hover, &:focus {
+      	background-color: $blue;
+      	color: $white;
+      }
+    }
+
+    .current{
+    	cursor: default;
+    	color: $text-color;
+
+    	&:hover, &:focus {
+    		background-color: $white;
+    		color: $text-color;
+    	}
+    }
+
+  } /* end .bones_page_navi */
+
+	/* fallback previous & next links */
+	.wp-prev-next {
+
+		ul {}
+
+		.prev-link {
+			float: left;
+		}
+
+		.next-link {
+			float: right;
+		}
+
+	} /* end .wp-prev-next */
+
+/******************************************************************
+COMMENT STYLES
+******************************************************************/
+
+/* h3 comment title */
+#comments-title {
+	padding: 0.75em;
+	margin: 0;
+	border-top: 1px solid $light-gray;
+
+	/* number of comments span */
+	span {}
+
+}
+
+.comment-nav {
+
+	ul {
+
+		li {}
+
+	}
+}
+
+
+.commentlist {
+	margin: 0;
+	list-style-type: none;
+}
+
+.comment {
+	position: relative;
+	clear: both;
+	overflow: hidden;
+	padding: 1.5em;
+	border-bottom: 1px solid $light-gray;
+
+	.comment-author {
+		padding: 7px;
+		border: 0;
+	}
+
+	/* vcard */
+	.vcard {
+		margin-left: 50px;
+
+		cite.fn {
+			font-weight: 700;
+			font-style: normal;
+
+			a.url {}
+
+		}
+
+		time {
+			display: block;
+			font-size: 0.9em;
+			font-style: italic;
+
+			a {
+				color: $meta-gray;
+				text-decoration: none;
+
+				&:hover {
+					text-decoration: underline;
+				}
+
+			}
+
+		}
+
+		.photo {}
+
+		.avatar {
+			position: absolute;
+			left: 16px;
+			border-radius: 50%;
+		}
+
+	} /* end .commentlist .vcard */
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	.children {
+		margin: 0;
+
+		li {}
+
+			/* variations */
+			.comment {}
+			.alt {}
+			.odd {}
+			.even {}
+			.depth-1 {}           /* change number for different depth */
+			.byuser {}
+			.bypostauthor {}
+			.comment-author-admin {}
+
+	} /* end children */
+
+
+	&[class*=depth-] {
+		margin-top: 1.1em;
+	}
+
+	&.depth-1 {
+		margin-left: 0;
+		margin-top: 0;
+	}
+
+	&:not(.depth-1) {
+		margin-top: 0;
+		margin-left: 7px;
+		padding: 7px;
+	}
+
+	&.depth-2 {}
+	&.depth-3 {}
+	&.depth-4 {}
+	&.depth-5 {}
+
+	/* general comment classes */
+	&.alt {}
+	&.odd {
+		background-color: $white;
+	}
+	&.even {
+		background: $light-gray;
+	}
+	&.parent {}
+	&.comment {}
+	&.children {}
+	&.pingback {}
+	&.bypostauthor {}
+	&.comment-author {}
+	&.comment-author-admin {}
+	&.thread-alt {}
+	&.thread-odd {}
+	&.thread-even {}
+}
+
+
+
+
+	/* comment meta */
+	.comment-meta {
+
+		a {}
+
+	}
+
+	.commentmetadata {
+
+		a {}
+
+	}
+
+	/* comment content */
+	.comment_content {
+
+		p {
+			margin: 0.7335em 0 1.5em;
+			font-size: 1em;
+			line-height: 1.5em;
+		}
+
+	} /* end .commentlist .comment_content */
+
+	/* comment reply link */
+	.comment-reply-link {
+		@extend .blue-btn;
+		font-size: 0.9em;
+		float: right;
+
+		&:hover,
+		&:focus {
+		}
+
+	} /* end .commentlist .comment-reply-link */
+
+	/* edit comment link */
+	.comment-edit-link {
+		font-style: italic;
+		margin: 0 7px;
+		text-decoration: none;
+		font-size: 0.9em;
+	}
+
+
+
+/******************************************************************
+COMMENT FORM STYLES
+******************************************************************/
+
+.comment-respond {
+	@extend .cf;
+	padding: 1.5em;
+	border-top: 1px solid $light-gray;
+}
+
+	#reply-title {
+		margin: 0;
+	}
+
+	.logged-in-as {
+		color: $meta-gray;
+		font-style: italic;
+		margin: 0;
+
+		a {
+			color: $text-color;
+		}
+	}
+
+	.comment-form-comment {
+		margin: 1.5em 0 0.75em;
+	}
+
+	.form-allowed-tags {
+		padding: 1.5em;
+		background-color: $light-gray;
+		font-size: 0.9em;
+	}
+
+	/* comment submit button */
+	#submit {
+		@extend .blue-btn;
+		float: right;
+		font-size: 1em;
+	}
+
+	/* comment form title */
+	#comment-form-title {
+		margin: 0 0 1.1em;
+	}
+
+	/* cancel comment reply link */
+	#cancel-comment-reply {
+		a {}
+	}
+
+	/* logged in comments */
+	.comments-logged-in-as {}
+
+	/* allowed tags */
+	#allowed_tags {
+		margin: 1.5em 10px 0.7335em 0;
+	}
+
+	/* no comments */
+	.nocomments {
+		margin: 0 20px 1.1em;
+	}
+
+/*********************
+SIDEBARS & ASIDES
+*********************/
+
+.sidebar {}
+
+	.widgettitle {}
+
+	.widget {
+
+		ul {
+
+			li {
+
+				&:first-child {}
+
+				&:last-child {}
+
+				a {}
+
+				/* deep nesting */
+				ul {}
+
+			}
+
+		}
+
+	}
+
+	.no-widgets {
+		background-color: $white;
+		padding: 1.5em;
+		text-align: center;
+		border: 1px solid $border-color;
+		border-radius: 2px;
+		margin-bottom: 1.5em;
+	}
+
+/*********************
+FOOTER STYLES
+*********************/
+
+.footer {
+	clear: both;
+	background-color: $black;
+}
+
+#inner-footer {
+	
+}
+
+	/*
+	if you checked out the link above:
+	http://www.alistapart.com/articles/organizing-mobile/
+	you'll want to style the footer nav
+	a bit more in-depth. Remember to keep
+	it simple because you'll have to
+	override these styles for the desktop
+	view.
+	*/
+	.footer-links {
+
+		ul {
+
+			li {}
+
+		}
+
+	} /* end .footer-links */
+
+
+	.copyright {
+		text-align: left;
+		color: #7F8CA2;
+		font-size: 12px;
+		clear: both;
+	}
+
+
+
+/* Woocommerce Overrides */
+.woocommerce-breadcrumb {
+	display: none;
+}
+
+.woocommerce ul.products li.product a img, .woocommerce-page ul.products li.product a img {
+	width: auto;
+	margin: 0 auto;
+}
+
+.woocommerce ul.products li.product, .woocommerce-page ul.products li.product {
+	background: #fff;
+	text-align: center;
+	padding: 40px 0;
+}
+
+.woocommerce .products ul, .woocommerce ul.products, .woocommerce-page .products ul, .woocommerce-page ul.products {
+	margin: 0;
+}
+
+#products-wrap {
+	padding: 0 10px;
+	margin-bottom: 20px;
+}
+
+#products-interior {
+	background: rgba(0,0,0,0.5);
+	padding: 25px 40px 0px 40px;
+	overflow: hidden;
+}
+
+.woocommerce ul.products li.product h3, .woocommerce-page ul.products li.product h3 {
+	padding: .5em 0;
+	margin: 0 auto;
+	width: 75%;
+}
+
+.woocommerce ul.products li.product .price, .woocommerce-page ul.products li.product .price {
+	color: #462903;
+}
+
+.woocommerce #content div.product .woocommerce-tabs,
+.woocommerce div.product .woocommerce-tabs,
+.woocommerce-page #content div.product .woocommerce-tabs,
+.woocommerce-page div.product .woocommerce-tabs {
+	margin: 0 5%;
+	padding: 0;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs,
+.woocommerce #content div.product .woocommerce-tabs ul.tabs,
+.woocommerce-page div.product .woocommerce-tabs ul.tabs,
+.woocommerce-page #content div.product .woocommerce-tabs ul.tabs {
+	padding: 0;
+	margin: 0;
+	display: none;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li,
+.woocommerce #content div.product .woocommerce-tabs ul.tabs li,
+.woocommerce-page div.product .woocommerce-tabs ul.tabs li,
+.woocommerce-page #content div.product .woocommerce-tabs ul.tabs li {
+	margin: 0;
+}
+
+.woocommerce div.product .woocommerce-tabs .panel,
+.woocommerce #content div.product .woocommerce-tabs .panel,
+.woocommerce-page div.product .woocommerce-tabs .panel,
+.woocommerce-page #content div.product .woocommerce-tabs .panel {
+	margin: 0 0 5% 0;
+	background: #fff;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+.woocommerce div.product .woocommerce-tabs .panel p,
+.woocommerce #content div.product .woocommerce-tabs .panel p,
+.woocommerce-page div.product .woocommerce-tabs .panel p,
+.woocommerce-page #content div.product .woocommerce-tabs .panel p {
+	margin: 0;
+	font-size: 14px;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs:before,
+.woocommerce #content div.product .woocommerce-tabs ul.tabs:before,
+.woocommerce-page div.product .woocommerce-tabs ul.tabs:before,
+.woocommerce-page #content div.product .woocommerce-tabs ul.tabs:before {
+	border: none;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li:after,
+.woocommerce #content div.product .woocommerce-tabs ul.tabs li:after,
+.woocommerce-page div.product .woocommerce-tabs ul.tabs li:after,
+.woocommerce-page #content div.product .woocommerce-tabs ul.tabs li:after {
+	bottom: -2px;
+}
+
+.woocommerce div.product .woocommerce-tabs .panel h2,
+.woocommerce #content div.product .woocommerce-tabs .panel h2,
+.woocommerce-page div.product .woocommerce-tabs .panel h2,
+.woocommerce-page #content div.product .woocommerce-tabs .panel h2 {
+	margin: 0;
+	display: none;
+}
+
+.woocommerce .quantity input.qty,
+.woocommerce #content .quantity input.qty,
+.woocommerce-page .quantity input.qty,
+.woocommerce-page #content .quantity input.qty {
+	margin-bottom: 0;
+}
+
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button,
+.woocommerce #respond input#submit,
+.woocommerce #content input.button,
+.woocommerce-page a.button,
+.woocommerce-page button.button,
+.woocommerce-page input.button,
+.woocommerce-page #respond input#submit,
+.woocommerce-page #content input.button {
+	border: solid 1px #79664C;
+	background: #323944;
+	text-shadow: none;
+	color: #fff;
+	box-shadow: none;
+}
+
+.woocommerce a.button.alt,
+.woocommerce button.button.alt,
+.woocommerce input.button.alt,
+.woocommerce #respond input#submit.alt,
+.woocommerce #content input.button.alt,
+.woocommerce-page a.button.alt,
+.woocommerce-page button.button.alt,
+.woocommerce-page input.button.alt,
+.woocommerce-page #respond input#submit.alt,
+.woocommerce-page #content input.button.alt {
+	background: #684A0C;
+}
+
+.woocommerce a.button.alt:hover,
+.woocommerce button.button.alt:hover,
+.woocommerce input.button.alt:hover,
+.woocommerce #respond input#submit.alt:hover,
+.woocommerce #content input.button.alt:hover,
+.woocommerce-page a.button.alt:hover,
+.woocommerce-page button.button.alt:hover,
+.woocommerce-page input.button.alt:hover,
+.woocommerce-page #respond input#submit.alt:hover,
+.woocommerce-page #content input.button.alt:hover {
+	background: #795A19;
+}
+
+.woocommerce a.button:hover,
+.woocommerce button.button:hover,
+.woocommerce input.button:hover,
+.woocommerce #respond input#submit:hover,
+.woocommerce #content input.button:hover,
+.woocommerce-page a.button:hover,
+.woocommerce-page button.button:hover,
+.woocommerce-page input.button:hover,
+.woocommerce-page #respond input#submit:hover,
+.woocommerce-page #content input.button:hover {
+	background: #424c5b;
+}
+
+.woocommerce a.button.added:before,
+.woocommerce button.button.added:before,
+.woocommerce input.button.added:before,
+.woocommerce #respond input#submit.added:before,
+.woocommerce #content input.button.added:before,
+.woocommerce-page a.button.added:before,
+.woocommerce-page button.button.added:before,
+.woocommerce-page input.button.added:before,
+.woocommerce-page #respond input#submit.added:before,
+.woocommerce-page #content input.button.added:before {
+	color: #71cb6b;
+}
+
+.woocommerce .woocommerce-message,
+.woocommerce .woocommerce-error,
+.woocommerce .woocommerce-info,
+.woocommerce-page .woocommerce-message,
+.woocommerce-page .woocommerce-error,
+.woocommerce-page .woocommerce-info {
+	background: #412B03;
+	color: #fff;
+	text-shadow: none;
+	width: 100%;
+}
+
+.woocommerce.single-product div.product div.images {
+	width: auto;
+}
+
+.woocommerce.single-product div.product div.summary {
+	float: left;
+	margin-left: 20px;
+}
+
+.woocommerce.single-product div.product .price {
+	margin: 12px 0 0 0;
+}
+
+.woocommerce.single-product div.product .price span {
+	font-weight: bold;
+	font-size: 1.3em;
+}
+
+.woocommerce.single-product div.product .summary .product_title {
+	color: #fff;
+}
+
+a.added_to_cart.wc-forward {
+	display: block;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	bottom: 6px;
+}
+
+.woocommerce .woocommerce-ordering, .woocommerce-page .woocommerce-ordering {
+	float: none;
+	width: 22.05%;
+}
+
+.woocommerce .woocommerce-result-count, .woocommerce-page .woocommerce-result-count {
+	width: 100%;
+}
+
+#products-wrap .page-title {
+	color: #fff;
+	margin-bottom: 20px;
+}
+
+.woocommerce .woocommerce-result-count, .woocommerce-page .woocommerce-result-count {
+	color: #fff;
+}
+
+.cart-contents {
+	text-decoration: none;
+	position: relative;
+	padding-right: 20px;
+	font-size: 28px;
+}
+
+.cart-contents span {
+	background: #d24c4c;
+	height: 20px;
+	width: 20px;
+	border-radius: 20px;
+	color: #fff;
+	display: block;
+	position: absolute;
+	top: -9px;
+	right: 13px;
+	text-align: center;
+	padding: 3px 0 0 0;
+	font-size: 13px;
+}
+
+.woocommerce .woocommerce-message, .woocommerce-page .woocommerce-message {
+	border: none;
+	box-shadow: none;
+}
+
+.woocommerce table.shop_table, .woocommerce-page table.shop_table {
+	background: rgba(255,255,255,0.5);
+}
+
+.woocommerce .cart-collaterals .cart_totals, 
+.woocommerce-page .cart-collaterals .cart_totals {
+	background: rgba(255,255,255,0.5);
+	border-radius: 5px;
+	margin-bottom: 20px;
+	padding: 10px;
+}
+
+.woocommerce .cart-collaterals .cart_totals h2, 
+.woocommerce-page .cart-collaterals .cart_totals h2 {
+	margin: 0;
+} 
+
+.woocommerce .cart-collaterals .cart_totals table, .woocommerce-page .cart-collaterals .cart_totals table {
+	width: 100%;
+}
+
+.woocommerce .cart-collaterals .cart_totals table th, .woocommerce-page .cart-collaterals .cart_totals table th {
+	width: auto;
+}
+
+.woocommerce table.cart a.remove, 
+.woocommerce #content table.cart a.remove, 
+.woocommerce-page table.cart a.remove, 
+.woocommerce-page #content table.cart a.remove {
+	color: #795A19;
+	line-height: 18px;
+	padding-left: 2px;
+}
+
+.woocommerce table.cart a.remove:hover,
+.woocommerce #content table.cart a.remove:hover,
+.woocommerce-page table.cart a.remove:hover,
+.woocommerce-page #content table.cart a.remove:hover {
+	background: #795A19;
+}
+
+.woocommerce td.product-name dl.variation dd.variation-Sizes p, 
+.woocommerce-page td.product-name dl.variation dd.variation-Sizes p {
+	margin-top: 2px;
+}
+
+.woocommerce td.product-name dl.variation dd.variation-Size p, 
+.woocommerce-page td.product-name dl.variation dd.variation-Size p {
+	margin-top: 2px;
+}
+
+.mobile .woocommerce table.cart th,
+.mobile .woocommerce table.cart td,
+.mobile .woocommerce #content table.cart th,
+.mobile .woocommerce #content table.cart td,
+.mobile .woocommerce-page table.cart th,
+.mobile .woocommerce-page table.cart td,
+.mobile .woocommerce-page #content table.cart th,
+.mobile .woocommerce-page #content table.cart td {
+	font-size: 13px;
+}
+
+.mobile .woocommerce table.cart th.product-remove,
+.mobile .woocommerce table.cart td.product-remove,
+.mobile .woocommerce #content table.cart th.product-remove,
+.mobile .woocommerce #content table.cart td.product-remove,
+.mobile .woocommerce-page table.cart th.product-remove,
+.mobile .woocommerce-page table.cart td.product-remove,
+.mobile .woocommerce-page #content table.cart th.product-remove,
+.mobile .woocommerce-page #content table.cart td.product-remove {
+	padding: 0 0 0 5px;
+}
+
+.mobile .woocommerce #content table.cart td.actions .button,
+.mobile .woocommerce #content table.cart td.actions .input-text,
+.mobile .woocommerce #content table.cart td.actions input,
+.mobile .woocommerce table.cart td.actions .button,
+.mobile .woocommerce table.cart td.actions .input-text,
+.mobile .woocommerce table.cart td.actions input,
+.mobile .woocommerce-page #content table.cart td.actions .button,
+.mobile .woocommerce-page #content table.cart td.actions .input-text,
+.mobile .woocommerce-page #content table.cart td.actions input,
+.mobile .woocommerce-page table.cart td.actions .button,
+.mobile .woocommerce-page table.cart td.actions .input-text,
+.mobile .woocommerce-page table.cart td.actions input {
+	font-size: 12px;
+}
+
+.mobile .woocommerce .cart-collaterals .cart_totals, .woocommerce-page .cart-collaterals .cart_totals {
+	font-size: 12px;
+}
+
+.mobile #billing_email_field {
+	width: 100%;
+}
+
+.mobile #billing_phone_field {
+	float: none;
+}
+
+.mobile #order_review {
+	font-size: 13px;
+}
+
+/* Might end up showing these later */
+.woocommerce-ordering,
+.woocommerce-result-count {
+	display: none;
+}
+
+.mobile {
+	body {
+		background: #e4d9c0;
+	}
+
+	.woocommerce.post-type-archive-product {
+		#hero {
+			display: none;
+		}
+
+		img {
+			display: block;
+		}
+
+		#products-wrap {
+			padding: 0;
+
+			#products-interior {
+				padding: 0;
+			}
+		}
+
+		ul.products li.product {
+			padding: 0;
+			width: 100%;
+			background: transparent;
+			margin-bottom: 10px;
+			font-size: 16px;
+
+			a {
+				img {
+					width: 30%;
+					float: left;
+					margin: 10px 10px 0 10px;
+				}
+			}
+
+			h3 {
+				float: left;
+				text-align: left;
+				width: 50%;
+				color: #fff;
+			}
+
+			.price {
+				float: left;
+				text-align: left;
+				width: 50%;
+				color: #fff;
+			}
+
+			.add_to_cart_button {
+				display: none;
+			}
+
+			a.added_to_cart.wc-forward {
+				float: left;
+				width: 50%;
+				position: static;
+			}
+
+			i {
+				position: absolute;
+				right: 10px;
+				top: 50%;
+				margin-top: -10px;
+			}
+		}
+
+		.mobile-breadcrumb {
+			width: 96%;
+			margin: 0 auto; 
+			display: block;
+
+			p {
+				display: inline-block;
+				padding: 5px 18px;
+				background: #323944;
+				color: #fff;
+				font-family: 'Oswald', arial, Helvetica;
+				margin: 0;
+				border-radius: 5px 5px 0 0;
+			}
+		}
+	}
+
+	.woocommerce.single-product {
+		#products-wrap {
+			padding: 0;
+		}
+
+		#products-interior {
+			padding: 0;
+
+
+			.images {
+				margin: 0;
+
+				img {
+					width: 35%;
+					float: left;
+					margin: 5%;
+				}
+			}
+		}
+
+	 	div.product div.summary {
+			width: 50%;
+			margin: 5% 0 0 0;
+
+			h1 {
+				font-size: 16px;
+			}
+
+			div[itemprop="description"] {
+				display: none;
+			}
+
+			.single_add_to_cart_button {
+				margin-top: 10px;
+			}
+		}	
+	}
+}
+
+.desktop .page-music {
+	background: url(../images/mobile-bg.jpg) no-repeat;
+	background-size: cover;
+
+	.mobile-menu.mobile-only {
+		display: none;
+	}
+	
+	.footer {
+		display: none;
+	}
+
+	#inner-header {
+		nav, 
+		.tools-social, 
+		#music-player {
+			display: none;
+		}
+	}
+}
+
+.page-music .audioplayer .audioplayer-inner .the-thumb {
+	background-size: cover;
+}
+
+.tablet {
+	#main {
+		width: 308px;
+		margin: 0 auto;
+	}
+}
+
+.mobile {
+	.page-music {
+		.mobile-menu.mobile-only {
+			display: block;
+		}
+	}
+}
