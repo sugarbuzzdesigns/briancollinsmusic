@@ -1,0 +1,849 @@
+/******************************************************************
+Site Name:
+Author:
+
+Stylesheet: Tablet & Small Desktop Stylesheet
+
+Here's where you can start getting into the good stuff.
+This size will work on iPads, other tablets, and desktops.
+So you can start working with more styles, background images,
+and other resources. You'll also notice the grid starts to
+come into play. Have fun!
+
+******************************************************************/
+
+
+/*********************
+GENERAL STYLES
+*********************/
+html {
+	background: #323944;
+}
+
+html, body {
+	min-height: 100%;
+}
+
+body {
+	font-family: $lato;
+	font-size: 100%;
+	line-height: 1.5;
+	color: $text-color;
+  	-webkit-font-smoothing: antialiased;
+
+  p {
+  	font-family: Arial, sans-serif;
+  	color: #222;
+  }
+}
+
+.tablet-included {
+	display: block;
+}
+
+/*********************
+LAYOUT & GRID STYLES
+*********************/
+
+.wrap {
+	width: 760px;
+}
+
+/*********************
+HEADER STYLES
+*********************/
+
+#container {
+	background: #161614 url(../images/BC_2000x1200_grunge.jpg) 50% 0 no-repeat;
+}
+
+.header {
+	padding: 10px 0 0 0;
+
+	#inner-header {
+		position: relative;
+	}
+
+	.tools-social {
+		position: absolute;
+		right: 0;
+		bottom: 7px;
+		margin: 0;
+
+
+
+		ul {
+
+			padding-right: 10px;
+			margin: 0;
+			
+			li {
+				display: inline-block;
+				vertical-align: middle;
+				padding-right: 5px;
+			}
+
+		}
+	}
+
+	#music-player {
+		display: none;
+	}
+}
+/*********************
+NAVIGATION STYLES
+*********************/
+
+.nav {
+	border-bottom: 0;
+	margin: 0;
+	background: none;
+
+	ul {
+		background:$black;
+		margin-top:0;
+	}
+	li {
+		float: left;
+		position: relative;
+		margin-right: 15px;
+
+		a {
+			display: block;
+			color: $white;
+			text-decoration: none;
+			padding: 0.55em;
+			font-size: 14px;
+
+			/*
+			you can use hover styles here even though this size
+			has the possibility of being a mobile device.
+			*/
+			&:hover, &:focus {
+				color: $white;
+				opacity: 0.8;
+			}
+		}
+
+		&:first-child {}
+		&:last-child {}
+
+		/*
+		plan your menus and drop-downs wisely.
+		*/
+		ul.sub-menu,
+		ul.children {
+			margin-top: 0;
+			border-top: 0;
+			position: absolute;
+			visibility: hidden;
+			z-index: 8999;
+			display: block;
+			border-radius: 6px;
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;				
+
+			li {
+
+				a {
+					padding: 5px;
+					padding-left: 10px;
+					border-right: 0;
+					display: block;
+					width: 180px;
+
+					&:hover,
+					&:focus {}
+
+					&:link {}
+				}
+
+				&:first-child {}
+
+				&:last-child {
+
+					a {
+						border-bottom: 0;
+					}
+				}
+
+				/*
+				if you need to go deeper, go nuts
+				just remember deeper menus suck
+				for usability. k, bai.
+				*/
+				ul {
+					top:0;
+					left:100%;
+				}
+			}
+
+			/* highlight sub-menu current page */
+			li.current-menu-item,
+			li.current_page_item,
+			li.current_page_ancestor {
+				a {}
+			}
+		}
+
+		/* showing sub-menus */
+		&:hover > ul {
+			top: auto;
+			visibility:visible;
+		}
+
+	} /* end .menu ul li */
+
+	/* highlight current page */
+	li.current-menu-item,
+	li.current_page_item,
+	li.current_page_ancestor {
+		a {}
+	}  /* end current highlighters */
+
+} /* end .nav */
+
+#inner-header {
+	padding: 10px 0 0;
+
+	nav {
+		text-transform: uppercase;
+		font-size: 16px;
+		position: relative;
+
+		li {
+
+			a {
+				
+				font-weight: bold;
+				text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+
+			}
+		}
+	}
+}
+
+
+#logo {
+	margin: 0 auto 20px;
+	width: 712px;
+	height: 111px;
+	text-indent: -9999px;
+	background: url(../images/_BRIAN_COLLINS_LOGO_brown.png) no-repeat;
+	background-size: cover;
+	display: block;
+}
+
+/* Heading Styles */
+h2.heading {
+	color: #FDFDFD;
+	margin: 0 -10px 10px;
+	background: #323944;
+	padding: 10px;
+	text-transform: uppercase;
+	font-size: 24px;
+}
+
+/* Homepage Slider Styles */
+#main-content {
+
+	margin: 10px 0 20px 0;
+
+	.front-page-col {
+		padding: 0 5px 0 10px;
+
+		h4 {
+			margin: 0;
+		}
+
+		p {
+
+		}
+	
+		.inner-content {
+			background-color: #fff;
+			margin-bottom: 10px;
+			padding: 0 10px 10px;
+		}
+
+		& + .front-page-col {
+			padding: 0 10px 0 5px;
+		}		
+
+		#mc-newsletter{
+
+			.epm-message {
+				position: absolute;
+				width: 100%;
+				background: #E4E2E2;
+				z-index: 1;
+				text-align: center;
+				bottom: -8px;
+			}
+
+			.epm-form-field label[for=epm-email] {
+				display: none;
+			}
+
+			form {
+				position: relative;
+
+				input[type=email] {
+					width: 70%;
+					background: #E4E2E2;
+				}
+
+				input[type=submit] {
+					position: absolute;
+					bottom: 0px;
+					right: 6px;
+					background: #323944;
+					color: #fff;
+					text-transform: uppercase;
+					padding: 10px;
+					font-size: 13px;
+					border-radius: 3px;
+				}
+			}	
+		}
+
+		/* News Feed on home page */
+		.news-story {
+			overflow: hidden;
+			margin: 0 0 20px 0;
+			
+			.news-thumb {
+				float: left;
+				width: 30%;
+			}
+
+			.news-content {
+				float: left;
+				padding-left: 5%;
+				width: 70%;
+
+				small {
+					display: block;
+				}
+
+				p {
+					font-size: 13px;
+					margin: 0;
+				}
+			}		
+		}
+
+		#newsletter-signup {
+			h4 {
+				text-align: center;
+				margin-bottom: 10px;
+			}
+		}
+
+		#store-feed {
+			padding-bottom: 10px;
+			overflow: hidden;
+			height: 249px;
+
+			#store-wrap {
+				overflow-x: scroll;
+				-webkit-overflow-scrolling: touch;
+				overflow-y: hidden;
+				height: 180px;				
+			}
+
+			#store-film-strip {
+				width: 10000px;
+
+				li {
+					position: relative;
+					float: left;
+					margin-right: 10px;
+					width: 150px;
+					height: 150px;
+					list-style: none;
+
+					a {
+						display: block;
+						position: relative;
+					}
+
+					img {
+						width: 100%;
+						display: block;
+					}
+
+					.add_to_cart_button {
+						display: none;
+					}
+
+					.price {
+						display: none;
+					}
+
+					h3 {
+						background: rgba(0,0,0, 0.5);
+						position: absolute;
+						bottom: 0;
+						right: 0;
+						color: #fff;
+						padding: 10px;
+						width: 100%;
+						margin: 0;
+						font-weight: bold;
+						font-size: 12px;
+					}					
+				}
+			}
+
+			.store-item {
+				position: relative;
+				float: left;
+				margin-right: 10px;
+				width: 150px;
+				height: 150px;
+
+				img {
+					width: 100%;
+				}
+
+				.store-item-desc {
+					background: rgba(0,0,0, 0.5);
+					position: absolute;
+					bottom: 0;
+					right: 0;
+					color: #fff;
+					padding: 10px;
+					width: 100%;
+					margin: 0;
+					font-weight: bold;
+				}
+			}
+		}
+	} 
+}
+
+#bc-slideshow {
+	padding: 0 10px;
+	position: relative;
+
+	.content {
+		position: absolute;
+		left: 100px;
+		top: 0px;
+		opacity: 0.5;
+		-webkit-transform: scale(0.7);
+
+		p {
+			margin: 0;
+			font-size: 70px;
+			line-height: 55px;
+			color: #462903;
+
+			&.small {
+				color: #fff;
+				font-size: 30px;
+				padding-left: 2px;
+			}
+
+			&.medium {
+
+			}
+		}
+	}
+
+	img {
+		width: 100%;
+		display: block;
+		margin: 0 0 10px 0;
+	}
+}
+
+#video-feed {
+	overflow: hidden;
+	height: 169px;
+	padding: 0 10px;
+
+	#video-strip {
+
+		width: 10000px;
+
+		.video {
+			width: 300px;
+			height: 169px;
+			float: left;
+			margin-right: 10px;
+			background: #000;
+		}
+	}
+}
+
+#video-wrap {
+	width: 100%;
+	overflow-x: scroll;
+	overflow-y: hidden;
+
+	-webkit-overflow-scrolling: touch;
+	
+	height: 200px;
+}
+
+/* Interior Pages Page */
+.interior-wrap {
+	padding: 0 10px;
+
+	.content {
+		background: #fff;
+		padding: 20px;
+		margin-bottom: 20px;
+
+		p {
+			margin: 0 0 10px;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	h2 {
+		margin: 0;
+	}
+}
+
+/* Shows Section on Shows page */
+#shows-bc {
+	.show {
+		display: block;
+		overflow: hidden;
+		text-decoration: none;
+
+		.date {
+			float: left;
+			text-align: center;
+			background: #b8c6b7;
+			font-weight: bold;
+			font-family: 'Oswald', sans-serif;
+			color: #384b37;
+			width: 100px;
+			margin-right: 20px;
+			height: 100px;
+			box-sizing: border-box;
+			padding-top: 13px;
+
+			.month {
+				font-size: 19px;
+			}
+	
+			.day {
+				font-size: 50px;
+				color: #fff;
+				text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+				line-height: 43px;
+			}
+		}
+
+		span {
+			display: block;
+			font-family: Arial, sans-serif;
+
+			&.title {
+				font-family: 'Oswald', sans-serif;
+				font-weight: bold;
+				font-size: 20px;
+			}
+
+			&.city {
+
+			}
+
+			&.venue {
+
+			}
+		}		
+	}
+
+	.show-more {
+		display: block;
+		text-align: center;
+		background: #323944;
+		color: #fff;
+		padding: 10px 10px 15px;
+		text-decoration: none;
+	}
+}
+
+#hero {
+	padding: 0 10px;
+	position: relative;
+
+	img {
+		margin: 0;
+		display: block;
+	}
+}
+
+
+/* FOOTER */
+#inner-footer {
+
+	padding: 15px 10px 0;
+
+	#bc-watermark {
+		opacity: 0.5;
+		float: left;
+		margin-right: 50px;
+	}
+
+	.footer-col {
+		float: left;
+		color: #fff;
+
+		h4 {
+			margin: 0 0 10px 0;
+			color: #fff;
+		}
+	}
+
+	nav {
+
+		ul {
+			margin: 0;
+		}
+
+		li {
+			display: block;
+			float: left;
+
+			a {
+				padding: 0;
+				font-weight: normal;
+				margin-bottom: 5px;
+				font-size: 13px;
+			}
+		}
+	}
+
+	#menu-footer-menu {
+		margin-top: 5px;
+	}
+
+	#footer-social {
+		float: right;
+
+		li {
+			margin-left: 10px;
+		}
+
+		.fa-instagram {
+			color: #E0D2BE;
+		}
+	}
+}
+
+/* CART PAGE */
+.woodmmerce-cart,
+.woocommerce-checkout {
+	.woocommerce {
+		padding: 0 10px;
+
+		.shop_table.cart {
+			border-top-right-radius: 0;
+		}
+	}
+
+	h1 {
+		display: none;
+	}
+}
+
+/* Checkout PAGE */
+.woocommerce-checkout {
+	form.checkout {
+		background: #fff;
+		border-radius: 5px 0 0 0;
+		padding: 0 10px;
+
+		input[type=text] {
+			background: #d7d7d7;
+		}
+	}
+}
+
+.woocommerce ul.products li.product, .woocommerce-page ul.products li.product {
+	min-height: 360px;
+}
+
+.woocommerce #payment div.payment_box, .woocommerce-page #payment div.payment_box {
+	width: 100%;
+}
+
+.page-music {
+	#inner-header {
+		nav, 
+		.tools-social, 
+		#music-player {
+			display: none;
+		}
+	}
+}
+
+/*********************
+SIDEBARS & ASIDES
+*********************/
+
+.sidebar {
+}
+
+	.widgettitle {
+		border-bottom: 2px solid #444;
+		margin-bottom: 0.75em;
+	}
+
+	.widget {
+		padding: 0 10px;
+		margin: 2.2em 0;
+
+		ul {
+			li {
+				margin-bottom: 0.75em;
+
+				&:first-child {}
+				&:last-child {}
+				a {}
+				/* deep nesting */
+
+				ul {
+					margin-top: 0.75em;
+					padding-left: 1em;
+				}
+			}
+		}
+	}
+
+
+	/* links widget */
+	.widget_links {}
+	.widget_links ul {}
+	.widget_links ul li {}
+	.widget_links ul li a {}
+
+	/* meta widget */
+	.widget_meta {}
+	.widget_meta ul {}
+	.widget_meta ul li {}
+	.widget_meta ul li a {}
+
+	/* pages widget */
+	.widget_pages {}
+	.widget_pages ul {}
+	.widget_pages ul li {}
+	.widget_pages ul li a {}
+
+	/* recent-posts widget */
+	.widget_recent_entries {}
+	.widget_recent_entries ul {}
+	.widget_recent_entries ul li {}
+	.widget_recent_entries ul li a {}
+
+	/* archives widget */
+	.widget_archive {}
+	.widget_archive ul {}
+	.widget_archive ul li {}
+	.widget_archive ul li a {}
+	.widget_archive select {}
+	.widget_archive option {}
+
+	/* tag-cloud widget */
+	.widget_links {}
+	.widget_links li:after {}
+	.widget_links li:before {}
+	.widget_tag_cloud {}
+	.widget_tag_cloud a {}
+	.widget_tag_cloud a:after {}
+	.widget_tag_cloud a:before {}
+
+	/* calendar widget */
+	.widget_calendar {}
+	#calendar_wrap {}
+	#calendar_wrap th {}
+	#calendar_wrap td {}
+	#wp-calendar tr td {}
+	#wp-calendar caption {}
+	#wp-calendar a {}
+	#wp-calendar #today {}
+	#wp-calendar #prev {}
+	#wp-calendar #next {}
+	#wp-calendar #next a {}
+	#wp-calendar #prev a {}
+
+	/* category widget */
+	.widget_categories {}
+	.widget_categories ul {}
+	.widget_categories ul li {}
+	.widget_categories ul ul.children {}
+	.widget_categories a {}
+	.widget_categories select{}
+	.widget_categories select#cat {}
+	.widget_categories select.postform {}
+	.widget_categories option {}
+	.widget_categories .level-0 {}
+	.widget_categories .level-1 {}
+	.widget_categories .level-2 {}
+	.widget_categories .level-3 {}
+
+	/* recent-comments widget */
+	.recentcomments {}
+	#recentcomments {}
+	#recentcomments li {}
+	#recentcomments li a {}
+	.widget_recent_comments {}
+
+	/* search widget */
+	#searchform {}
+	.widget_search {}
+	.screen-reader-text {}
+
+	/* text widget */
+	.textwidget {}
+	.widget_text {}
+	.textwidget p {}
+
+
+/*********************
+FOOTER STYLES
+*********************/
+
+/*
+you'll probably need to do quite a bit
+of overriding here if you styled them for
+mobile. Make sure to double check these!
+*/
+.footer-links {
+	ul {
+		li {
+			a {
+				&:hover {}
+			}
+			/*
+			be careful with the depth of your menus.
+			it's very rare to have multi-depth menus in
+			the footer.
+			*/
+			ul {}
+		}
+	}
+} /* end .footer-links */
+
+.woocommerce.post-type-archive-product {
+	.mobile-breadcrumb {
+		display: none;
+	}
+}
+
+.tablet {
+	.woocommerce ul.products li.product a i, 
+	.woocommerce-page ul.products li.product a i {
+		display: none;
+	}
+}

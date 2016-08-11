@@ -1,0 +1,217 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: FanBridge Signup Plugin 0.4.2\\rFanBridge signup"
+"\\rFanBridge Signup Plugin 0.4.2\n"
+"POT-Creation-Date: 2013-10-05 23:05-0300\n"
+"PO-Revision-Date: 2013-10-05 23:05-0300\n"
+"Last-Translator: \n"
+"Language-Team: FanBridge\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../fanbridge-signup.php:66
+msgid "Settings"
+msgstr ""
+
+#: ../fanbridge-signup.php:102
+msgid "Invalid FanBridge User ID"
+msgstr ""
+
+#: ../fanbridge-signup.php:105
+msgid "Invalid form title"
+msgstr ""
+
+#: ../fanbridge-signup.php:108
+msgid "Invalid highlight color"
+msgstr ""
+
+#: ../fanbridge-signup.php:176
+msgid "FanBridge Signup Form"
+msgstr ""
+
+#: ../fanbridge-signup.php:179
+msgid "Basic Settings"
+msgstr ""
+
+#: ../fanbridge-signup.php:181
+msgid "User ID"
+msgstr ""
+
+#: ../fanbridge-signup.php:183
+msgid "Signup Form Title"
+msgstr ""
+
+#: ../fanbridge-signup.php:184
+msgid "Join my list"
+msgstr ""
+
+#: ../fanbridge-signup.php:185
+msgid ""
+"Don't know your FanBridge user ID? Don't worry! Go to your <a target=\"_blank"
+"\" href=\"https://www.fanbridge.com/account\">FanBridge Account</a> to find "
+"out."
+msgstr ""
+
+#: ../fanbridge-signup.php:188
+msgid "Appearance Settings"
+msgstr ""
+
+#: ../fanbridge-signup.php:193
+msgid "Match Current Wordpress Theme"
+msgstr ""
+
+#: ../fanbridge-signup.php:198
+msgid "or, Custom Color"
+msgstr ""
+
+#: ../fanbridge-signup.php:205
+msgid "Choose what data you want to collect"
+msgstr ""
+
+#: ../fanbridge-signup.php:209
+msgid "Type"
+msgstr ""
+
+#: ../fanbridge-signup.php:210
+msgid "Display?"
+msgstr ""
+
+#: ../fanbridge-signup.php:211
+msgid "Make Required?"
+msgstr ""
+
+#: ../fanbridge-signup.php:214
+msgid "Email"
+msgstr ""
+
+#: ../fanbridge-signup.php:215 ../fanbridge-signup.php:216
+#: ../fanbridge-signup.php:220 ../fanbridge-signup.php:225
+#: ../fanbridge-signup.php:230 ../fanbridge-signup.php:235
+#: ../fanbridge-signup.php:240 ../fanbridge-signup.php:245
+#: ../fanbridge-signup.php:250
+msgid "yes"
+msgstr ""
+
+#: ../fanbridge-signup.php:219
+msgid "First Name"
+msgstr ""
+
+#: ../fanbridge-signup.php:224
+msgid "Last Name"
+msgstr ""
+
+#: ../fanbridge-signup.php:229
+msgid "Zip Code"
+msgstr ""
+
+#: ../fanbridge-signup.php:234
+msgid "City"
+msgstr ""
+
+#: ../fanbridge-signup.php:239
+msgid "State/Region"
+msgstr ""
+
+#: ../fanbridge-signup.php:244
+msgid "Country"
+msgstr ""
+
+#: ../fanbridge-signup.php:249
+msgid "Birthdate"
+msgstr ""
+
+#: ../fanbridge-signup.php:258
+msgid "Additional Settings"
+msgstr ""
+
+#: ../fanbridge-signup.php:263
+msgid ""
+"Guess Geolocation <i>(This will autofill the form with a fan's <a target="
+"\"_blank\" href=\"http://en.wikipedia.org/wiki/Geolocation\"> location based "
+"on IP</a>)</i>"
+msgstr ""
+
+#: ../fanbridge-signup.php:267
+msgid "COPPA Compliant"
+msgstr ""
+
+#: ../fanbridge-signup.php:311
+msgid ""
+"alert(\"Because you have COPPA Compliance activated, collecting full date of "
+"birth is required. To disable this field, you will need to deactivate the "
+"COPPA Compliance Setting.\");"
+msgstr ""
+
+#: ../fanbridge-signup.widget.php:21
+msgid "Adds a FanBridge signup form to your blog"
+msgstr ""
+
+#: ../fanbridge-signup.widget.php:23
+msgid "FanBridge signup Widget"
+msgstr ""
+
+#: ../fanbridge-signup.widget.php:54
+msgid "Email Address:"
+msgstr ""
+
+#: ../fanbridge-signup.widget.php:58
+msgid "First Name:"
+msgstr ""
+
+#: ../fanbridge-signup.widget.php:63
+msgid "Last Name:"
+msgstr ""
+
+#: ../fanbridge-signup.widget.php:68
+msgid "Zip/Postal Code:"
+msgstr ""
+
+#: ../fanbridge-signup.widget.php:73
+msgid "City:"
+msgstr ""
+
+#: ../fanbridge-signup.widget.php:78
+msgid "State/Region:"
+msgstr ""
+
+#: ../fanbridge-signup.widget.php:83
+msgid "Country:"
+msgstr ""
+
+#: ../fanbridge-signup.widget.php:85
+msgid "-- SELECT COUNTRY --"
+msgstr ""
+
+#: ../fanbridge-signup.widget.php:90
+msgid "Birthdate:"
+msgstr ""
+
+#: ../fanbridge-signup.widget.php:92
+msgid "MM"
+msgstr ""
+
+#: ../fanbridge-signup.widget.php:96
+msgid "DD"
+msgstr ""
+
+#: ../fanbridge-signup.widget.php:100
+msgid "YYYY"
+msgstr ""
+
+#: ../fanbridge-signup.widget.php:111
+msgid "Join Mailing List"
+msgstr ""
+
+#: ../fanbridge-signup.widget.php:113
+msgid "Powered by FanBridge"
+msgstr ""
+
+#: ../fanbridge-signup.widget.php:184
+msgid "Invalid entries. Please correct the highlighted fields."
+msgstr ""

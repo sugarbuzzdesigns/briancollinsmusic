@@ -1,0 +1,440 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: dzsap\n"
+"POT-Creation-Date: 2013-11-18 16:56+0200\n"
+"PO-Revision-Date: 2013-11-18 16:56+0200\n"
+"Last-Translator: \n"
+"Language-Team: zoomit\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__\n"
+"X-Poedit-Basepath: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/"
+"dzs-zoomsounds\n"
+"X-Poedit-SearchPath-0: /Applications/MAMP/htdocs/wordpress/wp-content/"
+"plugins/dzs-zoomsounds\n"
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:167
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:365
+msgid "General Options"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:169
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1374
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1576
+msgid "ID"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:171
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:369
+msgid "Choose an unique id."
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:174
+msgid "Force Width"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:176
+msgid "Force a fix width, leave blank for responsive mode "
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:179
+msgid "Force Height"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:181
+msgid "Force a fix height, leave blank for default mode "
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:184
+msgid "Menu Position"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:192
+msgid "Autoplay"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:194
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:201
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:209
+msgid "on"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:195
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:202
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:208
+msgid "off"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:199
+msgid "Autoplay Next"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:206
+msgid "Disable Player Navigation"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:211
+msgid "Disable arrows for gallery navigation on the player "
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:214
+msgid "Background"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:218
+msgid "ZoomSounds Player Configuration"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:220
+msgid "default"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:223
+msgid "setup these inside the <strong>ZoomSounds Player Configs</strong> admin"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:242
+msgid "Type"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:255
+msgid "Self-Hosted Audio"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:258
+msgid ""
+"Only mp3 is mandatory. Browsers that cannot decode mp3 will use the included "
+"Flash Player backup . If you want full html5 player, you must set a ogg "
+"sound too."
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:265
+msgid "SoundCloud Sound"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:268
+msgid ""
+"Stream SoundCloud sounds. Input the full link to the sound in the Source "
+"field. You will have to input your SoundCloud API Key into ZoomSounds > "
+"Settings."
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:275
+msgid "ShoutCast Radio"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:278
+msgid ""
+"Insert a shoutcast radio address. It will have to stream in mpeg format. "
+"Input the address, example:  "
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:284
+msgid "YouTube"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:287
+msgid "Input the YouTube video id. Warning - will not work on iOS."
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:293
+msgid "Inline Content"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:296
+msgid ""
+"Insert in the <strong>Source</strong> field custom content ( ie. embed from "
+"a custom site )."
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:303
+msgid "Source"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:306
+msgid ""
+"Below you will enter your audio file address. If it is a video from YouTube "
+"or Vimeo you just need to enter \r\n"
+"                the id of the video in the . The ID is the bolded part "
+"http://www.youtube.com/watch?v=<strong>j_w4Bi0sq_w</strong>. \r\n"
+"                If it is a local video you just need to write its location "
+"there or upload it through the Upload button ( .mp3 format )."
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:316
+msgid "Format"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:317
+msgid "Optional ogg / ogv file"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:317
+msgid "Only for the Video or Audio type"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:322
+msgid "WaveForm Background Image"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:323
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:329
+msgid "Optional waveform image / "
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:323
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:329
+msgid "Only for skin-wave"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:328
+msgid "WaveForm Progress Image"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:333
+msgid "Thumbnail"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:335
+msgid "a thumbnail "
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:340
+msgid "Menu Options"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:343
+msgid "Artist Name"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:345
+msgid "an artist name if you include this item in a playlist"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:349
+msgid "Song Name"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:351
+msgid "a song name if you include this item in a playlist"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:367
+msgid "Config ID"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:372
+msgid "Audio Player Skin"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:379
+msgid "choose a skin."
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:382
+msgid "Flash Backup"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:387
+msgid ""
+"the flash backup type that will appear for browsers that do not have mp3 "
+"support and no ogg file has been specified. simple is seamless but unstable, "
+"full shows the full flash player."
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:393
+msgid "Skin-Wave Options"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:396
+msgid "Dynamic Waves"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:401
+msgid "*only on skin-wave - dynamic waves that act on volume change"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:404
+msgid "Enable Spectrum"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:409
+msgid ""
+"*only on skin-wave - enable a realtime spectrum analyzer instead of the "
+"static generated waveform / the file must be on the same server for security "
+"issues"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:412
+msgid "Enable Reflect"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:417
+msgid "*only on skin-wave - enable a small reflection of the waves / spectrum"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:420
+msgid "Enable Commenting"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:425
+msgid "*only on skin-wave - enable time-based commenting"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1018
+msgid "DZS ZoomSounds"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1022
+msgid "ZoomSounds"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1023
+msgid "ZoomSounds Player Configs"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1024
+msgid "ZoomSounds Settings"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1024
+msgid "Settings"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1207
+msgid "ZoomSounds Main Settings"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1213
+msgid "do not use wordpres uploader"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1218
+msgid "Use External wp-content Upload Directory ?"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1220
+msgid "use an outside directory for uploading files"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1224
+msgid "Always Embed Scripts?"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1226
+msgid ""
+"by default scripts and styles from this gallery are included only when "
+"needed for optimizations reasons, but you can choose to always use them "
+"( useful for when you are using a ajax theme that does not reload the whole "
+"page on url change )"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1230
+msgid "Fast binding?"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1232
+msgid ""
+"the galleries admin can use a complex ajax backend to ensure fast editing, "
+"but this can cause limitation issues on php servers. Turn this to on if you "
+"want a faster editing experience ( and if you have less then 20 videos "
+"accross galleries ) "
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1235
+msgid "Do Not Use Caching"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1237
+msgid "use caching for vimeo / youtube api ( recommended - on )"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1240
+msgid "Force File Get Contents"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1242
+msgid ""
+"sometimes curl will not work for retrieving youtube user name / playlist - "
+"try enabling this option if so..."
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1246
+msgid "Debug Mode"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1248
+msgid "activate debug mode ( advanced mode )"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1251
+msgid "Extra CSS"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1264
+msgid "Waveform BG Color"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1275
+msgid "Waveform Progress Color"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1280
+msgid "Save Options"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1284
+msgid "Delete Plugin Data"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1339
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1567
+msgid "ZoomSounds Admin"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1340
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1568
+msgid "You need javascript for this."
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1342
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1570
+msgid "Documentation"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1407
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1605
+msgid "Add Slider"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1410
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1608
+msgid "Loading..."
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1413
+msgid "Save All Galleries"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1414
+msgid "Save Gallery"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1611
+msgid "Save All Configs"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/class-dzsap.php:1612
+msgid "Save Config"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/dzs_functions.php:100
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/dzs_functions.php:415
+msgid "Read More"
+msgstr ""
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/dzs-zoomsounds/dzs_functions.php:158
+msgid "read more"
+msgstr ""

@@ -1,0 +1,151 @@
+/* Internet explorer fix */
+
+.ie .textInput {
+	line-height: 35px;
+}
+
+
+body {
+	margin: 0;
+	padding: 0;
+}
+#fanbridgeConfig {
+	font-family: 'Helvetica', 'Arial', 'Sans-serif';
+	font-size: 14px;
+	line-height: 14px;
+	text-align: left;
+	background-color: #fff;
+	color: #555;
+	padding: 5px 30px 100px 30px;
+	width: 100%;
+}
+
+#fanbridgeConfig h1 {
+	font-family: 'Helvetica', 'Arial', 'Sans-serif';
+	font-weight: bold;
+	line-height: 30px;
+	font-size: 40px;
+	letter-spacing: -.05em;
+}
+
+#fanbridgeConfig h2 {
+	font-size: 16px;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 12px;
+	margin-right: 0px;
+}
+
+#fanbridgeConfig label {
+	display: block;
+}
+
+#fanbridgeConfig .textInput {
+	height: 35px;
+	width: 100%;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	color: inherit;
+	padding: 0px 8px 0px 8px;
+	margin-bottom: 13px;
+
+}
+
+#fanbridgeConfig .textInput {
+	border: 1px solid #C5C5C5;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#fanbridgeConfig label,
+#fanbridgeConfig .textInput,
+#fanbridgeConfig label {
+margin-bottom: 8px;
+
+}
+
+#fanbridgeConfig .section {
+	margin-bottom: 20px;
+	background-color: #fff;
+	padding: 10px 20px 12px 20px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	width: 650px;
+	border: 1px solid #ccc;
+
+}
+
+/* Table Styling */
+
+#fanbridgeConfig .largeTable {
+	width: 100%;
+}
+
+
+#fanbridgeConfig td,
+#fanbridgeConfig th {
+	padding: 0px 5px 10px 0px;
+}
+
+#fanbridgeConfig td,
+#fanbridgeConfig th,
+#fanbridgeConfig tr,
+.button {
+	vertical-align: middle;
+	text-align: left;
+
+}
+
+#fanbridgeConfig th {
+	font-weight: bold;
+}
+
+
+#fanbridgeConfig .configButton{
+	color: white;
+	font-family: inherit;
+	font-size: 18px;
+	font-weight: 600;
+	background-color: #333333;
+	border: none;
+	padding: 12px 14px 14px 14px;
+	cursor: pointer;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+
+
+}
+
+#fanbridgeConfig .configButton:focus,
+#fanbridgeConfig .configButton:hover {
+	background-color: #404040	
+}	
+
+
+#fanbridgeConfig .callout {
+	background-color: #EEE;
+	padding: 15px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+/* Error States */
+
+#configError li {
+	color: #fff;
+	background-color: #cc3333;
+	padding: 15px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	margin-bottom: 10px;
+}
+
+#configError ul {
+	display: block;
+	clear: both;
+}
