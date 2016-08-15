@@ -51,6 +51,7 @@ tmp/
 temp/
 ._*
 .Trashes
+/node_modules
 
 .svn
 
