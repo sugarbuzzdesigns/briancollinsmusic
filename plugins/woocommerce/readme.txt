@@ -2,7 +2,11 @@
 Contributors: automattic, mikejolley, jameskoster, claudiosanches, jshreve, coderkevin, woothemes, BFTrick
 Tags: ecommerce, e-commerce, store, sales, sell, shop, cart, checkout, downloadable, downloads, paypal, storefront
 Requires at least: 4.4
+<<<<<<< HEAD
 Tested up to: 4.6
+=======
+Tested up to: 4.5
+>>>>>>> 115ee789628eab70f1dc7fbc368f270c7c66fc10
 Stable tag: 2.6.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
