@@ -57,3 +57,4 @@ temp/
 
 *.codekit
 *.scssc
+**/debug.log
