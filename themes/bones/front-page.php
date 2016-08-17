@@ -3,18 +3,18 @@
 			<div id="content">
 				<div class="bg-wrap wrap">
 					<div id="bc-slideshow" class="cf no-mobile">
-						<ul class="bxslider">	
-							<li><a target="_blank" href="https://itunes.apple.com/us/album/healing-highway-single/id1088540194"><img src="http://briancollinsmusic.com/wp-content/uploads/2016/03/BC-Healing-Highway-Web-Banner.jpg" /></a></li>			
+						<ul class="bxslider">
+							<li><a target="_blank" href="https://itunes.apple.com/us/album/healing-highway-single/id1088540194"><img src="http://briancollinsmusic.com/wp-content/uploads/2016/03/BC-Healing-Highway-Web-Banner.jpg" /></a></li>
 							<li><a target="_blank" href="http://countrydeep.uverse.com/#type=artist&id=Brian"><img src="http://briancollinsmusic.com/wp-content/uploads/2015/07/BC_COUNTRY_DEEP_HERO.jpg" /></a></li>
 							<li><a target="_blank" href="http://www.sallfest.com/"><img src="http://briancollinsmusic.com/wp-content/uploads/2015/09/SALL_FEST_HERO.jpg" /></a></li>
 							<li><a target="_blank" href="https://www.youtube.com/watch?v=llbn88Lun7o&feature=youtu.be&list=UUfQ_YbFpX9NQsBR5X_kK59Q"><img src="http://briancollinsmusic.com/wp-content/uploads/2014/12/BC_NRL_VIDEO.jpg" /></a></li>
 							<li><img src="http://briancollinsmusic.com/wp-content/uploads/2015/09/BC_HH_HERO.jpg" /></li>
-							<!-- 
+							<!--
 							<li><img src="http://briancollinsmusic.com/wp-content/uploads/2015/06/BC_CMA_HERO_6-6-15.jpg"/></li>
 							<li><img src="http://briancollinsmusic.com/wp-content/uploads/2015/06/BC_SALL_HERO_6-6-15.jpg" alt=""></li>
 							<li><img src="http://briancollinsmusic.com/wp-content/uploads/2015/06/BC_ZUUS_HERO_6-6-15.jpg" alt=""></li> -->
-							
-							
+
+
 						</ul>
 					</div>
 
@@ -29,7 +29,7 @@
 								<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 							</form> -->
 						</div>
-					</div>					
+					</div>
 
 					<div id="video-feed" class="cf no-mobile d-1of2">
 						<div id="video-wrap">
@@ -54,10 +54,10 @@
 								</div>
 								<div class="video">
 									<iframe width="300" height="169" src="//www.youtube.com/embed/spyrU81JIA8?rel=0" frameborder="0" allowfullscreen></iframe>
-								</div>							
+								</div>
 								<div class="video">
 									<iframe width="300" height="169" src="//www.youtube.com/embed/_fqrGx9EuwY?rel=0" frameborder="0" allowfullscreen></iframe>
-								</div>							
+								</div>
 								<div class="video">
 									<iframe width="300" height="169" src="//www.youtube.com/embed/gscGxfldWnU?rel=0" frameborder="0" allowfullscreen></iframe>
 								</div>
@@ -75,11 +75,11 @@
 								</div>
 								<div class="video">
 									<iframe width="300" height="169" src="//www.youtube.com/embed/t39VeTinccs?rel=0" frameborder="0" allowfullscreen></iframe>
-								</div>																
-							</div>		
-						</div>									
-					</div>				
-		
+								</div>
+							</div>
+						</div>
+					</div>
+
 					<div id="main-content" class="cf no-mobile t-all">
 						<div id="left-col" class="d-1of2 t-1of2 front-page-col">
 							<div id="latest-news" class="inner-content d-all">
@@ -97,9 +97,9 @@
 										<?php the_content(); ?>
 									</div>
 								</div>
-								<?php endwhile; wp_reset_postdata(); endif; ?>		
+								<?php endwhile; wp_reset_postdata(); endif; ?>
 
-								<a href="http://briancollinsmusic.com/news/" class="see-all-news">See All News</a>	
+								<a href="http://briancollinsmusic.com/news/" class="see-all-news">See All News</a>
 
 								<style>
 									a.see-all-news {
@@ -116,8 +116,8 @@
 										background: #4C5563;
 										color: #fff;
 									}
-								</style>																		
-							</div>							
+								</style>
+							</div>
 						</div>
 						<div id="right-col" class="d-1of2 t-1of2 front-page-col">
 							<div id="newsletter-signup" class="inner-content d-all">
@@ -152,18 +152,18 @@
 													echo __( 'No products found' );
 												}
 												wp_reset_postdata();
-											?>									
+											?>
 										</div>
-									</div>	
-								</div>								
-							</div>								
+									</div>
+								</div>
+							</div>
 							<div class="inner-content d-all">
 								<h2 class="heading">Social</h2>
 								<div class="content">
 									<a class="twitter-timeline" href="https://twitter.com/officialbcb" data-widget-id="501590129476001792">Tweets by @officialbcb</a>
 									<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 								</div>
-							</div>	
+							</div>
 							<a href="" class="streetteam"><img src="<?php bloginfo('template_directory'); ?>/library/images/streetteam.jpg" alt=""></a>
 							<!-- Begin MailChimp Signup Form -->
 							<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
@@ -206,7 +206,7 @@
 								</form>
 							</div>
 							<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
-							<!--End mc_embed_signup-->							
+							<!--End mc_embed_signup-->
 						</div>
 						<script>
 							(function($){

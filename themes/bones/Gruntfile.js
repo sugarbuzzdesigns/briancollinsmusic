@@ -144,7 +144,7 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', ['watch']);
 
   // build and concat main js and modules
-  grunt.registerTask('jsBuild', ['clean:all', 'uglify', 'concat:build', 'concat:dist', 'clean:tmp']);
+  grunt.registerTask('jsBuild', ['clean:js', 'uglify', 'concat:build', 'concat:dist', 'clean:tmp']);
 
   // sass builds
   grunt.registerTask('sassAdmin', ['sass:admin']);
