@@ -1,5 +1,187 @@
 *** WooCommerce Product Bundles ***
 
+2016.08.16 - version 4.14.7
+ * Fix - Added missing argument to the core 'woocommerce_product_default_attributes' filter, used in 'class-wc-bundled-item.php'.
+ * Tweak - Modified woothemes.com references to woocommerce.com.
+
+2016.07.21 - version 4.14.6
+ * Fix - Synced bundled subscription always treated as prorated, resulting in wrong up-front price strings.
+ * Fix - Can't pay for failed/pending renewal order that contains subscription products which were part of a Product Bundle in the initial subscription order.
+ * Fix - WC_ROUNDING_PRECISION constant undefined in WC 2.6.3.
+
+2016.07.12 - version 4.14.5
+ * Fix - Product Data "Inventory" tab missing in WC 2.6+.
+
+2016.06.02 - version 4.14.4
+ * Tweak - Show admin inventory settings note as tooltip.
+ * Tweak - Added 'woocommerce_bundled_items' filter.
+ * Fix - When the validation of any bundled product with Add-ons fails, bundle-level Product Add-ons also fail to validate.
+ * Fix - 'WC_Product_Bundle' price methods 'get_bundle_price' and 'get_bundle_regular_price' now respect the '$display' argument when Per-Item Pricing is checked.
+ * Tweak - 'WC_Product_Bundle' price methods output is now cached in the object during its lifecycle.
+ * Tweak - Allow front-end JS object methods to be used with custom Bundle 'price_data' inputs for compatibility with WooCommerce Subscribe All the Things.
+ * Fix - Fixed support for Packing Lists in the WooCommerce Print Invoices and Packing Lists extension (didn't get it right last time, it seems).
+ * Fix - Ensure no dash is visible next to the bundled item title when an optional bundled item suffix is set to an empty string.
+
+2016.05.05 - version 4.14.3
+ * Fix - PHP warning in WC_PB_Order.
+ * Fix - Trigger 'woocommerce-product-bundle-initializing' event.
+ * Fix - JS console error when unavailable bundled item exists with minimum bundled quantity equal to 0.
+ * Fix - Added support for the WooCommerce Print Invoices and Packing Lists extension.
+ * Fix - Bundled subscription products are duplicated when paying for an order (order-pay endpoint). 
+
+2016.04.21 - version 4.14.2
+ * Fix - Bundled cart item 'product_id' value now correctly cast to the integer type, as required by WooCommerce core.
+ * Fix - Bundle range-format price strings display inverted min/max regular price values in some edge cases.
+ * Fix - "Total:" price string incorrectly showing up for bundles with a static price.
+
+2016.04.05 - version 4.14.1
+ * Fix - Up-front price calculation of bundled subscriptions.
+ * Fix - JS console error in Firefox due to missing event argument.
+ * Fix - Stray JS console log debug output.
+ * Fix - Long delay or timeout in admin when attempting to add a large variable product to a bundle.
+ * Fix - Support cart editing functionality in Composite Products.
+ * Tweak - Added 'woocommerce_bundle_front_end_params' filter.
+
+2016.03.31 - version 4.14.0
+ * Fix - Added 'bundled_by' and 'bundled_items' keys to WC API order response data, to assist in establishing Product Bundles parent/child item relationships.
+ * Fix - Added 'bundled_item_title' key to WC API order response data, to assist in retrieving overridden bundled item titles.
+ * Fix - Modified bundle parent/child weight and dimension keys in WC API order response data, depending on the "Per-Item Shipping" option state and exact cart package content.
+ * Fix - Added price suffix to JS-generated total. To calculate prices incl/excl tax, prices passed to the script are now raw, instead of based on the 'tax_display_shop' setting.
+ * Fix - Fixed front-end rounding issues with display prices incl/excl tax and prices defined excl/incl tax when quantity > 1. All JS price calculations are now carried out using 4th decimal precision.
+ * Fix - Wrong cart package 'contents_cost' value when a bundle is not shipped per-item.
+ * Dev Feature - Introduced JS API for accessing various Bundle properties including prices, availability statuses, validation messages and configuration data.
+ * Fix - Limit use of 'woocommerce_get_item_count' filter within the front-end "My Account" area.
+ * Fix - Add support for Composite Products v3.6.0.
+
+2016.02.11 - version 4.13.3
+ * Fix - Missing variations in the Variation Filtering dropdown options.
+ * Tweak - Improved handling of bundles with unavailable/deleted products.
+ * Tweak - Statically-priced Bundles with subscription products: No longer show zero recurring totals in cart.
+ * Fix - Bundle availability no longer shows as "insufficient" if the min quantity of all out-of-stock bundled items is zero.
+ * Fix - Validate screen id when calling get_current_screen().
+ * Fix - 'wc_composite_get_template' deprecated notice.
+
+2016.01.20 - version 4.13.2
+ * Fix - Incorrect base price calculations incl/excl tax when the Base Price field is empty.
+
+2016.01.13 - version 4.13.1
+ * Fix - Fatal error associated with 'wc_get_product_cat_ids' function missing from WC versions earlier than 2.5.
+ * Fix - Bundle price strings incorrectly appearing in strikethrough "from-to" format, with the before/after prices exactly the same.
+ * Tweak - Moved all WC back-compatibility functions into the 'WC_PB_Core_Compatibility' class. Deprecated the old ones.
+
+2016.01.07 - version 4.13.0
+ * Important - Subscriptions v2.0+ required when bundling subscription products.
+ * Important - Bundle price methods get_price(), get_regular_price() and get_sale_price() now always return the minimum prices of a bundle for a uniform behaviour with other WC product types. To avoid issues in cart when the "Per-Item Pricing" option is checked, all container cart item properties are set to their base price counterparts when session data is loaded.
+ * Fix - Bundled subscription recurring totals are now properly grouped based on the subscription period, interval and length of the selected bundled items.
+ * Fix - Handling of bundled products in coupons. Coupon validity of bundled items is now inherited from their parents - specifically: A coupon cannot be valid for a bundled item if the bundle that contains it is excluded from the coupon. A coupon will be valid for a bundled item if it is valid for the bundle that contains it, unless the coupon exclusion rules apply to the bundled item itself.
+ * Tweak - Added 'woocommerce_bundled_add_to_cart' action.
+ * Fix - Unnecessary casting of bundled product prices to double.
+ * Fix - Made "Required option" string translatable.
+ * Fix - Missing bundled variable product quantity fields under specific conditions.
+ * Fix - Ajax add-to-cart in WC 2.5.
+ * Tweak - Move QuickView compatibility filters into separate class.
+ * Tweak - Added WC_PB_Order::get_bundle_parent and WC_PB_Order::get_bundle_children functions.
+ * Tweak - Renamed "Non-Bundled Shipping" to "Per-Item Shipping" for clarity.
+
+2015.12.09 - version 4.12.2
+ * Fix - Broken Add-ons on Composite Products that contain Bundles.
+ * Fix - jQuery '.finish' error.
+ * Fix - Max bundle-level quantity input field respects the available stock.
+ * Fix - Max bundled-item-level quantity input fields respect the available stock.
+ * Tweak - Append quantity values to bundled item titles.
+
+2015.11.26 - version 4.12.1
+ * Fix - Check product exists when filtering 'get_product_from_item'.
+
+2015.11.25 - version 4.12.0
+ * Important - Support for WC 2.2 has been dropped in order to allow posting variable product form content more reliably - input fields are now posted directly.
+ * Important - Template files 'bundle.php', 'bundle-product.php', 'bundled-item-quantity.php' and 'bundled-product-variable.php' have been updated! If your theme overrides any updated templates, please review and update your customizations!
+ * Feature - Leave the Max Quantity field empty for an unlimited max bundled item quantity.
+ * Feature - Separate bundled-item visibility controls for the single-product, cart and order/e-mail templates.
+ * Tweak - Add 'hidden' class to bundled items hidden from the single-product template.
+ * Tweak - Use 'yes|no' instead of true|false for boolean price data.
+ * Tweak - Simplify bundled product admin metaboxes: Introduced "Basic"/"Advanced" tabs to tidy up the available options.
+ * Tweak - Modified multiple admin strings.
+ * Fix - Prevent "no products matched your selection" alert from appearing when variation filters are in use.
+ * Fix - Update 'woocommerce_stock_html' filter arguments.
+
+2015.11.04 - version 4.11.7
+ * Fix - Fix json_encode() recursion error with older versions of PHP.
+ * Tweak - Deprecate 'has_variables' method with 'requires_input'.
+
+2015.11.03 - version 4.11.6
+ * Feature - Support for Variable Subscriptions.
+ * Feature - Ability to define a base price.
+ * Fix - Optional variable bundled item price string did not take into account discounts.
+ * Tweak - Change method of attaching price filters. Moved price filters into the helpers class.
+ * Fix - When the min quantity of an out-of-stock bundled item is 0, front-end validation should allow the bundle to be purchased.
+ * Fix - Quantities exposed to 3rd party scripts can be incorrect when front-end validation fails.
+ * Fix - Preserve original bundled item session data if present (WPML compatibility).
+
+2015.10.06 - version 4.11.5
+ * Dev Tweak - Introduced 'woocommerce_bundled_cart_item' filter to make it easier for 3rd party plugins to modify bundled cart items.
+ * Dev Feature - Added support for the "Tabular Layout" mini-extension: https://github.com/somewherewarm/woocommerce-product-bundles-tabular-layout.
+ * Dev Feature - Ability to set min/max bundled item count constraints with the "Min/Max Items" mini-extension: https://github.com/somewherewarm/woocommerce-product-bundles-min-max-items.
+ * Tweak - Added 'woocommerce_bundled_products_admin_config' action to allow adding custom settings under the "Bundled Products" tab.
+ * Dev Feature - Added 'woocommerce-product-bundle-initialized', 'woocommerce-product-bundle-validate' triggers in script to allow 3rd party code to carry out custom validation tasks.
+ * Tweak - Added 'woocommerce_bundles_optional_bundled_item_suffix' filter.
+ * Tweak - Changed 'WC_PB_Stock_Manager' constructor and 'validate_stock' args. Container product can be optionally passed in constructor and is accessible publicly.
+ * Tweak - Added 'woocommerce_bundles_synced_bundle' action.
+
+2015.09.05 - version 4.11.4
+ * Tweak - Abandoned use of the $woocommerce_bundles global in favour of WC_PB(), which now returns the main instance of the plugin.
+ * Tweak - Front-end performance tweaks.
+ * Tweak - Display prices in WC_Bundled_Item class now obtained using the 'get_bundled_item_price' and 'get_bundled_item_regular_price' methods. Class min/max price properties are now based on raw bundled product prices.
+ * Fix - Missing bundled item attributes under "Additional Information" in WC 2.4.
+ * Tweak - Refactor compatibility class.
+ * Fix - Respect bundled item visibility status when displaying attributes of bundled items in the "Additional Information" tab.
+ * Tweak - Price filter widget results are now based on the '_price' meta only. Meta fields '_min_bundle_price' and '_max_bundle_price' are no longer used.
+ * Tweak - Improved Shipstation integration: Send both container/child order items to allow stock management via Shipstation. Container/child items that are not shipped individually are exported with zero weight to prevent unnecessary shipping cost charges.
+
+2015.08.26 - version 4.11.3
+ * Fix - Bundled item name issues in specific admin areas, such as the Orders page.
+ * Fix - Shipstation integration.
+
+2015.08.25 - version 4.11.2
+ * Fix - Load cart-item session data only when not present.
+ * Fix - Revise admin JS 'show_if_bundle' / 'hide_if_bundle' logic for improved plugin compatibility.
+
+2015.08.10 - version 4.11.1
+ * Fix - Allow script re-init for the same bundle id.
+
+2015.08.03 - version 4.11.0
+ * Fix - WC 2.4 support.
+ * Important - Dropped WC 2.1 support.
+ * Important - Refactored templating engine for easier customization with hooks. Updated 'bundled-product-variable.php' template to support new handling of text-based attributes in WC 2.4. If your theme overrides any updated templates, please review and update your customizations!
+ * Important - Updated support for Composite Products v3.2. Bundles added in Composite Products require Composite Products v3.2 to work.
+ * Tweak - Moved single product template functions and hooks out of the display class and into separate files. Hooked functions are global and no longer methods of the display class.
+ * Fix - Minor admin styling fixes for WC 2.4.
+ * Fix - Improved CSS for theme compatibility.
+ * Fix - Validation message animation issues with some themes.
+
+2015.07.23 - version 4.10.1
+ * Fix - Default bundled variable product attributes not initialized properly.
+
+2015.07.20 - version 4.10.0
+ * Fix - Compatibility with 3rd party plugins that display out-of-stock statuses in shop pages.
+ * Fix - Revise creation of 'bundle' product type on activation.
+ * Tweak - Refactor front-end script.
+ * Tweak - Relocate the JS validation notices container. Apply core style classes to JS validation messages.
+
+2015.06.09 - version 4.9.5
+ * Fix - Correct l8n context for a number of strings.
+ * Fix - Division by zero PHP warnings.
+ * Fix - Allow shortcodes in bundled product descriptions.
+ * Tweak - Localize quantity '&times;' string and bundled product title strings.
+ * Tweak - CSS tweaks to prevent cutting off JS dropdowns.
+
+2015.05.18 - version 4.9.4
+ * Fix - Sanitize attribute meta values when validating defaults.
+ * Fix - Escaped product title in bundled product templates.
+ * Fix - Bundle price strings with synced Subscriptions.
+ * Fix - Incorrect get_max_bundle_price() value when a bundle contains optional items.
+ * Fix - Fatal error when a Bundle in cart contains discounted bundled items that were deleted from the Bundle after the cart session data was saved.
+
 2015.04.21 - version 4.9.3
  * Feature - Support optional Subscriptions.
  * Feature - Support for multiple bundled subscriptions (WC Subscriptions v2.0+).

@@ -1,151 +1,86 @@
 <?php
 /**
- * Product bundle add to cart template.
+ * Product Bundle add-to-cart template.
  *
- * @version 4.8.8
+ * Override this template by copying it to 'yourtheme/woocommerce/single-product/add-to-cart/bundle.php'.
+ *
+ * On occasion, this template file may need to be updated and you (the theme developer) will need to copy the new files to your theme to maintain compatibility.
+ * We try to do this as little as possible, but it does happen.
+ * When this occurs the version of the template file will be bumped and the readme will list any important changes.
+ *
+ * @version  4.12.0
  */
 
-// Exit if accessed directly
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-global $woocommerce, $product, $woocommerce_bundles;
+global $woocommerce, $product;
 
 do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
 <form method="post" enctype="multipart/form-data" class="bundle_form" ><?php
 
+	do_action( 'woocommerce_before_bundled_items' );
+
 	foreach ( $bundled_items as $bundled_item ) {
 
-		$bundled_product = $bundled_item->product;
-
-		?><div class="bundled_product bundled_product_summary product <?php echo $bundled_item->get_classes(); ?>" style="<?php echo ( ! $bundled_item->is_visible() ? 'display:none;' : '' ); ?>" ><?php
-
-			// Title template
-			wc_get_template( 'single-product/bundled-item-title.php', array(
-				'quantity'     => $bundled_item->get_quantity(),
-				'title'        => $bundled_item->get_title(),
-				'optional'     => $bundled_item->is_optional(),
-				'bundled_item' => $bundled_item,
-			), false, $woocommerce_bundles->woo_bundles_plugin_path() . '/templates/' );
-
-
-			if ( $bundled_item->is_visible() ) {
-
-				// Image template
-				if ( $bundled_item->is_thumbnail_visible() ) {
-					wc_get_template( 'single-product/bundled-item-image.php', array( 'post_id' => $bundled_product->id ), false, $woocommerce_bundles->woo_bundles_plugin_path() . '/templates/' );
-				}
-			}
-
-			?><div class="details"><?php
-
-				// Description template
-				wc_get_template( 'single-product/bundled-item-description.php', array(
-					'description' => $bundled_item->get_description()
-				), false, $woocommerce_bundles->woo_bundles_plugin_path() . '/templates/' );
-
-				if ( $bundled_item->is_purchasable() ) {
-
-					$availability = $bundled_item->get_availability();
-
-					$bundled_item->add_price_filters();
-
-					if ( $bundled_item->is_optional() ) {
-
-						// Optional checkbox template
-						wc_get_template( 'single-product/bundled-item-optional.php', array(
-							'quantity'             => $bundled_item->get_quantity(),
-							'bundled_item'         => $bundled_item,
-							'bundle_fields_prefix' => ''
-						), false, $woocommerce_bundles->woo_bundles_plugin_path() . '/templates/' );
-					}
-
-					if ( $bundled_product->product_type === 'simple' || $bundled_product->product_type === 'subscription' ) {
-
-						// Simple Product template
-						wc_get_template( 'single-product/bundled-product-simple.php', array(
-							'bundled_product'      => $bundled_product,
-							'bundled_item'         => $bundled_item,
-							'bundle'               => $product,
-							'bundle_fields_prefix' => '',
-							'availability'         => $availability
-						), false, $woocommerce_bundles->woo_bundles_plugin_path() . '/templates/' );
-
-					} elseif ( $bundled_product->product_type === 'variable' ) {
-
-						// Variable Product template
-						wc_get_template( 'single-product/bundled-product-variable.php', array(
-							'bundled_product'                     => $bundled_product,
-							'bundled_item'                        => $bundled_item,
-							'bundle'                              => $product,
-							'bundle_fields_prefix'                => '',
-							'availability'                        => $availability,
-							'bundled_product_attributes'          => $attributes[ $bundled_item->item_id ],
-							'bundled_product_variations'          => $available_variations[ $bundled_item->item_id ],
-							'bundled_product_selected_attributes' => $selected_attributes[ $bundled_item->item_id ]
-						), false, $woocommerce_bundles->woo_bundles_plugin_path() . '/templates/' );
-					}
-
-					$bundled_item->remove_price_filters();
-
-				} else {
-					echo __( 'Sorry, this item is not available at the moment.', 'woocommerce-product-bundles' );
-				}
-
-			?></div>
-		</div><?php
+		/**
+		 * wc_bundles_bundled_item_details hook
+		 *
+		 * @hooked wc_bundles_bundled_item_details_wrapper_open  -   0
+		 * @hooked wc_bundles_bundled_item_thumbnail             -   5
+		 * @hooked wc_bundles_bundled_item_details_open          -  10
+		 * @hooked wc_bundles_bundled_item_title                 -  15
+		 * @hooked wc_bundles_bundled_item_description           -  20
+		 * @hooked wc_bundles_bundled_item_product_details       -  25
+		 * @hooked wc_bundles_bundled_item_details_close         -  30
+		 * @hooked wc_bundles_bundled_item_details_wrapper_close - 100
+		 */
+		do_action( 'wc_bundles_bundled_item_details', $bundled_item, $product );
 	}
 
-	if ( $product->is_purchasable() ) {
+	do_action( 'woocommerce_after_bundled_items' ); ?>
 
-		?><div class="cart bundle_data bundle_data_<?php echo $product->id; ?>" data-button_behaviour="<?php echo esc_attr( apply_filters( 'woocommerce_bundles_button_behaviour', 'new', $product ) ); ?>" data-bundle_price_data="<?php echo esc_attr( json_encode( $bundle_price_data ) ); ?>" data-bundle-id="<?php echo $product->id; ?>"><?php
+	<div class="cart bundle_data bundle_data_<?php echo $product->id; ?>" data-bundle_price_data="<?php echo esc_attr( json_encode( $bundle_price_data ) ); ?>" data-bundle_id="<?php echo $product->id; ?>"><?php
+
+		if ( $product->is_purchasable() ) {
 
 			do_action( 'woocommerce_before_add_to_cart_button' );
 
-			?><div class="bundle_wrap" style="<?php echo apply_filters( 'woocommerce_bundles_button_behaviour', 'new', $product ) == 'new' ? '' : 'display:none'; ?>">
-				<div class="bundle_price"></div><?php
+			?><div class="bundle_wrap">
+				<div class="bundle_price"></div>
+				<div class="bundle_error" style="display:none"><ul class="msg woocommerce-info"></ul></div><?php
 
-				// Bundle Availability
-				$availability = $product->get_availability();
+				$availability      = $product->get_availability();
+				$availability_html = empty( $availability[ 'availability' ] ) ? '' : '<p class="stock ' . esc_attr( $availability[ 'class' ] ) . '">' . esc_html( $availability[ 'availability' ] ) . '</p>';
 
-				if ( $availability[ 'availability' ] ) {
-					echo apply_filters( 'woocommerce_stock_html', '<p class="stock ' . $availability[ 'class' ] . '">' . $availability[ 'availability' ] . '</p>', $availability[ 'availability' ] );
-				}
+				echo apply_filters( 'woocommerce_stock_html', $availability_html, $availability[ 'availability' ], $product );
 
 				?><div class="bundle_button"><?php
 
-					foreach ( $bundled_items as $bundled_item_id => $bundled_item ) {
-
-						$bundled_item_id = $bundled_item->item_id;
-						$bundled_product = $bundled_item->product;
-
-						if ( $bundled_product->product_type === 'variable' ) {
-
-							?><input type="hidden" name="bundle_variation_id_<?php echo $bundled_item_id; ?>" class="bundle_variation_id_<?php echo $bundled_item_id; ?>" value="" /><?php
-
-							foreach ( $attributes[ $bundled_item_id ] as $name => $options ) { ?>
-								<input type="hidden" name="bundle_attribute_<?php echo sanitize_title( $name ); ?>_<?php echo $bundled_item_id; ?>" class="bundle_attribute_<?php echo sanitize_title( $name ); ?>_<?php echo $bundled_item_id; ?>" value=""><?php
-							}
-						}
-					}
-
+					/**
+					 * woocommerce_bundles_add_to_cart_button hook.
+					 *
+					 * @hooked wc_bundles_add_to_cart_button - 10
+					 */
 					do_action( 'woocommerce_bundles_add_to_cart_button' );
 
 				?></div>
 				<input type="hidden" name="add-to-cart" value="<?php echo $product->id; ?>" />
-			</div>
+			</div><?php
 
-			<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
+			 do_action( 'woocommerce_after_add_to_cart_button' );
 
-		</div><?php
+		} else {
 
-	} else {
-		?><div class="bundle_unavailable"><?php
-			echo __( 'This product is temporarily unavailable.', 'woocommerce-product-bundles' );
-		?></div><?php
-	}
+			?><div class="bundle_unavailable woocommerce-info"><?php
+				echo __( 'This product is currently unavailable.', 'woocommerce-product-bundles' );
+			?></div><?php
+		}
+
+	?></div><?php
 
 ?></form>
 

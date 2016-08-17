@@ -2,94 +2,74 @@
 /**
  * Variable Bundled Product Template.
  *
- * @version 4.8.8
+ * Override this template by copying it to 'yourtheme/woocommerce/single-product/bundled-product-variable.php'.
+ *
+ * On occasion, this template file may need to be updated and you (the theme developer) will need to copy the new files to your theme to maintain compatibility.
+ * We try to do this as little as possible, but it does happen.
+ * When this occurs the version of the template file will be bumped and the readme will list any important changes.
+ *
+ * @version 4.12.0
  */
 
-// Exit if accessed directly
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-global $woocommerce_bundles;
+if ( ! $bundled_product_variations ) {
+	echo '<p class="bundled_item_unavailable">' . __( 'This item is not available at the moment.', 'woocommerce-product-bundles' ) . '</p>';
+} else {
 
-?><div class="cart bundled_item_cart_content" data-title="<?php echo $bundled_item->get_raw_title(); ?>" style="<?php echo $bundled_item->is_optional() && ! $bundled_item->is_optional_checked() ? 'display:none;' : ''; ?>" data-optional="<?php echo $bundled_item->is_optional() ? true : false; ?>" data-type="<?php echo $bundled_product->product_type; ?>" data-product_variations="<?php echo esc_attr( json_encode( $bundled_product_variations ) ); ?>" data-bundled_item_id="<?php echo $bundled_item->item_id; ?>" data-product_id="<?php echo $bundle->id . str_replace( '_', '', $bundled_item->item_id ); ?>" data-bundle_id="<?php echo $bundle->id; ?>">
-	<table class="variations" cellspacing="0">
-		<tbody><?php
+	?><div class="cart bundled_item_cart_content" data-title="<?php echo esc_attr( $bundled_item->get_raw_title() ); ?>" data-optional_suffix="<?php echo $bundled_item->is_optional() ? apply_filters( 'woocommerce_bundles_optional_bundled_item_suffix', __( 'optional', 'woocommerce-product-bundles' ), $bundled_item, $bundle ) : ''; ?>" data-optional="<?php echo $bundled_item->is_optional() ? 'yes' : 'no'; ?>" data-type="<?php echo $bundled_product->product_type; ?>" data-product_variations="<?php echo esc_attr( json_encode( $bundled_product_variations ) ); ?>" data-bundled_item_id="<?php echo $bundled_item->item_id; ?>" data-product_id="<?php echo $bundled_item->product->id; ?>" data-bundle_id="<?php echo $bundle->id; ?>">
+		<table class="variations" cellspacing="0">
+			<tbody><?php
 
-		$loop = 0;
+				$attribute_keys = array_keys( $bundled_product_attributes );
 
-		foreach ( $bundled_product_attributes as $name => $options ) {
+				foreach ( $bundled_product_attributes as $attribute_name => $options ) {
 
-			$loop++;
+					?><tr class="attribute-options" data-attribute_label="<?php echo wc_attribute_label( $attribute_name ); ?>">
+						<td class="label">
+							<label for="<?php echo sanitize_title( $attribute_name ) . '_' . $bundled_item->item_id; ?>"><?php echo wc_attribute_label( $attribute_name ); ?> <abbr class="required" title="<?php _e( 'Required option', 'woocommerce-product-bundles' ); ?>">*</abbr></label>
+						</td>
+						<td class="value"><?php
 
-			?><tr class="attribute-options" data-attribute_label="<?php echo wc_attribute_label( $name ); ?>">
-				<td class="label">
-					<label for="<?php echo sanitize_title( $name ) . '_' . $bundled_item->item_id; ?>"><?php echo wc_attribute_label( $name ); ?> <abbr class="required" title="required">*</abbr></label>
-				</td>
-				<td class="value">
-					<select id="<?php echo esc_attr( sanitize_title( $name ) . '_' . $bundled_item->item_id ); ?>" name="attribute_<?php echo sanitize_title( $name ); ?>">
-						<option value=""><?php echo __( 'Choose an option', 'woocommerce' ) ?>&hellip;</option><?php
+							$selected = isset( $_REQUEST[ $bundle_fields_prefix . 'bundle_attribute_' . sanitize_title( $attribute_name ) . '_' . $bundled_item->item_id ] ) ? wc_clean( $_REQUEST[ $bundle_fields_prefix . 'bundle_attribute_' . sanitize_title( $attribute_name ) . '_' . $bundled_item->item_id ] ) : $bundled_item->get_selected_product_variation_attribute( $attribute_name );
 
-						if ( is_array( $options ) ) {
+							WC_PB_Core_Compatibility::wc_dropdown_variation_attribute_options( array(
+								'options'   => $options,
+								'attribute' => $attribute_name,
+								'name'      => $bundle_fields_prefix . 'bundle_attribute_' . sanitize_title( $attribute_name ) . '_' . $bundled_item->item_id,
+								'product'   => $bundled_product,
+								'selected'  => $selected,
+							) );
 
-							if ( isset( $_REQUEST[ $bundle_fields_prefix . 'bundle_attribute_' . sanitize_title( $name ) . '_' . $bundled_item->item_id ] ) ) {
-								$selected_value = $_REQUEST[ $bundle_fields_prefix . 'bundle_attribute_' . sanitize_title( $name ) . '_' . $bundled_item->item_id ];
-							} elseif ( isset( $bundled_product_selected_attributes[ sanitize_title( $name ) ] ) ) {
-								$selected_value = $bundled_product_selected_attributes[ sanitize_title( $name ) ];
-							} else {
-								$selected_value = '';
-							}
+							echo end( $attribute_keys ) === $attribute_name ? '<a class="reset_variations" href="#">' . __( 'Clear', 'woocommerce-product-bundles' ) . '</a>' : '';
 
-							// Placeholder: Do not show filtered-out (disabled) options
+						?></td>
+					</tr><?php
+				}
 
-							if ( taxonomy_exists( $name ) ) {
+			?></tbody>
+		</table><?php
 
-								$terms = wc_bundles_get_product_terms( $bundled_product->id, $name, array( 'fields' => 'all' ) );
+		/**
+		 * woocommerce_bundled_product_add_to_cart hook.
+		 *
+		 * Used to output content normally hooked to 'woocommerce_before_add_to_cart_button'.
+		 */
+		do_action( 'woocommerce_bundled_product_add_to_cart', $bundled_product->id, $bundled_item );
 
-								foreach ( $terms as $term ) {
+		?><div class="single_variation_wrap bundled_item_wrap"><?php
 
-									if ( ! in_array( $term->slug, $options ) ) {
-										continue;
-									}
-
-									echo '<option value="' . esc_attr( $term->slug ) . '" ' . selected( sanitize_title( $selected_value ), sanitize_title( $term->slug ), false ) . '>' . apply_filters( 'woocommerce_variation_option_name', $term->name ) . '</option>';
-								}
-
-							} else {
-
-								foreach ( $options as $option ) {
-									echo '<option value="' . esc_attr( sanitize_title( $option ) ) . '" ' . selected( sanitize_title( $selected_value ), sanitize_title( $option ), false ) . '>' . esc_html( apply_filters( 'woocommerce_variation_option_name', $option ) ) . '</option>';
-								}
-							}
-						}
-
-					?></select><?php
-
-					if ( sizeof( $bundled_product_attributes ) == $loop ) {
-						echo '<a class="reset_variations" href="#reset_' . $bundled_item->item_id . '">' . __( 'Clear selection', 'woocommerce' ) . '</a>';
-					}
-
-				?></td>
-			</tr><?php
-		}
-
-		?></tbody>
-	</table><?php
-
-	// Compatibility with plugins that normally hook to woocommerce_before_add_to_cart_button
-	do_action( 'woocommerce_bundled_product_add_to_cart', $bundled_product->id, $bundled_item );
-
-	?><div class="single_variation_wrap bundled_item_wrap" style="display:none;">
-		<div class="single_variation bundled_item_cart_details"></div>
-		<div class="variations_button bundled_item_button">
-			<input type="hidden" name="variation_id" value="" /><?php
-
-			wc_get_template( 'single-product/bundled-item-quantity.php', array(
-					'bundled_item'         => $bundled_item,
-					'bundle_fields_prefix' => $bundle_fields_prefix
-				), false, $woocommerce_bundles->woo_bundles_plugin_path() . '/templates/'
-			);
+			/**
+			 * woocommerce_bundled_single_variation hook. Used to output variation data.
+			 * @since 4.12.0
+			 *
+			 * @hooked wc_bundles_single_variation - 10
+			 */
+			do_action( 'woocommerce_bundled_single_variation', $bundled_product->id, $bundled_item );
 
 		?></div>
-	</div>
-</div>
+	</div><?php
+}

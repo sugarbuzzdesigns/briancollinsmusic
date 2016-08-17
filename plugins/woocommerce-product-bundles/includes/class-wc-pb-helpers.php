@@ -2,151 +2,522 @@
 /**
  * Product Bundle Helper Functions.
  *
- * @class 	WC_PB_Helpers
- * @version 4.8.8
+ * @class   WC_PB_Helpers
+ * @version 4.14.1
  * @since   4.0.0
  */
 
-// Exit if accessed directly
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 class WC_PB_Helpers {
 
-	public $wc_option_calculate_taxes;
-	public $wc_option_tax_display_shop;
-	public $wc_option_prices_include_tax;
+	public static $bundled_item;
 
-	private $variations_cache = array();
-
-	function __construct() {
-
-		global $woocommerce;
-
-		$this->wc_option_calculate_taxes 	= get_option( 'woocommerce_calc_taxes' );
-		$this->wc_option_tax_display_shop 	= get_option( 'woocommerce_tax_display_shop' );
-		$this->wc_option_prices_include_tax = get_option( 'woocommerce_prices_include_tax' );
-	}
+	public static $cache = array();
 
 	/**
-	 * Use it to avoid repeated get_child calls for the same variation.
+	 * Simple cache getter.
 	 *
-	 * @param  int                   $variation_id
-	 * @param  WC_Product_Variable   $product
-	 * @return WC_Product_Variation
+	 * @param  string $key
+	 * @return mixed
 	 */
-	function get_variation( $variation_id, $product ) {
-
-		if ( isset( $this->variations_cache[ $variation_id ] ) )
-			return $this->variations_cache[ $variation_id ];
-
-		$variation = $product->get_child( $variation_id, array(
-			'parent_id' => $product->id,
-			'parent' 	=> $product
-		) );
-
-		$this->variations_cache[ $variation_id ] = $variation;
-
-		return $variation;
+	public static function cache_get( $key ) {
+		$value = null;
+		if ( isset( self::$cache[ $key ] ) ) {
+			$value = self::$cache[ $key ];
+		}
+		return $value;
 	}
 
 	/**
-	 * Bundled product availability that takes quantity into account.
+	 * Simple cache setter.
+	 *
+	 * @param  string $key
+	 * @param  mixed  $value
+	 * @return void
+	 */
+	public static function cache_set( $key, $value ) {
+		self::$cache[ $key ] = $value;
+	}
+
+	/**
+	 * True when processing a FE request.
+	 *
+	 * @return boolean
+	 */
+	public static function is_front_end() {
+		$is_fe = ( ! is_admin() ) || ( defined( 'DOING_AJAX' ) && DOING_AJAX );
+		return $is_fe;
+	}
+
+	/**
+	 * Filters the 'woocommerce_price_num_decimals' option to use the internal WC rounding precision.
+	 *
+	 * @return void
+	 */
+	public static function extend_price_display_precision() {
+		add_filter( 'option_woocommerce_price_num_decimals', array( 'WC_PB_Core_Compatibility', 'wc_get_rounding_precision' ) );
+	}
+
+	/**
+	 * Reset applied filters to the 'woocommerce_price_num_decimals' option.
+	 *
+	 * @return void
+	 */
+	public static function reset_price_display_precision() {
+		remove_filter( 'option_woocommerce_price_num_decimals', array( 'WC_PB_Core_Compatibility', 'wc_get_rounding_precision' ) );
+	}
+
+	/**
+	 * Calculates bundled product prices incl. or excl. tax depending on the 'woocommerce_tax_display_shop' setting.
 	 *
 	 * @param  WC_Product   $product    the product
-	 * @param  int          $quantity   the quantity
-	 * @return array                    availability data
+	 * @param  double       $price      the product price
+	 * @return double                   modified product price incl. or excl. tax
 	 */
-	function get_bundled_product_availability( $product, $quantity ) {
+	public static function get_product_display_price( $product, $price ) {
 
-		$availability = $class = '';
+		if ( ! $price ) {
+			return $price;
+		}
 
-		if ( $product->managing_stock() ) {
+		if ( get_option( 'woocommerce_tax_display_shop' ) === 'excl' ) {
+			$product_price = $product->get_price_excluding_tax( 1, $price );
+		} else {
+			$product_price = $product->get_price_including_tax( 1, $price );
+		}
 
-			if ( $product->is_in_stock() && $product->get_total_stock() > get_option( 'woocommerce_notify_no_stock_amount' ) && $product->get_total_stock() >= $quantity ) {
+		return $product_price;
+	}
 
-				switch ( get_option( 'woocommerce_stock_format' ) ) {
+	/**
+	 * Returns the recurring price component of a subscription product.
+	 *
+	 * @param  WC_Product $product
+	 * @return string
+	 */
+	public static function get_recurring_price_html_component( $product ) {
 
-					case 'no_amount' :
-						$availability = __( 'In stock', 'woocommerce' );
-					break;
+		$sync_date = $product->subscription_payment_sync_date;
+		$product->subscription_payment_sync_date = 0;
 
-					case 'low_amount' :
-						if ( $product->get_total_stock() <= get_option( 'woocommerce_notify_low_stock_amount' ) ) {
-							$availability = sprintf( __( 'Only %s left in stock', 'woocommerce' ), $product->get_total_stock() );
+		$sub_price_html = WC_Subscriptions_Product::get_price_string( $product, array( 'price' => '%s', 'sign_up_fee' => false ) );
 
-							if ( $product->backorders_allowed() && $product->backorders_require_notification() ) {
-								$availability .= ' ' . __( '(can be backordered)', 'woocommerce' );
-							}
-						} else {
-							$availability = __( 'In stock', 'woocommerce' );
-						}
-					break;
+		$product->subscription_payment_sync_date = $sync_date;
 
-					default :
-						$availability = sprintf( __( '%s in stock', 'woocommerce' ), $product->get_total_stock() );
+		return $sub_price_html;
+	}
 
-						if ( $product->backorders_allowed() && $product->backorders_require_notification() ) {
-							$availability .= ' ' . __( '(can be backordered)', 'woocommerce' );
-						}
-					break;
-				}
+	/**
+	 * Loads variation ids for a given variable product.
+	 *
+	 * @param  int    $item_id
+	 * @return array
+	 */
+	public function get_product_variations( $item_id ) {
 
-				$class = 'in-stock';
+		if ( WC_PB_Core_Compatibility::is_wc_version_gte_2_4() ) {
+			$transient_name = 'wc_product_children_' . $item_id;
+			$transient      = get_transient( $transient_name );
+			$variations     = isset( $transient[ 'all' ] ) && is_array( $transient[ 'all' ] ) ? $transient[ 'all' ] : false;
+		} else {
+			$transient_name = 'wc_product_children_ids_' . $this->id . WC_Cache_Helper::get_transient_version( 'product' );
+			$variations     = get_transient( $transient_name );
+		}
 
-			} elseif ( $product->backorders_allowed() && $product->backorders_require_notification() ) {
+        if ( false === $variations ) {
 
-				if ( $product->get_total_stock() >= $quantity || get_option( 'woocommerce_stock_format' ) == 'no_amount' )
-					$availability = __( 'Available on backorder', 'woocommerce' );
-				else
-					$availability = __( 'Available on backorder', 'woocommerce' ) . ' ' . sprintf( __( '(only %s left in stock)', 'woocommerce-product-bundles' ), $product->get_total_stock() );
+			$args = array(
+				'post_type'   => 'product_variation',
+				'post_status' => array( 'publish' ),
+				'numberposts' => -1,
+				'orderby'     => 'menu_order',
+				'order'       => 'asc',
+				'post_parent' => $item_id,
+				'fields'      => 'ids'
+			);
 
-				$class = 'available-on-backorder';
+			$variations = get_posts( $args );
+		}
 
-			} elseif ( $product->backorders_allowed() ) {
+		return $variations;
+	}
 
-				$availability = __( 'In stock', 'woocommerce' );
-				$class        = 'in-stock';
+	/**
+	 * Return a formatted product title based on id.
+	 *
+	 * @param  int    $product_id
+	 * @return string
+	 */
+	public function get_product_title( $product_id, $suffix = '' ) {
 
+		$title = get_the_title( $product_id );
+
+		if ( $suffix ) {
+			$title = sprintf( _x( '%1$s %2$s', 'product title followed by suffix', 'woocommerce-product-bundles' ), $title, $suffix );
+		}
+
+		$sku = get_post_meta( $product_id, '_sku', true );
+
+		if ( ! $title ) {
+			return false;
+		}
+
+		if ( $sku ) {
+			$sku = sprintf( __( 'SKU: %s', 'woocommerce-product-bundles' ), $sku );
+		} else {
+			$sku = '';
+		}
+
+		return self::format_product_title( $title, $sku, '', true );
+	}
+
+	/**
+	 * Return a formatted product title based on variation id.
+	 *
+	 * @param  int    $item_id
+	 * @return string
+	 */
+	public function get_product_variation_title( $variation_id ) {
+
+		if ( is_object( $variation_id ) ) {
+			$variation = $variation_id;
+		} else {
+			$variation = wc_get_product( $variation_id );
+		}
+
+		if ( ! $variation ) {
+			return false;
+		}
+
+		if ( WC_PB_Core_Compatibility::is_wc_version_gte_2_5() ) {
+			$description = $variation->get_formatted_variation_attributes( true );
+		} else {
+			$description = wc_get_formatted_variation( $variation->get_variation_attributes(), true );
+		}
+
+		$title = $variation->get_title();
+		$sku   = $variation->get_sku();
+
+		if ( $sku ) {
+			$identifier = $sku;
+		} else {
+			$identifier = '#' . $variation->variation_id;
+		}
+
+		return self::format_product_title( $title, $identifier, $description );
+	}
+
+	/**
+	 * Format a product title.
+	 *
+	 * @param  string  $title
+	 * @param  string  $sku
+	 * @param  string  $meta
+	 * @param  boolean $paren
+	 * @return string
+	 */
+	public static function format_product_title( $title, $sku = '', $meta = '', $paren = false ) {
+
+		if ( $sku && $meta ) {
+			if ( $paren ) {
+				$title = sprintf( _x( '%1$s &mdash; %2$s (%3$s)', 'product title followed by meta and sku in parenthesis', 'woocommerce-product-bundles' ), $title, $meta, $sku );
 			} else {
+				$title = sprintf( _x( '%1$s &ndash; %2$s &ndash; %3$s', 'sku followed by product title and meta', 'woocommerce-product-bundles' ), $sku, $title, $meta );
+			}
+		} elseif ( $sku ) {
+			if ( $paren ) {
+				$title = sprintf( _x( '%1$s (%2$s)', 'product title followed by sku in parenthesis', 'woocommerce-product-bundles' ), $title, $sku );
+			} else {
+				$title = sprintf( _x( '%1$s &ndash; %2$s', 'sku followed by product title', 'woocommerce-product-bundles' ), $sku, $title );
+			}
+		} elseif ( $meta ) {
+			$title = sprintf( _x( '%1$s &mdash; %2$s', 'product title followed by meta', 'woocommerce-product-bundles' ), $title, $meta );
+		}
 
-				if ( $product->is_in_stock() && $product->get_total_stock() > get_option( 'woocommerce_notify_no_stock_amount' ) ) {
+		return $title;
+	}
 
-					if ( get_option( 'woocommerce_stock_format' ) == 'no_amount' )
-						$availability = __( 'Insufficient stock', 'woocommerce-product-bundles' );
-					else
-						$availability = __( 'Insufficient stock', 'woocommerce-product-bundles' ) . ' ' . sprintf( __( '(only %s left in stock)', 'woocommerce-product-bundles' ), $product->get_total_stock() );
+	/**
+	 * Format a product title incl qty, price and suffix.
+	 *
+	 * @param  string $title
+	 * @param  string $qty
+	 * @param  string $price
+	 * @param  string $suffix
+	 * @return string
+	 */
+	public static function format_product_shop_title( $title, $qty = '', $price = '', $suffix = '' ) {
 
-					$class = 'out-of-stock';
+		$quantity_string = '';
+		$price_string    = '';
+		$suffix_string   = '';
 
+		if ( $qty ) {
+			$quantity_string = sprintf( _x( ' &times; %s', 'qty string', 'woocommerce-product-bundles' ), $qty );
+		}
+
+		if ( $price ) {
+			$price_string = sprintf( _x( ' &ndash; %s', 'price suffix', 'woocommerce-product-bundles' ), $price );
+		}
+
+		if ( $suffix ) {
+			$suffix_string = sprintf( _x( ' &ndash; %s', 'suffix', 'woocommerce-product-bundles' ), $suffix );
+		}
+
+		$title_string = sprintf( _x( '%1$s%2$s%3$s%4$s', 'title, quantity, price, suffix', 'woocommerce-product-bundles' ), $title, $quantity_string, $price_string, $suffix_string );
+
+		return $title_string;
+	}
+
+	/**
+	 * Add price filters to modify child product prices depending on the per-product pricing option state, including any discounts defined at bundled item level.
+	 *
+	 * @param   WC_Bundled_Item $bundled_item
+	 * @return  void
+	 */
+	public static function add_price_filters( $bundled_item ) {
+
+		self::$bundled_item = $bundled_item;
+
+		add_filter( 'woocommerce_get_price', array( __CLASS__, 'filter_get_price' ), 15, 2 );
+		add_filter( 'woocommerce_get_sale_price', array( __CLASS__, 'filter_get_sale_price' ), 15, 2 );
+		add_filter( 'woocommerce_get_regular_price', array( __CLASS__, 'filter_get_regular_price' ), 15, 2 );
+		add_filter( 'woocommerce_get_price_html', array( __CLASS__, 'filter_get_price_html' ), 10, 2 );
+		add_filter( 'woocommerce_show_variation_price', array( __CLASS__, 'filter_show_variation_price' ), 10, 3 );
+		add_filter( 'woocommerce_get_variation_price_html', array( __CLASS__, 'filter_get_price_html' ), 10, 2 );
+		add_filter( 'woocommerce_variation_prices', array( __CLASS__, 'filter_get_variation_prices' ), 10, 3 );
+	}
+
+	/**
+	 * Remove price filters after modifying child product prices depending on the per-product pricing option state, including any discounts defined at bundled item level.
+	 *
+	 * @return  void
+	 */
+	public static function remove_price_filters() {
+
+		self::$bundled_item = false;
+
+		remove_filter( 'woocommerce_get_price', array( __CLASS__, 'filter_get_price' ), 15, 2 );
+		remove_filter( 'woocommerce_get_sale_price', array( __CLASS__, 'filter_get_sale_price' ), 15, 2 );
+		remove_filter( 'woocommerce_get_regular_price', array( __CLASS__, 'filter_get_regular_price' ), 15, 2 );
+		remove_filter( 'woocommerce_get_price_html', array( __CLASS__, 'filter_get_price_html' ), 10, 2 );
+		remove_filter( 'woocommerce_show_variation_price', array( __CLASS__, 'filter_show_variation_price' ), 10, 3 );
+		remove_filter( 'woocommerce_get_variation_price_html', array( __CLASS__, 'filter_get_price_html' ), 10, 2 );
+		remove_filter( 'woocommerce_variation_prices', array( __CLASS__, 'filter_get_variation_prices' ), 10, 3 );
+	}
+
+	/**
+	 * Filter get_variation_prices() calls for bundled products to include discounts.
+	 *
+	 * @param  array                $prices_array
+	 * @param  WC_Product_Variable  $product
+	 * @param  boolean              $display
+	 * @return array
+	 */
+	public static function filter_get_variation_prices( $prices_array, $product, $display ) {
+
+		$bundled_item = self::$bundled_item;
+
+		if ( $bundled_item ) {
+
+			$prices         = array();
+			$regular_prices = array();
+			$sale_prices    = array();
+
+			$discount_from_regular = apply_filters( 'woocommerce_bundled_item_discount_from_regular', true, $bundled_item );
+			$discount              = $bundled_item->get_discount();
+			$priced_per_product    = $bundled_item->is_priced_per_product();
+
+			// Filter regular prices.
+			foreach ( $prices_array[ 'regular_price' ] as $variation_id => $regular_price ) {
+				if ( $priced_per_product ) {
+					$regular_prices[ $variation_id ] = $regular_price === '' ? $prices_array[ 'price' ][ $variation_id ] : $regular_price;
 				} else {
-
-					$availability = __( 'Out of stock', 'woocommerce' );
-					$class        = 'out-of-stock';
+					$regular_prices[ $variation_id ] = 0;
 				}
 			}
 
-		} elseif ( ! $product->is_in_stock() ) {
+			// Filter prices.
+			foreach ( $prices_array[ 'price' ] as $variation_id => $price ) {
+				if ( $priced_per_product ) {
+					if ( $discount_from_regular ) {
+						$regular_price = $regular_prices[ $variation_id ];
+					} else {
+						$regular_price = $price;
+					}
+					$price                   = empty( $discount ) ? $price : round( ( double ) $regular_price * ( 100 - $discount ) / 100, WC_PB_Core_Compatibility::wc_get_price_decimals() );
+					$prices[ $variation_id ] = apply_filters( 'woocommerce_bundled_variation_price', $price, $variation_id, $discount, $bundled_item );
+				} else {
+					$prices[ $variation_id ] = 0;
+				}
+			}
 
-			$availability = __( 'Out of stock', 'woocommerce' );
-			$class        = 'out-of-stock';
+			// Filter sale prices.
+			foreach ( $prices_array[ 'sale_price' ] as $variation_id => $sale_price ) {
+				if ( $priced_per_product ) {
+					$sale_prices[ $variation_id ] = empty( $discount ) ? $sale_price : $prices[ $variation_id ];
+				} else {
+					$sale_prices[ $variation_id ] = 0;
+				}
+			}
+
+			$prices_array = array(
+				'price'         => $prices,
+				'regular_price' => $regular_prices,
+				'sale_price'    => $sale_prices
+			);
 		}
 
-		_deprecated_function( 'get_bundled_product_availability', '4.8.8', 'WC_Bundled_Item::get_availability()' );
-		return apply_filters( 'woocommerce_get_bundled_product_availability', array( 'availability' => $availability, 'class' => $class ), $product );
+		return $prices_array;
 	}
 
 	/**
-	 * Updates post_meta v1 storage scheme (scattered post_meta) to v2 (serialized post_meta)
+	 * Filter condition for allowing WC to calculate variation price_html.
+	 *
+	 * @param  boolean              $show
+	 * @param  WC_Product_Variable  $product
+	 * @param  WC_Product_Variation $variation
+	 * @return boolean
+	 */
+	public static function filter_show_variation_price( $show, $product, $variation ) {
+
+		$bundled_item = self::$bundled_item;
+
+		if ( $bundled_item ) {
+
+			if ( $bundled_item->is_priced_per_product() && $bundled_item->max_price > 0 && $bundled_item->max_price > $bundled_item->min_price ) {
+				$show = true;
+			}
+		}
+
+		return $show;
+	}
+
+	/**
+	 * Filter get_price() calls for bundled products to include discounts.
+	 *
+	 * @param  double       $price      unmodified price
+	 * @param  WC_Product   $product    the bundled product
+	 * @return double                   modified price
+	 */
+	public static function filter_get_price( $price, $product ) {
+
+		$bundled_item = self::$bundled_item;
+
+		if ( $bundled_item ) {
+
+			if ( $price === '' ) {
+				return $price;
+			}
+
+			if ( ! $bundled_item->is_priced_per_product() ) {
+				return 0;
+			}
+
+			if ( apply_filters( 'woocommerce_bundled_item_discount_from_regular', true, $bundled_item ) ) {
+				$regular_price = $product->get_regular_price();
+			} else {
+				$regular_price = $price;
+			}
+
+			$discount                    = $bundled_item->get_discount();
+			$bundled_item_price          = empty( $discount ) ? $price : ( empty( $regular_price ) ? $regular_price : round( ( double ) $regular_price * ( 100 - $discount ) / 100, WC_PB_Core_Compatibility::wc_get_price_decimals() ) );
+
+			$product->bundled_item_price = $bundled_item_price;
+
+			$price = apply_filters( 'woocommerce_bundled_item_price', $bundled_item_price, $product, $discount, $bundled_item );
+		}
+
+		return $price;
+	}
+
+	/**
+	 * Filter get_regular_price() calls for bundled products to include discounts.
+	 *
+	 * @param  double       $price      unmodified reg price
+	 * @param  WC_Product   $product    the bundled product
+	 * @return double                   modified reg price
+	 */
+	public static function filter_get_regular_price( $regular_price, $product ) {
+
+		$bundled_item = self::$bundled_item;
+
+		if ( $bundled_item ) {
+
+			if ( ! $bundled_item->is_priced_per_product() ) {
+				return 0;
+			}
+
+			$regular_price = empty( $regular_price ) ? $product->price : $regular_price;
+		}
+
+		return $regular_price;
+	}
+
+	/**
+	 * Filter get_sale_price() calls for bundled products to include discounts.
+	 *
+	 * @param  double       $price      unmodified reg price
+	 * @param  WC_Product   $product    the bundled product
+	 * @return double                   modified reg price
+	 */
+	public static function filter_get_sale_price( $sale_price, $product ) {
+
+		$bundled_item = self::$bundled_item;
+
+		if ( $bundled_item ) {
+
+			if ( ! $bundled_item->is_priced_per_product() ) {
+				return 0;
+			}
+
+			$discount   = $bundled_item->get_discount();
+			$sale_price = empty( $discount ) ? $sale_price : self::filter_get_price( $product->price, $product );
+		}
+
+		return $sale_price;
+	}
+
+	/**
+	 * Filter the html price string of bundled items to show the correct price with discount and tax - needs to be hidden in per-product pricing mode.
+	 *
+	 * @param  string      $price_html    unmodified price string
+	 * @param  WC_Product  $product       the bundled product
+	 * @return string                     modified price string
+	 */
+	public static function filter_get_price_html( $price_html, $product ) {
+
+		$bundled_item = self::$bundled_item;
+
+		if ( $bundled_item ) {
+
+			if ( ! $bundled_item->is_priced_per_product() ) {
+				return '';
+			}
+
+			$quantity   = $bundled_item->get_quantity();
+			/* translators: for quantity use %2$s */
+			$price_html = apply_filters( 'woocommerce_bundled_item_price_html', $quantity > 1 ? sprintf( __( '%1$s <span class="bundled_item_price_quantity">/ pc.</span>', 'woocommerce-product-bundles' ), $price_html, $quantity ) : $price_html, $price_html, $bundled_item );
+		}
+
+		return $price_html;
+	}
+
+	/**
+	 * Updates post_meta v1 storage scheme (scattered post_meta) to v2 (serialized post_meta).
+	 *
 	 * @param  int    $bundle_id     bundle product_id
 	 * @return void
 	 */
-	function serialize_bundle_meta( $bundle_id ) {
+	public static function serialize_bundle_meta( $bundle_id ) {
 
 		global $wpdb;
 
-		$bundled_item_ids 	= maybe_unserialize( get_post_meta( $bundle_id, '_bundled_ids', true ) );
+		$bundled_item_ids   = maybe_unserialize( get_post_meta( $bundle_id, '_bundled_ids', true ) );
 		$default_attributes = maybe_unserialize( get_post_meta( $bundle_id, '_bundle_defaults', true ) );
 		$allowed_variations = maybe_unserialize( get_post_meta( $bundle_id, '_allowed_variations', true ) );
 
@@ -156,55 +527,49 @@ class WC_PB_Helpers {
 
 			$bundle_data[ $bundled_item_id ] = array();
 
-			$filtered 			= get_post_meta( $bundle_id, 'filter_variations_' . $bundled_item_id, true );
-			$o_defaults			= get_post_meta( $bundle_id, 'override_defaults_' . $bundled_item_id, true );
-			$hide_thumbnail		= get_post_meta( $bundle_id, 'hide_thumbnail_' . $bundled_item_id, true );
-			$item_o_title 		= get_post_meta( $bundle_id, 'override_title_' . $bundled_item_id, true );
-			$item_title 		= get_post_meta( $bundle_id, 'product_title_' . $bundled_item_id, true );
-			$item_o_desc 		= get_post_meta( $bundle_id, 'override_description_' . $bundled_item_id, true );
-			$item_desc			= get_post_meta( $bundle_id, 'product_description_' . $bundled_item_id, true );
-			$item_qty			= get_post_meta( $bundle_id, 'bundle_quantity_' . $bundled_item_id, true );
-			$discount			= get_post_meta( $bundle_id, 'bundle_discount_' . $bundled_item_id, true );
-			$visibility			= get_post_meta( $bundle_id, 'visibility_' . $bundled_item_id, true );
+			$filtered       = get_post_meta( $bundle_id, 'filter_variations_' . $bundled_item_id, true );
+			$o_defaults     = get_post_meta( $bundle_id, 'override_defaults_' . $bundled_item_id, true );
+			$hide_thumbnail = get_post_meta( $bundle_id, 'hide_thumbnail_' . $bundled_item_id, true );
+			$item_o_title   = get_post_meta( $bundle_id, 'override_title_' . $bundled_item_id, true );
+			$item_title     = get_post_meta( $bundle_id, 'product_title_' . $bundled_item_id, true );
+			$item_o_desc    = get_post_meta( $bundle_id, 'override_description_' . $bundled_item_id, true );
+			$item_desc      = get_post_meta( $bundle_id, 'product_description_' . $bundled_item_id, true );
+			$item_qty       = get_post_meta( $bundle_id, 'bundle_quantity_' . $bundled_item_id, true );
+			$discount       = get_post_meta( $bundle_id, 'bundle_discount_' . $bundled_item_id, true );
+			$visibility     = get_post_meta( $bundle_id, 'visibility_' . $bundled_item_id, true );
 
 			$sep = explode( '_', $bundled_item_id );
 
-			$bundle_data[ $bundled_item_id ][ 'product_id' ] 				= $sep[0];
+			$bundle_data[ $bundled_item_id ][ 'product_id' ]        = $sep[0];
+			$bundle_data[ $bundled_item_id ][ 'filter_variations' ] = ( $filtered === 'yes' ) ? 'yes' : 'no';
 
+			if ( isset( $allowed_variations[ $bundled_item_id ] ) ) {
+				$bundle_data[ $bundled_item_id ][ 'allowed_variations' ] = $allowed_variations[ $bundled_item_id ];
+			}
 
-			$bundle_data[ $bundled_item_id ][ 'filter_variations' ] 		= $filtered == 'yes' ? 'yes' : 'no';
+			$bundle_data[ $bundled_item_id ][ 'override_defaults' ] = ( $o_defaults === 'yes' ) ? 'yes' : 'no';
 
-			if ( isset( $allowed_variations[ $bundled_item_id ] ) )
-				$bundle_data[ $bundled_item_id ][ 'allowed_variations' ] 	= $allowed_variations[ $bundled_item_id ];
+			if ( isset( $default_attributes[ $bundled_item_id ] ) ) {
+				$bundle_data[ $bundled_item_id ][ 'bundle_defaults' ] = $default_attributes[ $bundled_item_id ];
+			}
 
+			$bundle_data[ $bundled_item_id ][ 'hide_thumbnail' ] = ( $hide_thumbnail === 'yes' ) ? 'yes' : 'no';
+			$bundle_data[ $bundled_item_id ][ 'override_title' ] = ( $item_o_title === 'yes' ) ? 'yes' : 'no';
 
-			$bundle_data[ $bundled_item_id ][ 'override_defaults' ] 		= $o_defaults == 'yes' ? 'yes' : 'no';
+			if ( $item_o_title === 'yes' ) {
+				$bundle_data[ $bundled_item_id ][ 'product_title' ] = $item_title;
+			}
 
-			if ( isset( $default_attributes[ $bundled_item_id ] ) )
-				$bundle_data[ $bundled_item_id ][ 'bundle_defaults' ] 		= $default_attributes[ $bundled_item_id ];
+			$bundle_data[ $bundled_item_id ][ 'override_description' ] = ( $item_o_desc === 'yes' ) ? 'yes' : 'no';
 
+			if ( $item_o_desc === 'yes' ) {
+				$bundle_data[ $bundled_item_id ][ 'product_description' ] = $item_desc;
+			}
 
-			$bundle_data[ $bundled_item_id ][ 'hide_thumbnail' ] 			= $hide_thumbnail == 'yes' ? 'yes' : 'no';
-
-
-			$bundle_data[ $bundled_item_id ][ 'override_title' ] 			= $item_o_title == 'yes' ? 'yes' : 'no';
-
-			if ( $item_o_title == 'yes' )
-				$bundle_data[ $bundled_item_id ][ 'product_title' ] 		= $item_title;
-
-
-			$bundle_data[ $bundled_item_id ][ 'override_description' ] 		= $item_o_desc == 'yes' ? 'yes' : 'no';
-
-			if ( $item_o_desc == 'yes' )
-				$bundle_data[ $bundled_item_id ][ 'product_description' ] 	= $item_desc;
-
-
-			$bundle_data[ $bundled_item_id ][ 'bundle_quantity' ] 			= $item_qty;
-			$bundle_data[ $bundled_item_id ][ 'bundle_discount' ] 			= $discount;
-
-			$bundle_data[ $bundled_item_id ][ 'visibility' ] 				= $visibility == 'hidden' ? 'hidden' : 'visible';
-
-			$bundle_data[ $bundled_item_id ][ 'hide_filtered_variations' ] 	= 'no';
+			$bundle_data[ $bundled_item_id ][ 'bundle_quantity' ]          = $item_qty;
+			$bundle_data[ $bundled_item_id ][ 'bundle_discount' ]          = $discount;
+			$bundle_data[ $bundled_item_id ][ 'visibility' ]               = ( $visibility === 'hidden' ) ? 'hidden' : 'visible';
+			$bundle_data[ $bundled_item_id ][ 'hide_filtered_variations' ] = 'no';
 		}
 
 		update_post_meta( $bundle_id, '_bundle_data', $bundle_data );
@@ -230,126 +595,25 @@ class WC_PB_Helpers {
 	}
 
 	/**
+	 * Filter variable subscription product 'from' text.
+	 *
+	 * @param  string     $text
+	 * @param  WC_Product $product
+	 * @return string
+	 */
+	public static function filter_variable_sub_html_from_text( $text, $product ) {
+		return _x( 'from ', 'variable sub price html from text', 'woocommerce-product-bundles' );
+	}
+
+	/**
 	 * Calculates bundled product prices incl. or excl. tax depending on the 'woocommerce_tax_display_shop' setting.
 	 *
 	 * @param  WC_Product   $product    the product
 	 * @param  double       $price      the product price
 	 * @return double                   modified product price incl. or excl. tax
 	 */
-	function get_product_price_incl_or_excl_tax( $product, $price ) {
-
-		if ( $price == 0 ) {
-			return $price;
-		}
-
-		if ( $this->wc_option_tax_display_shop == 'excl' ) {
-			$product_price = $product->get_price_excluding_tax( 1, $price );
-		} else {
-			$product_price = $product->get_price_including_tax( 1, $price );
-		}
-
-		return $product_price;
-	}
-
-	/**
-	 * Loads variation ids for a given variable product.
-	 *
-	 * @param  int    $item_id
-	 * @return array
-	 */
-	public function get_product_variations( $item_id ) {
-
-		$transient_name = 'wc_product_children_ids_' . $item_id;
-
-        if ( false === ( $variations = get_transient( $transient_name ) ) ) {
-
-			$args = array(
-				'post_type'   => 'product_variation',
-				'post_status' => array( 'publish' ),
-				'numberposts' => -1,
-				'orderby'     => 'menu_order',
-				'order'       => 'asc',
-				'post_parent' => $item_id,
-				'fields'      => 'ids'
-			);
-
-			$variations = get_posts( $args );
-		}
-
-		return $variations;
-	}
-
-	/**
-	 * Return a formatted product title based on variation id.
-	 *
-	 * @param  int    $item_id
-	 * @return string
-	 */
-	public function get_product_variation_title( $variation_id ) {
-
-		$variation = WC_PB_Core_Compatibility::wc_get_product( $variation_id );
-
-		if ( ! $variation )
-			return false;
-
-		$description = wc_get_formatted_variation( $variation->get_variation_attributes(), true );
-
-		$title = $variation->get_title();
-		$sku   = $variation->get_sku();
-
-		if ( $sku ) {
-			$sku = sprintf( __( '(SKU: %s)', 'woocommerce-product-bundles' ), $sku );
-		}
-
-		return $this->format_product_title( $title, $sku, $description );
-	}
-
-	/**
-	 * Return a formatted product title based on id.
-	 *
-	 * @param  int    $product_id
-	 * @return string
-	 */
-	public function get_product_title( $product_id, $suffix = '' ) {
-
-		$title = get_the_title( $product_id );
-
-		if ( $suffix ) {
-			$title = sprintf( _x( '%1$s %2$s', 'product title followed by suffix', 'woocommerce-product-bundles' ), $title, $suffix );
-		}
-
-		$sku = get_post_meta( $product_id, '_sku', true );
-
-		if ( ! $title ) {
-			return false;
-		}
-
-		if ( $sku ) {
-			$sku = sprintf( __( '(SKU: %s)', 'woocommerce-product-bundles' ), $sku );
-		} else {
-			$sku = '';
-		}
-
-		return $this->format_product_title( $title, $sku );
-	}
-
-	/**
-	 * Format a product title.
-	 *
-	 * @param  string $title
-	 * @param  string $sku
-	 * @param  string $meta
-	 * @return string
-	 */
-	public function format_product_title( $title, $sku = '', $meta = '' ) {
-
-		if ( $sku && $meta )
-			$title = sprintf( _x( '%1$s &mdash; %2$s %3$s', 'woocommerce-product-bundles', 'product title followed by sku and meta' ), $title, $meta, $sku );
-		elseif ( $sku )
-			$title = sprintf( _x( '%1$s %2$s', 'woocommerce-product-bundles', 'product title followed by sku' ), $title, $sku );
-		elseif ( $meta )
-			$title = sprintf( _x( '%1$s &mdash; %2$s', 'woocommerce-product-bundles', 'product title followed by meta' ), $title, $meta );
-
-		return $title;
+	public function get_product_price_incl_or_excl_tax( $product, $price ) {
+		_deprecated_function( 'get_product_price_incl_or_excl_tax', '4.11.4', 'get_product_display_price' );
+		return self::get_product_display_price( $product, $price );
 	}
 }

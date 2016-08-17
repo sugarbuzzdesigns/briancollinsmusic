@@ -1,3 +1,6 @@
+/* global wc_bundles_admin_params */
+/* global woocommerce_admin_meta_boxes */
+
 jQuery( function($) {
 
 	function wc_bundles_getEnhancedSelectFormatString() {
@@ -38,7 +41,7 @@ jQuery( function($) {
 					return wc_bundles_admin_params.i18n_selection_too_long_1;
 				}
 
-				return wc_bundles_admin_params.i18n_selection_too_long_n.replace( '%qty%', number );
+				return wc_bundles_admin_params.i18n_selection_too_long_n.replace( '%qty%', limit );
 			},
 			formatLoadMore: function( pageNumber ) {
 				return wc_bundles_admin_params.i18n_load_more;
@@ -64,20 +67,22 @@ jQuery( function($) {
 		} );
 	};
 
-	// bundle type move stock msg up
-	$( '.bundle_stock_msg' ).insertBefore( '._manage_stock_field' );
+	// Move base prices up.
+	$( '.bundle_base_pricing' ).insertBefore( '.pricing' );
 
-	// bundle type specific options
+	// Bundle type move stock msg up.
+	$( '.bundle_stock_msg' ).appendTo( '._manage_stock_field .description' );
+
+	// Bundle type specific options.
 	$( 'body' ).on( 'woocommerce-product-type-change', function( event, select_val, select ) {
 
-		if ( select_val == 'bundle' ) {
+		if ( select_val === 'bundle' ) {
 
 			$( 'input#_downloadable' ).prop( 'checked', false );
 			$( 'input#_virtual' ).removeAttr( 'checked' );
 
-			$( '.show_if_simple' ).show();
 			$( '.show_if_external' ).hide();
-			$( '.show_if_bundle' ).show();
+			$( '.show_if_simple' ).show();
 
 			$( 'input#_downloadable' ).closest( '.show_if_simple' ).hide();
 			$( 'input#_virtual').closest('.show_if_simple' ).hide();
@@ -87,19 +92,16 @@ jQuery( function($) {
 			$( 'input#_per_product_shipping_active' ).change();
 
 			$( '#_nyp' ).change();
-		} else {
-
-			$( '.show_if_bundle' ).hide();
 		}
 
 	} );
 
 	$( 'select#product-type' ).change();
 
-	// non-bundled shipping
+	// Per-item shipping.
 	$( 'input#_per_product_shipping_active' ).change( function() {
 
-		if ( $( 'select#product-type' ).val() == 'bundle' ) {
+		if ( $( 'select#product-type' ).val() === 'bundle' ) {
 
 			if ( $( 'input#_per_product_shipping_active' ).is( ':checked' ) ) {
 				$( '.show_if_virtual' ).show();
@@ -114,18 +116,19 @@ jQuery( function($) {
 
 	} ).change();
 
-	// show options if pricing is static
+	// Show options if pricing is static.
 	$( 'input#_per_product_pricing_active' ).change( function() {
 
-		if ( $( 'select#product-type' ).val() == 'bundle' ) {
+		if ( $( 'select#product-type' ).val() === 'bundle' ) {
 
 			if ( $(this).is( ':checked' ) ) {
 
 		        $( '#_regular_price' ).val('');
 		        $( '#_sale_price' ).val('');
 
-				$( '._tax_class_field' ).closest( '.options_group' ).hide();
-				$('.pricing').hide();
+				$( '._tax_class_field' ).closest( '.options_group' ).show();
+				$( '.pricing' ).hide();
+				$( '.bundle_base_pricing' ).show();
 
 				$( '#bundled_product_data .wc-bundled-item .item-data .discount input.bundle_discount' ).each( function() {
 					$(this).attr( 'disabled', false );
@@ -135,8 +138,11 @@ jQuery( function($) {
 
 				$( '._tax_class_field' ).closest( '.options_group' ).show();
 
-				if ( ! $( '#_nyp' ).is( ':checked' ) )
+				if ( ! $( '#_nyp' ).is( ':checked' ) ) {
 					$( '.pricing' ).show();
+				}
+
+				$( '.bundle_base_pricing' ).hide();
 
 				$( '#bundled_product_data .wc-bundled-item .item-data .discount input.bundle_discount' ).each( function() {
 					$(this).attr( 'disabled', 'disabled' );
@@ -146,10 +152,11 @@ jQuery( function($) {
 
 	} ).change();
 
-	// nyp support
+	// Nyp support.
+
 	$( '#_nyp' ).change( function() {
 
-		if ( $( 'select#product-type' ).val() == 'bundle' ) {
+		if ( $( 'select#product-type' ).val() === 'bundle' ) {
 
 			if ( $( '#_nyp' ).is( ':checked' ) ) {
 				$( 'input#_per_product_pricing_active' ).prop( 'checked', false );
@@ -165,8 +172,25 @@ jQuery( function($) {
 
 	init_wc_bundle_metaboxes();
 
+	// Subsubsub navigation.
+
+	$( '#wc-bundle-metaboxes-wrapper-inner' ).on( 'click', '.subsubsub a', function() {
+
+		$( this ).closest( '.subsubsub' ).find( 'a' ).removeClass( 'current' );
+		$( this ).addClass( 'current' );
+
+		$( this ).closest( '.wc-bundled-item' ).find( '.options_group' ).addClass( 'options_group_hidden' );
+
+		var tab = $( this ).data( 'tab' );
+
+		$( this ).closest( '.wc-bundled-item' ).find( '.options_group_' + tab ).removeClass( 'options_group_hidden' );
+
+		return false;
+
+	} );
+
 	function bundle_row_indexes() {
-		$( '.wc-bundled-items .wc-bundled-item' ).each(function( index, el ){
+		$( '.wc-bundled-items .wc-bundled-item' ).each( function( index, el ) {
 			$( '.bundled_item_position', el ).val( parseInt( $(el).index( '.wc-bundled-items .wc-bundled-item' ) ) );
 		} );
 	}
@@ -175,7 +199,7 @@ jQuery( function($) {
 
 		$( '.wc-bundled-items' )
 
-		// variation filtering options
+		// Variation filtering options.
 		.on( 'change', '.filter_variations input', function() {
 			if ( $(this).is( ':checked' ) )
 				$(this).closest( 'div.item-data' ).find( 'div.bundle_variation_filters' ).show();
@@ -183,7 +207,7 @@ jQuery( function($) {
 				$(this).closest( 'div.item-data' ).find( 'div.bundle_variation_filters' ).hide();
 		} )
 
-		// selection defaults options
+		// Selection defaults options.
 		.on( 'change', '.override_defaults input', function() {
 			if ( $(this).is( ':checked' ) )
 				$(this).closest( 'div.item-data' ).find( 'div.bundle_selection_defaults' ).show();
@@ -191,7 +215,7 @@ jQuery( function($) {
 				$(this).closest( 'div.item-data' ).find( 'div.bundle_selection_defaults' ).hide();
 		} )
 
-		// custom title options
+		// Custom title options.
 		.on( 'change', '.override_title input', function() {
 			if ( $(this).is( ':checked' ) )
 				$(this).closest( 'div.item-data' ).find( 'div.custom_title' ).show();
@@ -199,7 +223,7 @@ jQuery( function($) {
 				$(this).closest( 'div.item-data' ).find( 'div.custom_title' ).hide();
 		} )
 
-		// custom description options
+		// Custom description options.
 		.on( 'change', '.override_description input', function() {
 			if ( $(this).is( ':checked' ) )
 				$(this).closest( 'div.item-data' ).find( 'div.custom_description' ).show();
@@ -207,10 +231,10 @@ jQuery( function($) {
 				$(this).closest( 'div.item-data' ).find( 'div.custom_description' ).hide();
 		} )
 
-		// visibility
-		.on( 'change', '.item_visibility select', function() {
+		// Visibility
+		.on( 'change', 'input.visibility_product', function() {
 
-			if ( $(this).val() == 'visible' ) {
+			if ( $(this).is( ':checked' ) ) {
 				$(this).closest( 'div.item-data' ).find( '.override_title, .override_description, .images' ).show();
 				$(this).closest( 'div.item-data' ).find( '.override_title input' ).change();
 				$(this).closest( 'div.item-data' ).find( '.override_description input' ).change();
@@ -224,9 +248,9 @@ jQuery( function($) {
 		$( '.wc-bundled-items .override_defaults input' ).change();
 		$( '.wc-bundled-items .override_title input' ).change();
 		$( '.wc-bundled-items .override_description input' ).change();
-		$( '.wc-bundled-items .item_visibility select' ).change();
+		$( '.wc-bundled-items input.visibility_product' ).change();
 
-		// Initial order
+		// Initial order.
 		var bundled_items = $( '.wc-bundled-items' ).find( '.wc-bundled-item' ).get();
 
 		bundled_items.sort( function( a, b ) {
@@ -239,7 +263,7 @@ jQuery( function($) {
 			$( '.wc-bundled-items' ).append( itm );
 		} );
 
-		// Item ordering
+		// Item ordering.
 		$( '.wc-bundled-items' ).sortable( {
 			items:'.wc-bundled-item',
 			cursor:'move',
@@ -259,7 +283,7 @@ jQuery( function($) {
 			}
 		} );
 
-		// Remove
+		// Remove.
 		$( '#bundled_product_data .wc-bundle-metaboxes-wrapper' ).on( 'click', 'button.remove_row', function() {
 
 			var $parent = $(this).closest( '.wc-bundled-item' );
@@ -270,7 +294,7 @@ jQuery( function($) {
 
 		} );
 
-		// Expand & Close
+		// Expand & Close.
 		$( '#bundled_product_data .expand_all' ).click( function() {
 			$(this).closest( '.wc-metaboxes-wrapper' ).find( '.wc-metabox > .item-data' ).show();
 			return false;
@@ -283,7 +307,7 @@ jQuery( function($) {
 
 	}
 
-	// Add Product
+	// Add Product.
 	var bundle_metabox_count = $( '#bundled_product_data .wc-bundled-items .wc-bundled-item' ).size();
 	var block_params         = {};
 
@@ -311,13 +335,18 @@ jQuery( function($) {
 
 		if ( ! bundled_product_id > 0 ) {
 
-			if ( wc_bundles_admin_params.is_wc_version_gte_2_3 == 'yes' ) {
+			if ( wc_bundles_admin_params.is_wc_version_gte_2_3 === 'yes' ) {
 				$( '#bundled_product_data .bundled_product_selector .wc-product-search' ).select2( 'open' );
 			} else {
 				$( '#bundled_product_data .bundled_product_selector .ajax_chosen_select_products' ).trigger( 'chosen:open.chosen' );
 			}
 
 			return false;
+
+		} else {
+			if ( wc_bundles_admin_params.is_wc_version_gte_2_3 === 'yes' ) {
+				$( '#bundled_product_data .bundled_product_selector .wc-product-search' ).select2( 'val', '' );
+			}
 		}
 
 		$( '#bundled_product_data' ).block( block_params );
@@ -355,7 +384,7 @@ jQuery( function($) {
 				added.find( '.override_description input' ).change();
 				added.find( '.item_visibility select' ).change();
 
-				added.find( '.help_tip' ).tipTip( {
+				added.find( '.woocommerce-help-tip' ).tipTip( {
 					'attribute' : 'data-tip',
 					'fadeIn' : 50,
 					'fadeOut' : 50,
@@ -365,6 +394,10 @@ jQuery( function($) {
 				$( 'input#_per_product_pricing_active' ).change();
 
 				$( '#bundled_product_data' ).trigger( 'wc-bundles-added-bundled-product' );
+
+				if ( added.find( '.wc-product-search' ).length > 0 ) {
+					$( document.body ).trigger( 'wc-enhanced-select-init' );
+				}
 
 			} else if ( response.message !== '' ) {
 				alert( response.message );

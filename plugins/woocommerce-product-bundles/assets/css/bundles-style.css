@@ -22,7 +22,3 @@
 dt.bundled_title_meta, .bundled_notice {
 	margin: 12px 0 5px;
 }
-
-#store-film-strip .button.product_type_bundle {
-	display: none !important;
-}

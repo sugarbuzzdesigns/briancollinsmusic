@@ -3,7 +3,7 @@
  * Used to create and store a product_id / variation_id representation of a product collection based on the included items' inventory requirements.
  *
  * @class    WC_PB_Stock_Manager
- * @version  4.8.7
+ * @version  4.11.5
  * @since    4.8.7
  */
 
@@ -15,10 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_PB_Stock_Manager {
 
 	private $items;
+	public $product;
 
-	public function __construct() {
+	public function __construct( $product = false ) {
 
-		$this->items = array();
+		$this->product = $product;
+		$this->items  = array();
 	}
 
 	/**
@@ -111,10 +113,10 @@ class WC_PB_Stock_Manager {
 	/**
 	 * Validate that all managed items in the collection are in stock.
 	 *
-	 * @param  int    $bundle_id
+	 * @param  int     $bundle_id  product id that collection belongs to
 	 * @return boolean
 	 */
-	public function validate_stock( $bundle_id ) {
+	public function validate_stock( $bundle_id = false ) {
 
 		$managed_items = $this->get_managed_items();
 
@@ -122,28 +124,41 @@ class WC_PB_Stock_Manager {
 			return true;
 		}
 
-		// Stock Validation
+		if ( $bundle_id ) {
+			_deprecated_function( 'validate_stock', '4.11.5', 'validate_stock is being called with deprecated arguments' );
+		}
+
+		if ( ! $bundle_id && $this->product && $this->product instanceof WC_Product ) {
+			$bundle_id = $this->product->id;
+		} else {
+			if ( WP_DEBUG ) {
+				trigger_error( 'WC_PB_Stock_Manager class instantiated with invalid constructor arguments' );
+			}
+			return false;
+		}
+
+		// Stock Validation.
 		foreach ( $managed_items as $managed_item_id => $managed_item ) {
 
 			$quantity = $managed_item[ 'quantity' ];
 
-			// Get the product
-			$product_data = WC_PB_Core_Compatibility::wc_get_product( $managed_item_id );
+			// Get the product.
+			$product_data = wc_get_product( $managed_item_id );
 
 			if ( ! $product_data ) {
 				return false;
 			}
 
-			// is_sold_individually
+			// is_sold_individually.
 			if ( $product_data->sold_individually === 'yes' && $quantity > 1 ) {
 				wc_add_notice( sprintf( __( '&quot;%1$s&quot; cannot be added to the cart &mdash; only 1 &quot;%2$s&quot; may be purchased.', 'woocommerce-product-bundles' ), get_the_title( $bundle_id ), $product_data->get_title() ), 'error' );
 				return false;
 			}
 
-			// Stock check - only check if we're managing stock and backorders are not allowed
+			// Stock check - only check if we're managing stock and backorders are not allowed.
 			if ( ! $product_data->is_in_stock() ) {
 
-				if ( $product_data->product_type === 'variable' ) {
+				if ( $product_data->product_type === 'variable' || $product_data->product_type === 'variable-subscription' ) {
 					wc_add_notice( sprintf( __( '&quot;%1$s&quot; cannot be added to the cart because your &quot;%2$s&quot; selection is out of stock.', 'woocommerce-product-bundles' ), get_the_title( $bundle_id ), $product_data->get_title() ), 'error' );
 				} else {
 					wc_add_notice( sprintf( __( '&quot;%1$s&quot; cannot be added to the cart because &quot;%2$s&quot; is out of stock.', 'woocommerce-product-bundles' ), get_the_title( $bundle_id ), $product_data->get_title() ), 'error' );
@@ -153,7 +168,7 @@ class WC_PB_Stock_Manager {
 
 			} elseif ( ! $product_data->has_enough_stock( $quantity ) ) {
 
-				if ( $product_data->product_type === 'variable' ) {
+				if ( $product_data->product_type === 'variable' || $product_data->product_type === 'variable-subscription' ) {
 					wc_add_notice( sprintf(__( '&quot;%1$s&quot; cannot be added to the cart because your &quot;%2$s&quot; selection does not have enough stock (%3$s remaining).', 'woocommerce-product-bundles' ), get_the_title( $bundle_id ), $product_data->get_title(), $product_data->get_stock_quantity() ), 'error' );
 				} else {
 					wc_add_notice( sprintf(__( '&quot;%1$s&quot; cannot be added to the cart because there is not enough stock of &quot;%2$s&quot; (%3$s remaining).', 'woocommerce-product-bundles' ), get_the_title( $bundle_id ), $product_data->get_title(), $product_data->get_stock_quantity() ), 'error' );
@@ -162,12 +177,12 @@ class WC_PB_Stock_Manager {
 				return false;
 			}
 
-			// Stock check - this time accounting for whats already in-cart
+			// Stock check - this time accounting for whats already in-cart.
 			$product_qty_in_cart = WC()->cart->get_cart_item_quantities();
 
 			if ( $product_data->managing_stock() ) {
 
-				// Variations
+				// Variations.
 				if ( $managed_item[ 'is_variation' ] && $product_data->variation_has_stock ) {
 
 					if ( isset( $product_qty_in_cart[ $managed_item_id ] ) && ! $product_data->has_enough_stock( $product_qty_in_cart[ $managed_item_id ] + $quantity ) ) {
@@ -182,7 +197,7 @@ class WC_PB_Stock_Manager {
 						return false;
 					}
 
-				// Products
+				// Products.
 				} else {
 
 					if ( isset( $product_qty_in_cart[ $managed_item_id ] ) && ! $product_data->has_enough_stock( $product_qty_in_cart[ $managed_item_id ] + $quantity ) ) {
@@ -229,10 +244,10 @@ class WC_PB_Stock_Manager_Item {
 
 			$variation_stock = get_post_meta( $variation_id, '_stock', true );
 
-			// If stock is managed at variation level
+			// If stock is managed at variation level.
 			if ( isset( $variation_stock ) && $variation_stock !== '' ) {
 				$this->managed_by_id = $variation_id;
-			// Otherwise stock is managed by the parent
+			// Otherwise stock is managed by the parent.
 			} else {
 				$this->managed_by_id = $product_id;
 			}
