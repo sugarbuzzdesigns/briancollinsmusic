@@ -1,4 +1,4 @@
-/*
+/*!
  * Bones Scripts File
  * Author: Eddie Machado
  *
@@ -138,7 +138,7 @@ jQuery(function($) {
     pause: 6000
   });
 
-   $(".bx-controls-direction a").click(function () {       
+   $(".bx-controls-direction a").click(function () {
       slider.stopAuto();
       slider.startAuto();
   });
