@@ -172,7 +172,7 @@ class DZSAudioPlayer {
 
         ///==== important: settings must have the class mainsetting
         $this->sliderstructure = '<div class="slider-con" style="display:none;">
-        
+
         <div class="settings-con">
         <h4>' . __('General Options', 'dzsap') . '</h4>
         <div class="setting type_all">
@@ -258,7 +258,7 @@ class DZSAudioPlayer {
             </select>
             <div class="sidenote" style="">' . __('setup these inside the <strong>ZoomSounds Player Configs</strong> admin', 'dzsap') . '</div>
         </div>
-        
+
         <div class="setting type_all">
             <div class="setting-label">' . __('Enable Play Count', 'dzsap') . '</div>
             <select class="textinput mainsetting styleme" name="0-settings-enable_views">
@@ -267,7 +267,7 @@ class DZSAudioPlayer {
             </select>
             <div class="sidenote">' . __('enable play count - warning: the media file has to be attached to a library item ( the Link To Media field .. ) ', 'dzsap') . '</div>
         </div>
-        
+
         <div class="setting type_all">
             <div class="setting-label">' . __('Enable Like Count', 'dzsap') . '</div>
             <select class="textinput mainsetting styleme" name="0-settings-enable_likes">
@@ -276,8 +276,8 @@ class DZSAudioPlayer {
             </select>
             <div class="sidenote">' . __('enable like count - warning: the media file has to be attached to a library item ( the Link To Media field .. ) ', 'dzsap') . '</div>
         </div>
-        
-        
+
+
         <div class="setting type_all">
             <div class="setting-label">' . __('Enable Rating', 'dzsap') . '</div>
             <select class="textinput mainsetting styleme" name="0-settings-enable_rates">
@@ -286,10 +286,10 @@ class DZSAudioPlayer {
             </select>
             <div class="sidenote">' . __('enable rating - warning: the media file has to be attached to a library item ( the Link To Media field .. ) ', 'dzsap') . '</div>
         </div>
-        
+
 
         </div><!--end settings con-->
-        
+
         <div class="master-items-con mode_all">
         <div class="items-con "></div>
         <a href="#" class="add-item"></a>
@@ -301,7 +301,7 @@ class DZSAudioPlayer {
 
 
         $this->videoplayerconfig = '<div class="slider-con" style="display:none;">
-        
+
         <div class="settings-con">
         <h4>' . __('General Options', 'dzsap') . '</h4>
         <div class="setting type_all">
@@ -353,7 +353,7 @@ class DZSAudioPlayer {
             <input type="text" class="textinput" name="0-settings-playfrom" value="off"/>
             <div class="sidenote">' . __('This is a default setting, it can be changed individually per item ( it will be overwritten if set ) . - choose a number of seconds from which the track to play from ( for example if set "70" then the track will start to play from 1 minute and 10 seconds ) or input "last" for the track to play at the last position where it was.', 'dzsap') . '</div>
         </div>
-        
+
         <hr/>
 <div class="dzstoggle toggle1" rel="">
 <div class="toggle-title" style="">' . __('Skin-Wave Options', 'dzsap') . '</div>
@@ -400,7 +400,7 @@ class DZSAudioPlayer {
         </div>
 </div>
 </div>
-        
+
         </div><!--end settings con-->
         </div>';
 
@@ -440,9 +440,9 @@ class DZSAudioPlayer {
         if ($this->mainoptions['enable_raw_shortcode']=='on') {
             remove_filter('the_content', 'wpautop'); remove_filter('the_content', 'wptexturize'); add_filter('the_content', array($this, 'my_formatter'), 99);
         }
-        
-        
-        
+
+
+
         if ($this->mainoptions['tinymce_disable_preview_shortcodes'] != 'on') {
 //            add_filter('mce_external_plugins', array( &$this, 'tinymce_external_plugins' ));
 //            add_filter('tiny_mce_before_init', array( &$this, 'myformatTinyMCE' ) );
@@ -462,7 +462,7 @@ class DZSAudioPlayer {
         $pattern_full = '{(\[raw\].*?\[/raw\])}is';
         $pattern_contents = '{\[raw\](.*?)\[/raw\]}is';
         $pieces = preg_split($pattern_full, $content, -1, PREG_SPLIT_DELIM_CAPTURE);
-       
+
         foreach ($pieces as $piece) {
                 if (preg_match($pattern_contents, $piece, $matches)) {
                         $new_content .= $matches[1];
@@ -483,26 +483,26 @@ class DZSAudioPlayer {
 
 	//include the css file to style the graphic that replaces the shortcode
     function myformatTinyMCE($options){
-        
+
     $ext = 'iframe[align|longdesc|name|width|height|frameborder|scrolling|marginheight|marginwidth|src|id|class|title|style],video[source],source[*]';
 
     if ( isset( $options['extended_valid_elements'] ) )
         $options['extended_valid_elements'] .= ',' . $ext;
     else
         $options['extended_valid_elements'] = $ext;
-    
-    
+
+
         $options['media_strict'] = 'false';
         $options['noneditable_leave_contenteditable'] = 'true';
-        
-    
-        
+
+
+
         $options['content_css'] .= ",".$this->thepath.'/tinymce/visualeditor/editor-style.css';
-    
+
 //    print_r($options);
         return $options;
     }
-    
+
     public function generate_item_structure($pargs = null) {
         $margs = array(
             'generator_type' => 'normal',
@@ -561,8 +561,8 @@ class DZSAudioPlayer {
         }
 
         $aux.='<div class="setting type_all">
-            <h4 class="non-underline"><span class="underline">' . __('Type', 'dzsap') . '*</span>&nbsp;&nbsp;&nbsp;<span class="sidenote">select one from below</span></h4> 
-            
+            <h4 class="non-underline"><span class="underline">' . __('Type', 'dzsap') . '*</span>&nbsp;&nbsp;&nbsp;<span class="sidenote">select one from below</span></h4>
+
             <div class="main-feed-chooser select-hidden-metastyle select-hidden-foritemtype">
 ' . DZSHelpers::generate_select('0-0-' . $lab, array('options' => array('audio', 'soundcloud', 'youtube', 'shoutcast', 'mediafile', 'inline'), 'seekval' => $val, 'class' => 'textinput item-type', 'extraattr' => ' data-label="' . $lab . '"')) . '
                 <div class="option-con clearfix">
@@ -575,7 +575,7 @@ class DZSAudioPlayer {
                         . '. If you want full html5 player, you must set a ogg sound too.', 'dzsap') . '
                     </div>
                     </div>
-                    
+
                     <div class="an-option">
                     <div class="an-title">
                     ' . __('SoundCloud Sound', 'dzsap') . '
@@ -585,7 +585,7 @@ class DZSAudioPlayer {
                         . 'You will have to input your SoundCloud API Key into ZoomSounds > Settings.', 'dzsap') . ' <a href="' . $this->thepath . 'readme/index.html#handbrake" target="_blank" class="">Documentation here</a>.
                     </div>
                     </div>
-                    
+
                     <div class="an-option">
                     <div class="an-title">
                     ' . __('ShoutCast Radio', 'dzsap') . '
@@ -594,7 +594,7 @@ class DZSAudioPlayer {
                     ' . __('Insert a shoutcast radio address. It will have to stream in mpeg format. Input the address, example:  ', 'dzsap') . ' - http://vimeo.com/<strong>55698309</strong>
                     </div>
                     </div>
-                    
+
                     <div class="an-option">
                     <div class="an-title">
                     ' . __('YouTube', 'dzsap') . '
@@ -603,7 +603,7 @@ class DZSAudioPlayer {
                     ' . __('Input the YouTube video id. Warning - will not work on iOS.', 'dzsap') . '
                     </div>
                     </div>
-                    
+
                     <div class="an-option">
                     <div class="an-title">
                     ' . __('Media File', 'dzsap') . '
@@ -612,7 +612,7 @@ class DZSAudioPlayer {
                     ' . __('Link to a media file from your WordPress Media Library.', 'dzsap') . '
                     </div>
                     </div>
-                    
+
                     <div class="an-option">
                     <div class="an-title">
                     ' . __('Inline Content', 'dzsap') . '
@@ -636,8 +636,8 @@ class DZSAudioPlayer {
             <div class="setting-label">' . __('Source', 'dzsap') . '*
                 <div class="info-con">
                 <div class="info-icon"></div>
-                <div class="sidenote">' . __('Below you will enter your audio file address. If it is a video from YouTube or Vimeo you just need to enter 
-                the id of the video in the . The ID is the bolded part http://www.youtube.com/watch?v=<strong>j_w4Bi0sq_w</strong>. 
+                <div class="sidenote">' . __('Below you will enter your audio file address. If it is a video from YouTube or Vimeo you just need to enter
+                the id of the video in the . The ID is the bolded part http://www.youtube.com/watch?v=<strong>j_w4Bi0sq_w</strong>.
                 If it is a local video you just need to write its location there or upload it through the Upload button ( .mp3 format ).', 'dzsap') . '
                     </div>
                 </div>
@@ -713,11 +713,11 @@ class DZSAudioPlayer {
         $aux.='<div class="setting type_all">
             <div class="setting-label">' . __('Play From', 'dzsap') . '</div>
             <div class="sidenote">' . __('choose a number of seconds from which the track to play from ( for example if set "70" then the track will start to play from 1 minute and 10 seconds ) or input "last" for the track to play at the last position where it was.', 'dzsap') . '</div>
-' . DZSHelpers::generate_input_text('0-0-' . $lab, array('class' => 'textinput upload-prev', 'seekval' => $val, 'extraattr' => ' data-label="' . $lab . '"')) . ' 
+' . DZSHelpers::generate_input_text('0-0-' . $lab, array('class' => 'textinput upload-prev', 'seekval' => $val, 'extraattr' => ' data-label="' . $lab . '"')) . '
         </div>';
-        
-        
-        
+
+
+
         //simple with upload and wave generator
         $lab = 'bgimage';
         $val = $margs[$lab];
@@ -796,7 +796,7 @@ class DZSAudioPlayer {
     }
 
     function handle_admin_footer() {
-        
+
     }
 
     function wp_dashboard_setup() {
@@ -898,7 +898,7 @@ chart.draw(data, options);
         echo 'window.ajaxurl="' . admin_url('admin-ajax.php') . '";';
         echo '</script>';
 
-        if ($this->mainoptions['extra_css']) {
+        if (isset($this->mainoptions['extra_css'])) {
             echo '<style class="dzsap-extrastyling">';
             echo $this->mainoptions['extra_css'];
             echo '</style>';
@@ -956,7 +956,7 @@ chart.draw(data, options);
         }
 
         if (isset($_COOKIE['viewsubmitted-' . $playerid])) {
-            
+
         } else {
             $aux_likes = $aux_likes + 1;
         }
@@ -1075,7 +1075,7 @@ chart.draw(data, options);
     function handle_admin_head() {
         // on every admin page <head>
         //echo 'ceva23';
-        ///siteurl : "'.site_url().'", 
+        ///siteurl : "'.site_url().'",
         $aux = remove_query_arg('deleteslider', dzs_curr_url());
         $params = array('currslider' => '_currslider_');
         $newurl = add_query_arg($params, $aux);
@@ -1195,9 +1195,9 @@ chart.draw(data, options);
             }
 //            print_r($margs);
         }
-        
-        
-        
+
+
+
         $its = array(0 => $margs, 'settings' => array());
 
 
@@ -1207,8 +1207,8 @@ chart.draw(data, options);
 
         $margs = array_merge($margs, $vpsettings['settings']);
 
-        
-        
+
+
 
         //===normal mode
         if ($margs['openinzoombox'] != 'on') {
@@ -1231,9 +1231,9 @@ var settings_ap = {
             if(isset($vpsettings['settings']['playfrom'])){
                 $fout.=',playfrom:"' . $vpsettings['settings']['playfrom'] . '"';
             }
-            
-            
-    
+
+
+
     $fout.=',soundcloud_apikey:"' . $this->mainoptions['soundcloud_api_key'] . '"
     ,skinwave_comments_enable:"' . $vpsettings['settings']['skinwave_comments_enable'] . '"';
 
@@ -1255,8 +1255,8 @@ var settings_ap = {
 
 
             $fout.=',skinwave_comments_playerid:"' . $margs['playerid'] . '"';
-            
-            
+
+
             if(isset($vpsettings['settings']['enable_embed_button']) && $vpsettings['settings']['enable_embed_button']=='on'){
                 $str_db = '';
                 $str = '<iframe src=\'' . $this->thepath . 'bridge.php?type=player&margs='.serialize($margs).'\' style="overflow:hidden; transition: height 0.5s ease-out;" width="100%" height="50" scrolling="no" frameborder="0"></iframe>';
@@ -1264,7 +1264,7 @@ var settings_ap = {
                 $fout.=',embed_code:"'.htmlentities($str, ENT_QUOTES).'"';
             }
 
-            
+
 
 
 
@@ -1350,7 +1350,7 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
             , 'settings_separation_mode' => 'normal'  // === normal ( no pagination ) or pages or scroll or button
             , 'settings_separation_pages_number' => '5'//=== the number of items per 'page'
             , 'settings_separation_paged' => '0'//=== the page number
-            , 'return_onlyitems' => 'off' // ==return only the items ( used by pagination ) 
+            , 'return_onlyitems' => 'off' // ==return only the items ( used by pagination )
             , 'playerid' => ''
             , 'embedded' => 'off'
         );
@@ -1556,8 +1556,8 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
         if (isset($its['settings']['design_menu_height']) && $its['settings']['design_menu_height']!='') {
             $fout.=',design_menu_height:"' . $its['settings']['design_menu_height'] . '"';
         }
-        
-        
+
+
         if (isset($its['settings']['design_menu_show_player_state_button'])) {
             $fout.=',design_menu_show_player_state_button:"' . $its['settings']['design_menu_show_player_state_button'] . '"';
         }
@@ -1585,16 +1585,16 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
     function parse_items($its, $margs) {
         //====returns only the html5 gallery items
         $fout = '';
-        $start_nr = 0; // === the i start nr 
-        $end_nr = count($its); // === the i start nr 
+        $start_nr = 0; // === the i start nr
+        $end_nr = count($its); // === the i start nr
         $nr_per_page = 5;
         $nr_items = count($its);
-        
+
 
         if (isset($its['settings'])) {
             $nr_items--;
             $end_nr--;
-            
+
             if(isset($its['settings']['enable_views'])==false){
                 $its['settings']['enable_views'] = 'off';
             }
@@ -1616,7 +1616,7 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
                 'menu_songname' => '',
                 'menu_extrahtml' => '',
             );
-            
+
 
             if (is_array($its[$i]) == false) {
                 $its[$i] = array();
@@ -1624,8 +1624,8 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
 
             $che = array_merge($che, $its[$i]);
             //print_r($che);
-            
-            
+
+
             if(isset($che['artistname'])){
                 $che['menu_artistname'] = $che['artistname'];
             }
@@ -1637,8 +1637,8 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
             if (isset($che['playerid']) && $che['playerid'] != '') {
                 $playerid = $che['playerid'];
             }
-            
-            
+
+
             if ($playerid == '' && isset($che['linktomediafile']) && $che['linktomediafile'] != '') {
                 $playerid = $che['linktomediafile'];
             }
@@ -1717,7 +1717,7 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
             if (isset($che['sourceogg']) && $che['sourceogg'] != '') {
                 $fout.=' data-sourceogg="' . $che['sourceogg'] . '"';
             };
-            
+
             if (isset($che['bgimage']) && $che['bgimage'] != '') {
                 $fout.=' data-bgimage="' . $che['bgimage'] . '"';
             };
@@ -1726,17 +1726,17 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
             if ($che['playfrom']) {
                 $fout.=' data-playfrom="' . $che['playfrom'] . '"';
             };
-            
+
 //                    print_r($margs);;
             if(isset($margs['single']) && $margs['single']=='on'){
                 if(isset($margs['width']) && isset($margs['height'])){
-                    
+
                     // ===== some sanitizing
                     $tw = $margs['width'];
                     $th = $margs['height'];
                     $str_tw = '';
                     $str_th = '';
-                    
+
 
 
 
@@ -1756,7 +1756,7 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
                             $str_th = ' height: '.$th.';';
                         }
                     }
-                    
+
 //                    print_r($margs); echo $str_tw; echo $str_th;
 
 
@@ -1770,7 +1770,7 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
             //print_r($che);
             $che['menu_artistname'] = stripslashes($che['menu_artistname']);
             $che['menu_songname'] = stripslashes($che['menu_songname']);
-            
+
 //            print_r($che);
 
             if ($che['menu_artistname'] != '' || $che['menu_songname'] != '') {
@@ -1808,7 +1808,7 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
             if (isset($its['settings']['skinwave_comments_enable']) && $its['settings']['skinwave_comments_enable'] == 'on') {
 
                 if ($playerid != '') {
-                    
+
                     $fout.='<div class="the-comments">';
                     $comms = get_comments(array('post_id' => $playerid));
 //                    echo 'ceva'; print_r($comms);
@@ -1818,7 +1818,7 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
                     $fout.='</div>';
                 }
             }
-            
+
             // --- extra html meta
             if (isset($its['settings']) && ($its['settings']['enable_views'] == 'on' || $its['settings']['enable_likes'] == 'on' || $its['settings']['enable_rates'] == 'on')) {
                 $aux_extra_html = '';
@@ -1892,7 +1892,7 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
             $fout.='</div>';
 
             if (isset($che['apply_script'])) {
-                
+
             }
         }
         return $fout;
@@ -2151,7 +2151,7 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
             if (is_array($argopts['seekval'])) {
                 //echo 'ceva'; print_r($argopts['seekval']);
                 foreach ($argopts['seekval'] as $opt) {
-                    //echo 'ceva'; echo $opt; echo 
+                    //echo 'ceva'; echo $opt; echo
                     if ($opt == $argopts['val']) {
                         $auxsw = true;
                     }
@@ -2242,7 +2242,7 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
                     <?php echo $this->misc_input_textarea('extra_css', array('val' => '', 'seekval' => $this->mainoptions['extra_css'])); ?>
                     <div class="sidenote"><?php echo __('', 'dzsap'); ?></div>
                 </div>
-                
+
                 <div class="setting">
                     <div class="label"><?php echo __('Disable Preview Shortcodes in TinyMce Editor', 'dszap'); ?></div>
                     <?php echo $this->misc_input_checkbox('tinymce_disable_preview_shortcodes', array('val' => 'on', 'seekval' => $this->mainoptions['tinymce_disable_preview_shortcodes'])); ?>
@@ -2442,8 +2442,8 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
                 </div>
             </div>
             <table cellspacing="0" class="wp-list-table widefat dzs_admin_table main_sliders">
-                <thead> 
-                    <tr> 
+                <thead>
+                    <tr>
                         <th style="" class="manage-column column-name" id="name" scope="col"><?php _e('ID', 'dzsap'); ?></th>
                         <th class="column-edit">Edit</th>
                         <th class="column-edit">Embed</th>
@@ -2451,13 +2451,13 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
                         <?php
                         if ($this->mainoptions['is_safebinding'] != 'on') {
                             ?>
-                            <th class="column-edit">Duplicate</th> 
+                            <th class="column-edit">Duplicate</th>
                             <?php
                         }
                         ?>
-                        <th class="column-edit">Delete</th> 
+                        <th class="column-edit">Delete</th>
                     </tr>
-                </thead> 
+                </thead>
                 <tbody>
                 </tbody>
             </table>
@@ -2531,7 +2531,7 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
             //echo $i . $this->currSlider . 'cevava';
             if (($this->mainoptions['is_safebinding'] != 'on' || $i == $this->currSlider) && is_array($items[$i])) {
 
-                //==== jsi is the javascript I, if safebinding is on then the jsi is always 0 ( only one gallery ) 
+                //==== jsi is the javascript I, if safebinding is on then the jsi is always 0 ( only one gallery )
                 $jsi = $i;
                 if ($this->mainoptions['is_safebinding'] == 'on') {
                     $jsi = 0;
@@ -2642,8 +2642,8 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
 
             </div>
             <table cellspacing="0" class="wp-list-table widefat dzs_admin_table main_sliders">
-                <thead> 
-                    <tr> 
+                <thead>
+                    <tr>
                         <th style="" class="manage-column column-name" id="name" scope="col"><?php _e('ID', 'dzsap'); ?></th>
                         <th class="column-edit">Edit</th>
                         <th class="column-edit">Embed</th>
@@ -2651,13 +2651,13 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
                         <?php
                         if ($this->mainoptions['is_safebinding'] != 'on') {
                             ?>
-                            <th class="column-edit">Duplicate</th> 
+                            <th class="column-edit">Duplicate</th>
                             <?php
                         }
                         ?>
-                        <th class="column-edit">Delete</th> 
-                    </tr> 
-                </thead> 
+                        <th class="column-edit">Delete</th>
+                    </tr>
+                </thead>
                 <tbody>
                 </tbody>
             </table>
@@ -2727,7 +2727,7 @@ $(".zoombox").zoomBox({audioplayer_settings: settings_ap});
             //echo $i . $this->currSlider . 'cevava';
             if (($this->mainoptions['is_safebinding'] != 'on' || $i == $this->currSlider) && is_array($items[$i])) {
 
-                //==== jsi is the javascript I, if safebinding is on then the jsi is always 0 ( only one gallery ) 
+                //==== jsi is the javascript I, if safebinding is on then the jsi is always 0 ( only one gallery )
                 $jsi = $i;
                 if ($this->mainoptions['is_safebinding'] == 'on') {
                     $jsi = 0;
