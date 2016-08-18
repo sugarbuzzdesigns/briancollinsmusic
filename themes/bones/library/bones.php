@@ -121,6 +121,12 @@ function bones_gallery_style($css) {
 SCRIPTS & ENQUEUEING
 *********************/
 
+add_action( 'admin_enqueue_scripts', 'load_admin_style');
+function load_admin_style() {
+    wp_enqueue_style( 'admin_css', get_template_directory_uri() . '/library/css/admin.css', false );
+}
+
+
 // loading modernizr and jquery, and reply script
 function bones_scripts_and_styles() {
 

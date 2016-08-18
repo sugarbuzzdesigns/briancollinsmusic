@@ -401,6 +401,7 @@ class WC_Meta_Box_Order_Data {
 					</div>
 				</div>
 				<div class="clear"></div>
+				<?php do_action( 'woocommerce_admin_order_data_after_columns', $order ); ?>
 			</div>
 		</div>
 		<?php

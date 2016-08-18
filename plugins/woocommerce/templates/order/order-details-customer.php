@@ -49,19 +49,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php if ( ! wc_ship_to_billing_address_only() && $order->needs_shipping_address() ) : ?>
 
-<div class="col2-set addresses">
+<div class="col2-set addresses shop_table">
 	<div class="col-1">
 
 <?php endif; ?>
 
-<header class="title">
-	<h3><?php _e( 'Billing Address', 'woocommerce' ); ?></h3>
-</header>
-<address>
-	<?php echo ( $address = $order->get_formatted_billing_address() ) ? $address : __( 'N/A', 'woocommerce' ); ?>
-</address>
+	<header class="title">
+		<h3><?php _e( 'Billing Address', 'woocommerce' ); ?></h3>
+	</header>
+	<address>
+		<?php echo ( $address = $order->get_formatted_billing_address() ) ? $address : __( 'N/A', 'woocommerce' ); ?>
+	</address>
 
-<?php if ( ! wc_ship_to_billing_address_only() && $order->needs_shipping_address() ) : ?>
+	<?php if ( ! wc_ship_to_billing_address_only() && $order->needs_shipping_address() ) : ?>
 
 	</div><!-- /.col-1 -->
 	<div class="col-2">
