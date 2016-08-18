@@ -4,15 +4,11 @@
 				<div class="bg-wrap wrap">
 					<div id="bc-slideshow" class="cf no-mobile">
 						<ul class="bxslider">
+							<li><a href="http://www.sallfest.com" target=_blank><img src="http://briancollinsmusic.com/wp-content/uploads/2016/08/SALLFEST_2016_HERO_web.jpg"/></a></li>
 							<li><a target="_blank" href="https://itunes.apple.com/us/album/healing-highway-single/id1088540194"><img src="http://briancollinsmusic.com/wp-content/uploads/2016/03/BC-Healing-Highway-Web-Banner.jpg" /></a></li>
-							<li><a target="_blank" href="http://countrydeep.uverse.com/#type=artist&id=Brian"><img src="http://briancollinsmusic.com/wp-content/uploads/2015/07/BC_COUNTRY_DEEP_HERO.jpg" /></a></li>
-							<li><a target="_blank" href="http://www.sallfest.com/"><img src="http://briancollinsmusic.com/wp-content/uploads/2015/09/SALL_FEST_HERO.jpg" /></a></li>
-							<li><a target="_blank" href="https://www.youtube.com/watch?v=llbn88Lun7o&feature=youtu.be&list=UUfQ_YbFpX9NQsBR5X_kK59Q"><img src="http://briancollinsmusic.com/wp-content/uploads/2014/12/BC_NRL_VIDEO.jpg" /></a></li>
 							<li><img src="http://briancollinsmusic.com/wp-content/uploads/2015/09/BC_HH_HERO.jpg" /></li>
-							<!--
-							<li><img src="http://briancollinsmusic.com/wp-content/uploads/2015/06/BC_CMA_HERO_6-6-15.jpg"/></li>
-							<li><img src="http://briancollinsmusic.com/wp-content/uploads/2015/06/BC_SALL_HERO_6-6-15.jpg" alt=""></li>
-							<li><img src="http://briancollinsmusic.com/wp-content/uploads/2015/06/BC_ZUUS_HERO_6-6-15.jpg" alt=""></li> -->
+							<!-- <li><img src="http://briancollinsmusic.com/wp-content/uploads/2015/06/BC_SALL_HERO_6-6-15.jpg" alt=""></li> -->
+							<!-- <li><img src="http://briancollinsmusic.com/wp-content/uploads/2015/06/BC_ZUUS_HERO_6-6-15.jpg" alt=""></li>  -->
 
 
 						</ul>
