@@ -157,23 +157,6 @@ function add_custom_details_to_order_received($order){
         }
       }
 
-      var_dump($fields);
-
-      /**
-      * Display field value on the order email
-      */
-
-      add_filter('woocommerce_email_order_meta_keys', 'my_custom_checkout_field_order_meta_keys');
-
-      function my_custom_checkout_field_order_meta_keys( $keys ) {
-        for ($i=0; $i < count($fields); $i++) {
-          $keys[] = 'email_address_'. $i;
-          $keys[] = 'shirt_size_'. $i;
-        }
-
-        return $keys;
-      }
-
       ?>
     </tbody>
   </table>
