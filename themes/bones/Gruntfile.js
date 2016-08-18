@@ -131,7 +131,7 @@ module.exports = function(grunt) {
         tasks: ['sassLogin']
       },
       sassMain: {
-        files: '<%= dirs.sassSrc %>/style.scss',
+        files: ['<%= dirs.sassSrc %>/style.scss', '<%= dirs.sassSrc %>/breakpoints/*.scss', '<%= dirs.sassSrc %>/modules/*.scss'],
         tasks: ['sassMain']
       }
     }

@@ -143,7 +143,7 @@ function bones_register_sidebars() {
     'after_widget' => '</div>',
     'before_title' => '<h4 class="widgettitle">',
     'after_title' => '</h4>',
-  ));  
+  ));
 
   add_filter('widget_text', 'do_shortcode');
 
@@ -288,7 +288,7 @@ function custom_pre_get_posts_query( $q ) {
 
   if ( ! $q->is_main_query() ) return;
   if ( ! $q->is_post_type_archive() ) return;
-  
+
   if ( ! is_admin() && is_shop() ) {
 
     $q->set( 'tax_query', array(array(
@@ -297,7 +297,7 @@ function custom_pre_get_posts_query( $q ) {
       'terms' => array( 'hidden' ), // Don't display products in the knives category on the shop page
       'operator' => 'NOT IN'
     )));
-  
+
   }
 
   remove_action( 'pre_get_posts', 'custom_pre_get_posts_query' );
@@ -305,13 +305,13 @@ function custom_pre_get_posts_query( $q ) {
 }
 
 add_filter( 'woocommerce_product_tabs', 'woo_remove_product_tabs', 98 );
- 
+
 function woo_remove_product_tabs( $tabs ) {
- 
+
     unset( $tabs['reviews'] );      // Remove the reviews tab
- 
+
     return $tabs;
- 
+
 }
 
 // First, create a function that includes the path to your favicon
@@ -319,9 +319,17 @@ function add_favicon() {
     $favicon_url = get_stylesheet_directory_uri() . '/favicon.ico';
   echo '<link rel="shortcut icon" href="' . $favicon_url . '" />';
 }
-  
-// Now, just make sure that function runs when you're on the login page and admin pages  
+
+// Now, just make sure that function runs when you're on the login page and admin pages
 add_action('login_head', 'add_favicon');
 add_action('admin_head', 'add_favicon');
+
+
+function pr($data)
+{
+    echo "<pre>";
+    print_r($data); // or var_dump($data);
+    echo "</pre>";
+}
 
 /* DON'T DELETE THIS CLOSING TAG */ ?>

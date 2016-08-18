@@ -1,6 +1,6 @@
 /******************************************************************
-Site Name:
-Author:
+Site Name: Brian Collins Music
+Author: Patrick Hoydar
 
 Stylesheet: Admin Stylesheet
 
@@ -10,3 +10,27 @@ is empty, but you can just start dropping your styles here to
 start customizing. All admin functions are located in lib/admin/
 
 ******************************************************************/
+#order_data .brigade-details-header {
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.brigade-bash-admin-details {
+  background: #ececec;
+  padding: 5px 15px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.brigade-bash-admin-details table {
+  width: 100%;
+}
+.brigade-bash-admin-details table thead {
+  font-size: 15px;
+  padding: 10px 5px;
+}
+.brigade-bash-admin-details table th {
+  text-align: left;
+}
+
+/*# sourceMappingURL=admin.css.map */

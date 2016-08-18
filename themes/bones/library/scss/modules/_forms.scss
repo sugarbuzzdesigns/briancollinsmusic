@@ -111,9 +111,11 @@ input[type="submit"] {
 
 // textareas
 textarea {
+  padding: 8px 12px;
   max-width: 100%;
   min-height: 120px;
   line-height: 1.5em;
+  background: #d7d7d7;
 }
 
 // selects

@@ -1342,9 +1342,11 @@ input[type="submit"] {
 }
 
 textarea {
+  padding: 8px 12px;
   max-width: 100%;
   min-height: 120px;
   line-height: 1.5em;
+  background: #d7d7d7;
 }
 
 select {
@@ -2366,8 +2368,26 @@ a.added_to_cart.wc-forward {
   box-shadow: none;
 }
 
-.woocommerce table.shop_table, .woocommerce-page table.shop_table {
+.woocommerce table.shop_table, .woocommerce-page table.shop_table, .woocommerce-page .shop_table, .woocommerce-page .order-thank-you {
   background: rgba(255, 255, 255, 0.5);
+}
+
+.woocommerce-page .order-thank-you {
+  padding: 12px 20px;
+  border-radius: 5px;
+  border-top-right-radius: 0;
+}
+.woocommerce-page .order-thank-you p {
+  margin-top: 0;
+}
+.woocommerce-page .order-thank-you ul {
+  margin-bottom: 5px;
+}
+
+.woocommerce-page .addresses.shop_table {
+  padding: 0 12px 20px;
+  margin: 0 0 20px 0;
+  border-radius: 5px;
 }
 
 .woocommerce .cart-collaterals .cart_totals,
