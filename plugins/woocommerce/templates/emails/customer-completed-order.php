@@ -33,13 +33,37 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
  * @hooked WC_Emails::order_details() Shows the order details table.
  * @hooked WC_Emails::order_schema_markup() Adds Schema.org markup.
  * @since 2.5.0
- */
+ */?>
+
+<?php
+
 do_action( 'woocommerce_email_order_details', $order, $sent_to_admin, $plain_text, $email );
 
 /**
  * @hooked WC_Emails::order_meta() Shows order meta data.
  */
 do_action( 'woocommerce_email_order_meta', $order, $sent_to_admin, $plain_text, $email );
+
+$order = new WC_Order( $order->id );
+$items = $order->get_items();
+
+foreach ($items as $key => $product ) {
+  if(preg_match("/brigade beach/i", $product['name'], $match)){
+  	echo '<h2>Brigade Bash Details</h2>';
+    for($i = 1; $i <= $product['qty']; $i++){
+      $fields[] = 'email_address_'. $i;
+      $fields[] = 'shirt_size_'. $i;
+
+
+      echo '<table>';
+      echo '<tr>';
+      echo '<td><p><strong>'.__('Email '.$i).':</strong> ' . get_post_meta( $order->id, 'email_address_'. $i, true ) . '</p></td>';
+      echo '<td><p><strong>'.__('Shirt Size '.$i).':</strong> ' . get_post_meta( $order->id, 'shirt_size_'. $i, true ) . '</p></td>';
+      echo '</tr>';
+      echo '</table>';
+    }
+  }
+}
 
 /**
  * @hooked WC_Emails::customer_details() Shows customer details
