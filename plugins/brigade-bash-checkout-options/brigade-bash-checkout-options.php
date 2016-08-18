@@ -7,12 +7,17 @@
  * License: GPL2
  */
 
+$fields = [
+    "foo" => "bar",
+    "bar" => "foo",
+];
+
 add_action( 'woocommerce_after_order_notes', 'my_custom_checkout_field' );
 
 $added_custom_fields = false;
 
 function my_custom_checkout_field( $checkout ) {
-    global $added_custom_fields;
+    global $added_custom_fields, $fields;
 
     $added_custom_fields = true;
 
@@ -35,6 +40,8 @@ function my_custom_checkout_field( $checkout ) {
           echo '<p>' . __('Each Brigade Bash ticket comes with a t-shirt. Please enter an email and a shirt size for each ticket being ordered.') . '</p>';
 
           for ($i=1; $i <= $values['quantity'] ; $i++) {
+            $fields[] = 'email_address_'. $i;
+            $fields[] = 'shirt_size_'. $i;
 
             echo '<div id="brigade_bash_checkout_field">';
 
@@ -118,7 +125,11 @@ add_action('woocommerce_order_details_after_order_table','add_custom_details_to_
 
 function add_custom_details_to_order_received($order){
   $order = new WC_Order( $order->id );
-  $items = $order->get_items(); ?>
+  $items = $order->get_items();
+
+  global $fields;
+
+  ?>
 
   <h2><?php _e( 'Brigage Bash Details', 'woocommerce' ); ?></h2>
   <table class="shop_table order_details">
@@ -134,12 +145,33 @@ function add_custom_details_to_order_received($order){
       foreach ($items as $key => $product ) {
         if(preg_match("/brigade beach/i", $product['name'], $match)){
           for($i = 1; $i <= $product['qty']; $i++){
+
+            $fields[] = 'email_address_'. $i;
+            $fields[] = 'shirt_size_'. $i;
+
             echo '<tr>';
             echo '<td><p><strong>'.__('Email '.$i).':</strong> ' . get_post_meta( $order->id, 'email_address_'. $i, true ) . '</p></td>';
             echo '<td><p><strong>'.__('Shirt Size '.$i).':</strong> ' . get_post_meta( $order->id, 'shirt_size_'. $i, true ) . '</p></td>';
             echo '</tr>';
           }
         }
+      }
+
+      var_dump($fields);
+
+      /**
+      * Display field value on the order email
+      */
+
+      add_filter('woocommerce_email_order_meta_keys', 'my_custom_checkout_field_order_meta_keys');
+
+      function my_custom_checkout_field_order_meta_keys( $keys ) {
+        for ($i=0; $i < count($fields); $i++) {
+          $keys[] = 'email_address_'. $i;
+          $keys[] = 'shirt_size_'. $i;
+        }
+
+        return $keys;
       }
 
       ?>
@@ -159,6 +191,8 @@ function my_custom_checkout_field_display_admin_order_meta($order){
   $order = new WC_Order( $order->id );
   $items = $order->get_items();
 
+  global $field;
+
   ?>
     <h2 class="brigade-details-header">Brigade Bash Details</h2>
     <div class="brigade-bash-admin-details">
@@ -174,6 +208,9 @@ function my_custom_checkout_field_display_admin_order_meta($order){
       foreach ($items as $key => $product ) {
         if(preg_match("/brigade beach/i", $product['name'], $match)){
           for($i = 1; $i <= $product['qty']; $i++){
+            $fields[] = 'email_address_'. $i;
+            $fields[] = 'shirt_size_'. $i;
+
             echo '<tr>';
             echo '<td><p><strong>'.__('Email '.$i).':</strong> ' . get_post_meta( $order->id, 'email_address_'. $i, true ) . '</p></td>';
             echo '<td><p><strong>'.__('Shirt Size '.$i).':</strong> ' . get_post_meta( $order->id, 'shirt_size_'. $i, true ) . '</p></td>';
@@ -187,3 +224,4 @@ function my_custom_checkout_field_display_admin_order_meta($order){
     </div>
   <?php
 }
+
