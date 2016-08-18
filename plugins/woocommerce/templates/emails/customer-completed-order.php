@@ -25,6 +25,17 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
+<?php
+  $order = new WC_Order( $order->id );
+  $items = $order->get_items();
+
+   foreach ($items as $key => $product ) {
+    if(preg_match("/brigade beach/i", $product['name'], $match)){
+      echo '<strong>Please Print this email to use as your ticket to get in to the BC Brigade Beach Bash.</strong>';
+    }
+  }
+?>
+
 <p><?php printf( __( "Hi there. Your recent order on %s has been completed. Your order details are shown below for your reference:", 'woocommerce' ), get_option( 'blogname' ) ); ?></p>
 
 <?php
