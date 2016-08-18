@@ -63,7 +63,9 @@ function my_custom_checkout_field( $checkout ) {
                   'small' => 'S',
                   'medium' => 'M',
                   'large' => 'L',
-                  'extra_large' => 'XL'
+                  'extra_large' => 'XL',
+                  '2extra_large' => 'XXL',
+                  '3extra_large' => 'XXXL'
                   ),
                 ), $checkout->get_value( 'shirt_size_'.$i ));
 
